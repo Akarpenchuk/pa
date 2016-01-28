@@ -1,11 +1,12 @@
 # !/usr/bin/env python
 # -*- coding: utf-8 -*-
+
 import unittest
 from selenium import webdriver
-from data.config import *
+from dat.config import *
+
 
 class Test(unittest.TestCase):
-
 
    def test_case(self):
 

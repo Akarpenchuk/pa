@@ -1,14 +1,30 @@
-# !/usr/bin/env python
+# !/usr/bin/env/ python
 # -*- coding: utf-8 -*-
 
-import unittest
+from dat.base_methods.base import BaseMethods
 from selenium import webdriver
-from data.main_page.main_page import Anonym
+from selenium.webdriver.support.wait import WebDriverWait
+import unittest
 
-class Test_1(unittest.TestCase):
+class TestCase(unittest.TestCase, BaseMethods):
 
+    global driver
     driver = webdriver.Chrome()
 
-    def test_open_modnakasta(self, url):
+    
+    def test_case(self):
 
-        Anonym(driver).anonym_verify_auth()
+        url = "https://modnakasta.ua"
+        openUrl(url)
+    
+    #it works, but its not function(
+    # driver.get(url)
+
+
+
+
+if __name__ == "__main__":
+    print 'running'
+    unittest.main()
+
+    
