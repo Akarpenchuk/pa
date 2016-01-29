@@ -1,25 +1,27 @@
 # !/usr/bin/env/ python
 # -*- coding: utf-8 -*-
 
-from dat.base_methods.base import BaseMethods
-from selenium import webdriver
-from selenium.webdriver.support.wait import WebDriverWait
 import unittest
+from selenium import webdriver
+from dat.base_methods.base import KastaClass
+from dat.base_methods.base import GoogleClass
 
-class TestCase(unittest.TestCase, BaseMethods):
 
-    global driver
-    driver = webdriver.Chrome()
 
-    
-    def test_case(self):
 
-        url = "https://modnakasta.ua"
-        openUrl(url)
-    
-    #it works, but its not function(
-    # driver.get(url)
+class TestCase(unittest.TestCase):
 
+    def setUp(self):
+        self.driver = webdriver.Chrome()
+
+    def testOpen(self):
+        urlKasta = "https://modnakasta.ua"
+        urlGoogle = "https://google.com"
+        # KastaClass(webdriver).openKasta(urlKasta)
+        # GoogleClass(webdriver).openGoogle(urlGoogle)
+
+        KastaClass(self.driver).openKasta(urlKasta)
+        GoogleClass(self.driver).openGoogle(urlGoogle)
 
 
 

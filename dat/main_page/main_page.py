@@ -10,11 +10,11 @@ import random
 import string
 import psycopg2
 
-class Anonym:
+class MainPage(webdriver):
     """verify main page by Anonym"""
 
     def __init__(self, driver):
-        self.driver = driver
+        self.driver = webdriver.Chrome()
         self.wait = WebDriverWait(driver, 10)
         self.action = ActionChains(driver)
         self.find = driver.find_element_by_xpath
