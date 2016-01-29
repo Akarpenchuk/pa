@@ -2,19 +2,13 @@
 # -*- coding: utf-8 -*-
 
 from selenium import webdriver
+import unittest
 
-class KastaClass:
 
-    def __init__(self, driver):
-        self.driver = driver
+class BaseClass(unittest.TestCase):
 
-    def openKasta(self, url):
-        self.driver.get(url)
+    def setUp(self):
+        self.driver = webdriver.Chrome()
 
-class GoogleClass:
-
-    def __init__(self, driver):
-        self.driver = driver
-
-    def openGoogle(self, url):
+    def url_open(self, url):
         self.driver.get(url)
