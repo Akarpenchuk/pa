@@ -12,7 +12,11 @@ BASE_URL = "https://modnakasta.ua"
 class TestCase(BaseClass):
 
     def testOpen(self):
-        self.open_url(BASE_URL)
+        # try:
+        assert self.open_url(BASE_URL) == True
+
+        # except Exception, e:
+        #     print e 
 
 
         
