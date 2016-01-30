@@ -4,15 +4,16 @@
 import unittest
 from selenium import webdriver
 from dat.base_methods.base import BaseClass
-from dat.config import *
 
-main_page = "https://modnakasta.ua"
 
+BASE_URL = "https://modnakasta.ua"
+# element = "https://media.modnakasta.ua/site_media/frontend/assets/15w53r17/blocks/b-logo/img/logo.png"
 
 class TestCase(BaseClass):
 
     def testOpen(self):
-        self.open_url(main_page)
+        self.open_url(BASE_URL)
+
 
         
 #EXAMPLE
