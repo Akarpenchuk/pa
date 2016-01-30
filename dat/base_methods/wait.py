@@ -8,4 +8,4 @@ from selenium.webdriver.support import wait
 class Wait():
 
 	def wait_for_element_is_displayed(self, element):
-		driver.find_elements_by_xpath(element)
+		driver.find_elements_by_xpath(element) 
