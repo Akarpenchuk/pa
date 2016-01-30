@@ -3,31 +3,24 @@
 
 import unittest
 from selenium import webdriver
-from dat.base_methods.base import KastaClass
-from dat.base_methods.base import GoogleClass, BaseClass
+from dat.base_methods.base import BaseClass
+from dat.config import *
 
+main_page = "https://modnakasta.ua"
 
-urlKasta = "https://modnakasta.ua"
-urlGoogle = "https://google.com"
 
 class TestCase(BaseClass):
 
     def testOpen(self):
+        self.open_url(main_page)
 
-        # KastaClass(webdriver).openKasta(urlKasta)
-        # GoogleClass(webdriver).openGoogle(urlGoogle)
+        
+#EXAMPLE
+# class Some(BaseClass):
 
-        self.url_open(urlKasta)
-        self.url_open(urlGoogle)
-        #KastaClass(self.driver).openKasta(urlKasta)
-        #GoogleClass(self.driver).openGoogle(urlGoogle)
-
-
-class Some(BaseClass):
-
-    def setUp(self):
-        self.shape = "123"
-        super(Some, self).setUp()
+#     def setUp(self):
+#         self.shape = "123"
+#         super(Some, self).setUp()
 
 
 if __name__ == "__main__":
