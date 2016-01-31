@@ -4,19 +4,16 @@
 import unittest
 from selenium import webdriver
 from dat.base_methods.base import BaseClass
+from dat.base_methods.wait import Wait
+from dat.config import *
 
 
-BASE_URL = "https://modnakasta.ua"
-# element = "https://media.modnakasta.ua/site_media/frontend/assets/15w53r17/blocks/b-logo/img/logo.png"
+class TestCase(BaseClass, Wait):
 
-class TestCase(BaseClass):
+    BASE_URL = "https://modnakasta.ua"
 
     def testOpen(self):
-        # try:
-        assert self.open_url(BASE_URL) == True
-
-        # except Exception, e:
-        #     print e 
+        self.open_url(BASE_URL, LIST_CAMPAIGN_BANNER)
 
 
         

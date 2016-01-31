@@ -3,9 +3,16 @@
 
 from selenium import webdriver
 from selenium.webdriver.support import wait
-# from base import BaseClass
 
-class Wait():
+class Wait:
 
-	def element_is_displayed(self, element):
-		driver.find_elements_by_xpath(element)
+    def __init__(self, driver):
+        self.driver = driver
+
+    def element_is_displayed(self, element):
+        try:
+            self.driver.find_elements_by_xpath(element)
+            print element
+        except:
+            return False
+        # print element

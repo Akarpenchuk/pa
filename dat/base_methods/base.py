@@ -12,9 +12,10 @@ class BaseClass(unittest.TestCase, Wait):
     def setUp(self):
         self.driver = webdriver.Chrome()
 
-    def open_url(self, url):
+    def open_url(self, url, element):
         self.driver.get(url)
-        self.element_is_displayed(LIST_CAMPAIGN) if element_is_displayed(LIST_CAMPAIGN) == True else False
+        self.element_is_displayed(element)
+        # self.element_is_displayed(LIST_CAMPAIGN) if element_is_displayed(LIST_CAMPAIGN) == True else False
 
     
     def verify(self):

@@ -5,7 +5,7 @@ import random
 import string
 import psycopg2
 
-BASE_URL = "http://modnakasta.ua" # TODO: make a dict 'user_data'
+BASE_URL = "https://modnakasta.ua" # TODO: make a dict 'user_data'
 # BASE_URL = "http://mk:mkstaging@catalogue.modnakasta.ua"
 EMAIL = "yopmail.com"
 EMAIL_ADDRESS = "@yopmail.com"
@@ -32,7 +32,7 @@ LIST_CAMPAIGN = "//div[@class='column_item column_1']/a"
 LIST_CAMPAIGN_link = "//div[@class='column_item column_1']/a/@href"
 LIST_CAMPAIGN_BRAND = "//div[@class='column_item column_1']/div[@class='column_info']/div"
 LIST_CAMPAIGN_NAME = ""
-LIST_CAMPAIGN_BANNER = ""
+LIST_CAMPAIGN_BANNER = "//img[contains(@src,'/campaign/')]"
 LIST_CAMPAIGN_TIMER = ""
 
 SPINNER = "//div[@class='products']/div[@class='spinner']"
