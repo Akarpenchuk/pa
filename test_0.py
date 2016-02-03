@@ -18,6 +18,7 @@ class TestCase(unittest.TestCase, BaseClass, Wait):
         # result = self.open_url(BASE_URL, LIST_CAMPAIGN)
         # self.assertTrue(result, 'campaign is not displayed')
         # self.assertTrue(self.login(), 'login is failed')
+        '''login() need to serios wait after login'''
         if self.login() != True:
             print False
         else:
