@@ -2,17 +2,19 @@
 # -*- coding: utf-8 -*-
 
 from selenium import webdriver
-from selenium.webdriver.support import wait
+from selenium.webdriver.support.wait import WebDriverWait
+from selenium.common.exceptions import NoSuchElementException
+from selenium.common.exceptions import TimeoutException
+
 
 class Wait:
-
     def __init__(self, driver):
         self.driver = driver
+        self.wait = WebDriverWait(self.driver, 5)
 
-    def element_is_displayed(self, element):
+    def wait_for_element_is_displayed(self, element):
         try:
-            self.driver.find_elements_by_xpath(element)
-            print element
+            self.wait.until(self.find_element_by_xpath(element).is_displayed())
+            return True
         except:
             return False
-        # print element

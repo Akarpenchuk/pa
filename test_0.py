@@ -4,16 +4,23 @@
 import unittest
 from selenium import webdriver
 from dat.base_methods.base import BaseClass
-from dat.base_methods.wait import Wait
-from dat.config import *
+from dat.base_methods.base import Wait
+from dat.base_methods.config import *
 
 
 class TestCase(BaseClass, Wait):
 
-    BASE_URL = "https://modnakasta.ua"
+    def setUp(self):
+        self.driver = webdriver.Chrome()
+        BASE_URL = "https://modnakasta.ua"
 
-    def testOpen(self):
-        self.open_url(BASE_URL, LIST_CAMPAIGN_BANNER)
+    def testPlay(self):
+        result = self.open_url(BASE_URL, LIST_CAMPAIGN)
+        self.assertTrue(result, 'campaign is not displayed')
+
+    def tearDown(self):
+        self.driver.quit()
+
 
 
         
