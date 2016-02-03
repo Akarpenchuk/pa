@@ -5,29 +5,32 @@ from config import *
 from selenium import webdriver
 import unittest
 from wait import Wait
+from clickandfill import Clicking
+from clickandfill import Filling
 
 
-class BaseClass(unittest.TestCase):
+class BaseClass(Wait, Clicking, Filling):
 
     def open_url(self, url, element):
         self.driver.get(url)
-        self.wait_for_element_is_displayed(element)
+        if self.wait_element_displayed_by_xpath(element) != True:
+            return False
         return True
 
 
-    # def login(self, url, login, pass):
-    #     open_url(url)
-
-    #     wait
-    #     verify element is displayed
-    #     click
-    #     wait
-    #     send keys
-    #     click
-    #     send keys
-    #     click
-    #     wait element is displayed
-    #     return
+    def login(self):
+        self.open_url(BASE_URL, LIST_CAMPAIGN)
+        self.click_by_xpath(AUTH_LINK)
+        self.wait_element_displayed_by_xpath(AUTH_FORM)
+        self.click_by_xpath(AUTH_EMAIL_INPUT)
+        self.filling_field_by_xpath(AUTH_EMAIL_INPUT, USER_EMAIL)
+        self.click_by_xpath(REG_EMAIL_INPUT)
+        self.filling_field_by_xpath(REG_EMAIL_INPUT, USER_PASS)
+        self.click_by_xpath(LOGIN_BTN)
+        result = self.wait_element_displayed_by_xpath(LIST_CAMPAIGN)
+        if result != True:
+            return False
+        return True
 
     # def logout(pass):
     #     verify element is displayed

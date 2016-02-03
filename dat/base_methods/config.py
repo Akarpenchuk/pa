@@ -11,7 +11,7 @@ EMAIL = "yopmail.com"
 EMAIL_ADDRESS = "@yopmail.com"
 USER = "mktestuser3"
 USER_EMAIL = "mktestuser3@yopmail.com"
-PASSWORD = "qwe123"
+USER_PASS = "qwe123"
 PHONE = 380639728933
 RAND_NAME = ''.join(random.choice(string.ascii_lowercase + string.digits) for _ in range(8))
 RAND_EMAIL = RAND_NAME + EMAIL_ADDRESS
@@ -24,6 +24,13 @@ CARD_CVV2 = "010"
 
 #MAIN PAGE ELEMENTS
 LOGO = "//a[@class='logo']/img"
+AUTH_LINK = "//a[@href='#auth_popup']"
+AUTH_FORM = "//form[@id='login_form_validate']"
+AUTH_EMAIL_INPUT = "//div[@class='form-item']/input[@id='username']"
+REG_EMAIL_INPUT = "//div[@class='form-item password']/input[@type='password']"
+LOGIN_BTN = "//input[@id='login_submit']"
+PROFILE_BTN = "//div[@class='user_menu profile_menu']/a[@href='/me/']"
+
 
 #CAMPAIGN ELEMENTS
 
