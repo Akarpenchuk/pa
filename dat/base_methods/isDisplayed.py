@@ -14,10 +14,13 @@ class isDisplayed:
             return True
 
     def element_displayed_by_id(self, element):
-        return self.driver.find_element(By.ID, element).is_displayed()
+        if self.driver.find_element(By.ID, element).is_displayed():
+            return True
 
     def element_displayed_by_class_name(self, element):
-        return self.driver.find_element(By.CLASS_NAME, element).is_displayed()
+        if self.driver.find_element(By.CLASS_NAME, element).is_displayed():
+            return True
 
     def element_displayed_by_link_text(self, element):
-        return self.driver.find_element(By.LINK_TEXT, element).is_displayed()
+        if self.driver.find_element(By.LINK_TEXT, element).is_displayed():
+            return True

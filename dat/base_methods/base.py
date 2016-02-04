@@ -24,7 +24,6 @@ class BaseClass(Wait, Clicking, Filling, Action):
 
 
     def login(self):
-        '''force waitings to work'''
         self.driver.get(BASE_URL)
         self.wait_element_displayed_by_xpath(AUTH_LINK)
         self.click_by_xpath(AUTH_LINK)
@@ -34,18 +33,23 @@ class BaseClass(Wait, Clicking, Filling, Action):
         self.click_by_xpath(REG_EMAIL_INPUT)
         self.filling_field_by_xpath(REG_EMAIL_INPUT, USER_PASS)
         self.click_by_xpath(LOGIN_BTN)
-        self.wait_element_displayed_by_xpath(PROFILE_LINK)
+        if self.wait_element_displayed_by_xpath(PROFILE_LINK):
+            return True
+        return False
 
     def logout(self):
         self.element_displayed_by_xpath(PROFILE_LINK)
         self.hover_and_click(PROFILE_LINK, LOGOUT_LINK)
         # self.click_by_xpath(LOGOUT_LINK)
-        self.wait_element_displayed_by_xpath(AUTH_LINK)
-    #     return
+        if self.wait_element_displayed_by_xpath(AUTH_LINK):
+            return True
+        return False
 
     def refresh(self):
         self.driver.refresh()
 
     def store_elements_count(self, element):
-        self.driver.find_elements_by_xpath(element)
+        elements = self.driver.find_elements_by_xpath(element)
+        if elements:
+            return elements
 

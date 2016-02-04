@@ -16,6 +16,7 @@ class Campaign:
         self.wait = WebDriverWait(driver, 10)
 
     def open_campaign(self, LIST_CAMPAIGN, LIST_CAMPAIGN_TIMER, LIST_CAMPAIGN_BRAND, LIST_CAMPAIGN_NAME):
+#======================================
         campaing_brand = self.driver.find_element_by_xpath(LIST_CAMPAIGN_BRAND).text
         self.driver.find_element_by_xpath(LIST_CAMPAIGN).click()
         self.wait.until(lambda self: self.find_element_by_xpath(LIST_PRODUCT).is_displayed())
