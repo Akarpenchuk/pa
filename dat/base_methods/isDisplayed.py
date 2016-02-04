@@ -10,7 +10,8 @@ class isDisplayed:
         self.driver = driver
 
     def element_displayed_by_xpath(self, element):
-        return self.driver.find_element(By.XPATH, element).is_displayed()
+        if self.driver.find_element(By.XPATH, element).is_displayed():
+            return True
 
     def element_displayed_by_id(self, element):
         return self.driver.find_element(By.ID, element).is_displayed()

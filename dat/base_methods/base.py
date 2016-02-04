@@ -12,21 +12,22 @@ from hover import Action
 
 class BaseClass(Wait, Clicking, Filling, Action):
 
-    def __init__(self):
-        self.wait = WebDriverWait(self.driver, 5)
+    # def __init__(self):
+        # self.wait = WebDriverWait(self.driver, 5)
 
-    def open_main_page(self, BASE_URL, LIST_CAMPAIGN):
-        self.driver.get(BASE_URL)
-        if self.wait_element_displayed_by_xpath(LIST_CAMPAIGN) != True:
-            return False
-        return True
+    def open_url(self, url, element):
+        self.driver.get(url)
+        if self.wait_element_displayed_by_xpath(element):
+            return True
+        return False
+
 
 
     def login(self):
         '''force waitings to work'''
-        self.open_url(BASE_URL, LIST_CAMPAIGN)
+        self.driver.get(BASE_URL)
+        self.wait_element_displayed_by_xpath(AUTH_LINK)
         self.click_by_xpath(AUTH_LINK)
-        self.wait_element_displayed_by_xpath(AUTH_FORM)
         self.wait_element_displayed_by_xpath(AUTH_FORM)
         self.click_by_xpath(AUTH_EMAIL_INPUT)
         self.filling_field_by_xpath(AUTH_EMAIL_INPUT, USER_EMAIL)
