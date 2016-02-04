@@ -19,7 +19,7 @@ class TestCase(unittest.TestCase, BaseClass):
 
     def testPlay(self):
         if self.open_url(BASE_URL, LIST_CAMPAIGN) == True:
-            print 'ok'
+            print 'OK'
         else:
             print 'NOK'
         # self.open_campaign()
