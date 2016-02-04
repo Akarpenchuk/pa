@@ -18,10 +18,11 @@ class TestCase(unittest.TestCase, BaseClass):
         BASE_URL = "https://modnakasta.ua"
 
     def testPlay(self):
-        if self.open_url(BASE_URL, LIST_CAMPAIGN) == True:
-            print 'OK'
-        else:
-            print 'NOK'
+        self.assertTrue (self.open_url(BASE_URL, LIST_CAMPAIGN))
+        # if self.open_url(BASE_URL, LIST_CAMPAIGN) == True:
+        #     print 'OK'
+        # else:
+        #     print 'NOK'
         # self.open_campaign()
         # self.logout()
 

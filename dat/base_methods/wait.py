@@ -13,8 +13,7 @@ from selenium.webdriver.support import expected_conditions as EC
 class Wait:
 
     def wait_element_displayed_by_xpath(self, element):
-        el = self.wait.until(lambda self: self.find_element_by_xpath(element))
-        if el:
+        if self.wait.until(lambda self: self.find_element_by_xpath(element)):
             return True
         return False
 
