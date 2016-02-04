@@ -6,17 +6,18 @@ from selenium.webdriver.support.wait import WebDriverWait
 from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import TimeoutException
 from isDisplayed import isDisplayed
+from selenium.webdriver.support import expected_conditions as EC
 
 
 class Wait:
     def __init__(self, driver):
         self.driver = driver
-        self.wait = WebDriverWait(self.driver, 10)
+        self.wait = WebDriverWait(driver, 10)
 
     def wait_element_displayed_by_xpath(self, element):
         try:
-            self.wait.until(lambda self: element_displayed_by_xpath(element))
-            return True
+            if wait.until(element_displayed_by_xpath(element)) != False:
+                return True
         except:
             return False
 

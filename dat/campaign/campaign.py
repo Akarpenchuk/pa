@@ -13,15 +13,14 @@ class Campaign:
 
     def __init__(self, driver):
         self.driver = driver
-        self.wait = WebDriverWait(driver, 35)
-        self.action = ActionChains(driver)
+        self.wait = WebDriverWait(driver, 10)
 
-    def select_campaign(self):
+    def open_campaign(self, LIST_CAMPAIGN, LIST_CAMPAIGN_TIMER, LIST_CAMPAIGN_BRAND, LIST_CAMPAIGN_NAME):
         campaing_brand = self.driver.find_element_by_xpath(LIST_CAMPAIGN_BRAND).text
         self.driver.find_element_by_xpath(LIST_CAMPAIGN).click()
         self.wait.until(lambda self: self.find_element_by_xpath(LIST_PRODUCT).is_displayed())
         # self.wait.until(lambda self: self.find_element_by_xpath(LIST_PRODUCT).is_displayed())
-
+#=======================================
     def verify_affiliation_filter(self):
         #verify button is displayed
         affiliation_list = [AFF_WOMAN, AFF_MAN, AFF_CHILD, AFF_BOYS, AFF_GIRLS, AFF_HOME, AFF_UNI, AFF_ZOO]

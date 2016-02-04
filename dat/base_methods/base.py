@@ -1,4 +1,4 @@
-# !/usr/bin/env python
+# !/usr/bin/env/ python
 # -*- coding: utf-8 -*-
 
 from config import *
@@ -7,41 +7,44 @@ import unittest
 from wait import Wait
 from clickandfill import Clicking
 from clickandfill import Filling
+from hover import Action
 
 
-class BaseClass(Wait, Clicking, Filling):
+class BaseClass(Wait, Clicking, Filling, Action):
 
-    def open_url(self, url, element):
-        self.driver.get(url)
-        if self.wait_element_displayed_by_xpath(element) != True:
+    def __init__(self):
+        self.wait = WebDriverWait(self.driver, 5)
+
+    def open_main_page(self, BASE_URL, LIST_CAMPAIGN):
+        self.driver.get(BASE_URL)
+        if self.wait_element_displayed_by_xpath(LIST_CAMPAIGN) != True:
             return False
         return True
 
 
     def login(self):
+        '''force waitings to work'''
         self.open_url(BASE_URL, LIST_CAMPAIGN)
         self.click_by_xpath(AUTH_LINK)
+        self.wait_element_displayed_by_xpath(AUTH_FORM)
         self.wait_element_displayed_by_xpath(AUTH_FORM)
         self.click_by_xpath(AUTH_EMAIL_INPUT)
         self.filling_field_by_xpath(AUTH_EMAIL_INPUT, USER_EMAIL)
         self.click_by_xpath(REG_EMAIL_INPUT)
         self.filling_field_by_xpath(REG_EMAIL_INPUT, USER_PASS)
         self.click_by_xpath(LOGIN_BTN)
-        result = self.wait_element_displayed_by_xpath(LIST_CAMPAIGN)
-        if result != True:
-            return False
-        return True
+        self.wait_element_displayed_by_xpath(PROFILE_LINK)
 
-    # def logout(pass):
-    #     verify element is displayed
-    #     hover
-    #     click
-    #     wait element is displayed
+    def logout(self):
+        self.element_displayed_by_xpath(PROFILE_LINK)
+        self.hover_and_click(PROFILE_LINK, LOGOUT_LINK)
+        # self.click_by_xpath(LOGOUT_LINK)
+        self.wait_element_displayed_by_xpath(AUTH_LINK)
     #     return
 
-    # def refresh(self):
-    #     pass
+    def refresh(self):
+        self.driver.refresh()
 
     def store_elements_count(self, element):
-        elem_count = count(self.driver.find_elements_by_xpath(element))
-        return int(elem_count)
+        self.driver.find_elements_by_xpath(element)
+

@@ -29,7 +29,8 @@ AUTH_FORM = "//form[@id='login_form_validate']"
 AUTH_EMAIL_INPUT = "//div[@class='form-item']/input[@id='username']"
 REG_EMAIL_INPUT = "//div[@class='form-item password']/input[@type='password']"
 LOGIN_BTN = "//input[@id='login_submit']"
-PROFILE_BTN = "//div[@class='user_menu profile_menu']/a[@href='/me/']"
+PROFILE_LINK = "//a[@href='/me/']"
+LOGOUT_LINK = "//a[@href='/user/registration/logout/']"
 
 
 #CAMPAIGN ELEMENTS
