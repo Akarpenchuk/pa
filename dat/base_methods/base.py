@@ -7,21 +7,17 @@ import unittest
 from wait import Wait
 from clickandfill import Clicking
 from clickandfill import Filling
+from selenium.webdriver.common.by import By
 from hover import Action
 
 
 class BaseClass(Wait, Clicking, Filling, Action):
-
-    # def __init__(self):
-        # self.wait = WebDriverWait(self.driver, 5)
 
     def open_url(self, url, element):
         self.driver.get(url)
         if self.wait_element_displayed_by_xpath(element):
             return True
         return False
-
-
 
     def login(self):
         self.driver.get(BASE_URL)
@@ -50,6 +46,5 @@ class BaseClass(Wait, Clicking, Filling, Action):
 
     def store_elements_count(self, element):
         elements = self.driver.find_elements_by_xpath(element)
-        if elements:
-            return elements
+        return len(elements)
 

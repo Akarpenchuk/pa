@@ -11,12 +11,12 @@ EMAIL = "yopmail.com"
 EMAIL_ADDRESS = "@yopmail.com"
 USER = "mktestuser3"
 USER_EMAIL = "mktestuser3@yopmail.com"
-USER_PASS = "qwe123"
+PASSWORD = "qwe123"
 PHONE = 380639728933
 RAND_NAME = ''.join(random.choice(string.ascii_lowercase + string.digits) for _ in range(8))
 RAND_EMAIL = RAND_NAME + EMAIL_ADDRESS
 
-CARD_NUBER = "4149 5070 2155 7861" # TOD	O: make a dict for 'card data'
+CARD_NUBER = "4149 5070 2155 7861" # TODO: make a dict for 'card data'
 CARD_MONTH = "07"
 CARD_YEAR = "19"
 CARD_NAME = "dmytro malovanyi"
@@ -24,22 +24,14 @@ CARD_CVV2 = "010"
 
 #MAIN PAGE ELEMENTS
 LOGO = "//a[@class='logo']/img"
-AUTH_LINK = "//a[@href='#auth_popup']"
-AUTH_FORM = "//form[@id='login_form_validate']"
-AUTH_EMAIL_INPUT = "//div[@class='form-item']/input[@id='username']"
-REG_EMAIL_INPUT = "//div[@class='form-item password']/input[@type='password']"
-LOGIN_BTN = "//input[@id='login_submit']"
-PROFILE_LINK = "//a[@href='/me/']"
-LOGOUT_LINK = "//a[@href='/user/registration/logout/']"
-
 
 #CAMPAIGN ELEMENTS
 
 #--campaign data
-LIST_CAMPAIGN = "//a[contains(@href,'/campaign/')]"
-# LIST_CAMPAIGN = "//div[@class='row']/div[@class='column_item column_1']/a"
-LIST_CAMPAIGN_LINK = "//div[@class='column_item column_1']/a/@href"
-LIST_CAMPAIGN_BRAND = "//div[@class='column_item column_1']/div[@class='column_info']/div"
+LIST_CAMPAIGN_COUNT = "//*[@class='row']//a/@href"
+LIST_CAMPAIGN = ".//a[@class='column_link']"
+LIST_CAMPAIGN_LINK = "div/a/@href"
+LIST_CAMPAIGN_BRAND = "div[@class='column_info']/div"
 LIST_CAMPAIGN_NAME = ""
 LIST_CAMPAIGN_BANNER = ""
 LIST_CAMPAIGN_TIMER = ""
@@ -97,7 +89,8 @@ PRODUCT_COUNTER = u"//div[@class='filters-selection__results-right']/span[2]"
 #product list data
 # global LIST_PRODUCT
 LIST_PRODUCT = "//div[@class='product-item_wrapper']"
-LIST_PRODUCT_COUNT = 30
+# LIST_PRODUCT_COUNT = 30
+LIST_PRODUCT_COUNT = "//a[@href='shop_item_img']"
 LIST_PRODUCT_CARD = "/div[2]/a"
 LIST_PRODUCT_PHOTO = "/div[2]/a/img/@src" #.text
 LIST_PRODUCT_BRAND = "/div[2]/a/div[@class='product-item__info']/div/span" #.text
