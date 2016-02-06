@@ -24,7 +24,7 @@ CARD_CVV2 = "010"
 
 #MAIN PAGE ELEMENTS
 LOGO = "//a[@class='logo']/img"
-AUTH_LINK = "//a[@href='#auth_popup']"
+AUTH_LINK = "//div[@class='user_menu login_link']/a"
 AUTH_FORM = "//form[@id='login_form_validate']"
 AUTH_EMAIL_INPUT = "//div[@class='form-item']/input[@id='username']"
 REG_EMAIL_INPUT = "//div[@class='form-item password']/input[@type='password']"
@@ -36,9 +36,9 @@ LOGOUT_LINK = "//a[@href='/user/registration/logout/']"
 #CAMPAIGN ELEMENTS
 
 #--campaign data
-LIST_CAMPAIGN = ".//*[@id='current']/div[1]/div[1]/a"
+LIST_CAMPAIGN_CURRENT = "//*[@id='current']//div/a"
 # LIST_CAMPAIGN = "//div[@class='row']/div[@class='column_item column_1']/a"
-LIST_CAMPAIGN_link = "//div[@class='column_item column_1']/a/@href"
+LIST_CAMPAIGN_LINK = "//div[@class='column_item column_1']/a/@href"
 LIST_CAMPAIGN_BRAND = "//div[@class='column_item column_1']/div[@class='column_info']/div"
 LIST_CAMPAIGN_NAME = ""
 LIST_CAMPAIGN_BANNER = ""

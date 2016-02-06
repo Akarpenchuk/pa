@@ -4,9 +4,7 @@
 import unittest
 from selenium import webdriver
 from selenium.webdriver.support.ui import WebDriverWait
-from dat.base_methods.isDisplayed import isDisplayed
 from dat.base_methods.base import BaseClass
-# from dat.base_methods.base import Wait
 from dat.base_methods.config import *
 
 
@@ -14,13 +12,16 @@ class TestCase(unittest.TestCase, BaseClass):
 
     def setUp(self):
         self.driver = webdriver.Chrome()
-        self.wait = WebDriverWait(self.driver, 5)
+        self.wait = WebDriverWait(self.driver, 10)
         BASE_URL = "https://modnakasta.ua"
 
     def testPlay(self):
         # self.assertTrue (self.open_url(BASE_URL, LIST_CAMPAIGN), 'campaign is not find')
         self.assertTrue (self.login(), 'login false')
-        self.assertTrue (self.logout(), 'logout is false')
+        self.current_campaigns = self.store_elements_count(LIST_CAMPAIGN_CURRENT)
+        if self.current_campaigns < 50:
+            raise Exception, 'not enought current campaigns'
+        self.assertTrue (self.logout(), 'logout false')
 
         #Traceback (most recent call last):
 #   File "/home/ace/Documents/git/autotests/test_0.py", line 23, in testPlay
