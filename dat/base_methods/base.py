@@ -13,10 +13,6 @@ from config import *
 
 class BaseClass(Wait, Clicking, Filling, Action):
 
-<<<<<<< HEAD
-
-=======
->>>>>>> ef9e87bcc136590b033c570e7c18154ab32eb26f
     def open_url(self, url, element):
         self.driver.get(url)
         if self.wait_element_displayed_by_xpath(element):
@@ -40,7 +36,6 @@ class BaseClass(Wait, Clicking, Filling, Action):
     def logout(self):
         self.element_displayed_by_xpath(PROFILE_LINK)
         self.hover_and_click(PROFILE_LINK, LOGOUT_LINK)
-        # self.click_by_xpath(LOGOUT_LINK)
         if self.wait_element_displayed_by_xpath(AUTH_LINK):
             return True
         return False
@@ -50,10 +45,5 @@ class BaseClass(Wait, Clicking, Filling, Action):
 
     def store_elements_count(self, element):
         elements = self.driver.find_elements_by_xpath(element)
-<<<<<<< HEAD
-        if elements:
-            return len(elements)
-=======
         return len(elements)
->>>>>>> ef9e87bcc136590b033c570e7c18154ab32eb26f
 
