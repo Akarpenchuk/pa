@@ -5,6 +5,7 @@ import unittest
 from selenium import webdriver
 from clickandfill import Clicking
 from clickandfill import Filling
+from selenium.webdriver.common.by import By
 from hover import Action
 from wait import Wait
 from config import *
@@ -12,7 +13,10 @@ from config import *
 
 class BaseClass(Wait, Clicking, Filling, Action):
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> ef9e87bcc136590b033c570e7c18154ab32eb26f
     def open_url(self, url, element):
         self.driver.get(url)
         if self.wait_element_displayed_by_xpath(element):
@@ -46,6 +50,10 @@ class BaseClass(Wait, Clicking, Filling, Action):
 
     def store_elements_count(self, element):
         elements = self.driver.find_elements_by_xpath(element)
+<<<<<<< HEAD
         if elements:
             return len(elements)
+=======
+        return len(elements)
+>>>>>>> ef9e87bcc136590b033c570e7c18154ab32eb26f
 

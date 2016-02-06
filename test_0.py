@@ -5,6 +5,10 @@ import unittest
 from selenium import webdriver
 from selenium.webdriver.support.ui import WebDriverWait
 from dat.base_methods.base import BaseClass
+<<<<<<< HEAD
+=======
+from selenium.webdriver.common.by import By
+>>>>>>> ef9e87bcc136590b033c570e7c18154ab32eb26f
 from dat.base_methods.config import *
 
 
@@ -12,6 +16,7 @@ class TestCase(unittest.TestCase, BaseClass):
 
     def setUp(self):
         self.driver = webdriver.Chrome()
+<<<<<<< HEAD
         self.wait = WebDriverWait(self.driver, 10)
         BASE_URL = "https://modnakasta.ua"
 
@@ -33,6 +38,17 @@ class TestCase(unittest.TestCase, BaseClass):
 #   File "/usr/local/lib/python2.7/dist-packages/selenium/webdriver/support/wait.py", line 75, in until
 #     raise TimeoutException(message, screen, stacktrace)
 # TimeoutException: Message: 
+=======
+        self.wait = WebDriverWait(self.driver, 5)
+
+    def testPlay(self):
+        # self.assertTrue (self.login(), 'login false')
+        self.open_url(BASE_URL, LIST_CAMPAIGN)
+        campaigns_count = self.store_elements_count(LIST_CAMPAIGN)
+        if campaigns_count < 50:
+            raise Exception, "Not enought campaigns"
+        # self.assertTrue (self.logout(), 'logout is false')
+>>>>>>> ef9e87bcc136590b033c570e7c18154ab32eb26f
 
     def tearDown(self):
         self.driver.quit()
