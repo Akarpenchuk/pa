@@ -36,11 +36,8 @@ LOGOUT_LINK = "//a[@href='/user/registration/logout/']"
 #CAMPAIGN ELEMENTS
 
 #--campaign data
-<<<<<<< HEAD
 LIST_CAMPAIGN_CURRENT = "//*[@id='current']//div/a"
-=======
 LIST_CAMPAIGN = "//a[contains(@href,'/campaign/')]"
->>>>>>> ef9e87bcc136590b033c570e7c18154ab32eb26f
 # LIST_CAMPAIGN = "//div[@class='row']/div[@class='column_item column_1']/a"
 LIST_CAMPAIGN_LINK = "//div[@class='column_item column_1']/a/@href"
 LIST_CAMPAIGN_BRAND = "//div[@class='column_item column_1']/div[@class='column_info']/div"
