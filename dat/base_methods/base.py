@@ -1,19 +1,21 @@
 # !/usr/bin/env/ python
 # -*- coding: utf-8 -*-
 
-from config import *
-from selenium import webdriver
 import unittest
-from wait import Wait
+from selenium import webdriver
 from clickandfill import Clicking
 from clickandfill import Filling
 from selenium.webdriver.common.by import By
 from hover import Action
+from wait import Wait
+from config import *
+
+# from .campaign.campaign import Campaign
 
 
 class BaseClass(Wait, Clicking, Filling, Action):
 
-    def open_url(self, url, element):
+    def open_url(self, url, element, **args):
         self.driver.get(url)
         if self.wait_element_displayed_by_xpath(element):
             return True
@@ -36,7 +38,6 @@ class BaseClass(Wait, Clicking, Filling, Action):
     def logout(self):
         self.element_displayed_by_xpath(PROFILE_LINK)
         self.hover_and_click(PROFILE_LINK, LOGOUT_LINK)
-        # self.click_by_xpath(LOGOUT_LINK)
         if self.wait_element_displayed_by_xpath(AUTH_LINK):
             return True
         return False
@@ -44,7 +45,24 @@ class BaseClass(Wait, Clicking, Filling, Action):
     def refresh(self):
         self.driver.refresh()
 
-    def store_elements_count(self, element):
+    def elements_count(self, element):
         elements = self.driver.find_elements_by_xpath(element)
         return len(elements)
+
+    def check_fast_access_buttons(self):
+        self.driver.find_elements_by_xpath(fst_btn).click()
+        self.check_screen_position()
+        self.driver.find_elements_by_xpath(scnd_btn).click()
+        self.check_screen_position()
+        self.driver.find_elements_by_xpath(thrd_btn).click()
+        self.check_screen_position()
+        self.driver.find_elements_by_xpath(frth_btn).click()
+        self.check_screen_position()
+        self.driver.find_elements_by_xpath(ffth_btn).click()
+        self.check_screen_position()
+
+
+
+
+
 

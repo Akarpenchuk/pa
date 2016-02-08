@@ -16,7 +16,7 @@ PHONE = 380639728933
 RAND_NAME = ''.join(random.choice(string.ascii_lowercase + string.digits) for _ in range(8))
 RAND_EMAIL = RAND_NAME + EMAIL_ADDRESS
 
-CARD_NUBER = "4149 5070 2155 7861" # TOD	O: make a dict for 'card data'
+CARD_NUBER = "4149 5070 2155 7861" # TOD    O: make a dict for 'card data'
 CARD_MONTH = "07"
 CARD_YEAR = "19"
 CARD_NAME = "dmytro malovanyi"
@@ -24,18 +24,20 @@ CARD_CVV2 = "010"
 
 #MAIN PAGE ELEMENTS
 LOGO = "//a[@class='logo']/img"
-AUTH_LINK = "//a[@href='#auth_popup']"
+AUTH_LINK = "//div[@class='user_menu login_link']/a"
 AUTH_FORM = "//form[@id='login_form_validate']"
 AUTH_EMAIL_INPUT = "//div[@class='form-item']/input[@id='username']"
 REG_EMAIL_INPUT = "//div[@class='form-item password']/input[@type='password']"
 LOGIN_BTN = "//input[@id='login_submit']"
 PROFILE_LINK = "//a[@href='/me/']"
 LOGOUT_LINK = "//a[@href='/user/registration/logout/']"
+FEMALE_CATEGORY_MENU = "//ul[@class='menu_holder']/li/p"
 
 
 #CAMPAIGN ELEMENTS
 
 #--campaign data
+LIST_CAMPAIGN_CURRENT = "//*[@id='current']//div/a"
 LIST_CAMPAIGN = "//a[contains(@href,'/campaign/')]"
 # LIST_CAMPAIGN = "//div[@class='row']/div[@class='column_item column_1']/a"
 LIST_CAMPAIGN_LINK = "//div[@class='column_item column_1']/a/@href"

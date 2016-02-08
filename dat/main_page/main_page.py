@@ -3,25 +3,18 @@
 
 from selenium import webdriver
 from selenium.webdriver.support.wait import WebDriverWait
-from ..config import *
-from selenium.webdriver.common.action_chains import ActionChains
-from selenium.webdriver.common.keys import Keys
-import random
-import string
-import psycopg2
+# from .base_methods.config import *
 
-class MainPage(webdriver):
+
+class MainPage:
     """verify main page by Anonym"""
 
-    def __init__(self, driver):
-        self.driver = webdriver.Chrome()
-        self.wait = WebDriverWait(driver, 10)
-        self.action = ActionChains(driver)
-        self.find = driver.find_element_by_xpath
-
-    def preconditions(self, BASE_URL):
-        open_main_page = self.driver.get()
-        self.wait.until(lambda self: self.find_element_by_xpath(LOGO).is_displayed())
+    def check_main_page_elements(self, *args):
+        for i in args:
+            self.wait_element_displayed_by_xpath(i)
+            if self.driver.find_element_by_xpath(i) != True:
+                return False
+        return True
 
     def anonym_verify_reg(self):
         open_register_form = self.driver.find_element_by_xpath(u"//span[contains(text(),'Регистрация')]").click()

@@ -1,7 +1,6 @@
 # !/usr/bin/env/ python
 # -*- coding: utf-8 -*-
 
-from config import *
 from selenium import webdriver
 from isDisplayed import isDisplayed
 
@@ -23,7 +22,11 @@ class Clicking(isDisplayed):
     def click_by_link_text(self, element):
         self.driver.find_element_by_link_text(element).click()
 
+
 class Filling:
+
+    def __init__(self, driver):
+        self.driver = driver
 
     def clear_field(self, element):
         self.driver.find_element_by_xpath(element).clear()

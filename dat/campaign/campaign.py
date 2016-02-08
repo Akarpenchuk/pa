@@ -3,17 +3,21 @@
 
 from selenium import webdriver
 from selenium.webdriver.support.wait import WebDriverWait
-from ..config import *
-from selenium.webdriver.common.action_chains import ActionChains
-from selenium.webdriver.common.keys import Keys
-import random
-import string
+from base_methods.config import *
+from base_methods.base import BaseClass
 
 class Campaign:
 
     def __init__(self, driver):
         self.driver = driver
         self.wait = WebDriverWait(driver, 10)
+
+    def store_campaigns_count(self):
+        self.current_campaigns = self.store_elements_count(LIST_CAMPAIGN_CURRENT)
+        if self.current_campaigns < 50:
+            raise Exception, 'not enought current campaigns'
+        return True
+
 
     def open_campaign(self, LIST_CAMPAIGN, LIST_CAMPAIGN_TIMER, LIST_CAMPAIGN_BRAND, LIST_CAMPAIGN_NAME):
 #======================================
