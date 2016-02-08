@@ -16,7 +16,7 @@ PHONE = 380639728933
 RAND_NAME = ''.join(random.choice(string.ascii_lowercase + string.digits) for _ in range(8))
 RAND_EMAIL = RAND_NAME + EMAIL_ADDRESS
 
-CARD_NUBER = "4149 5070 2155 7861" # TOD	O: make a dict for 'card data'
+CARD_NUBER = "4149 5070 2155 7861" # TOD    O: make a dict for 'card data'
 CARD_MONTH = "07"
 CARD_YEAR = "19"
 CARD_NAME = "dmytro malovanyi"
@@ -31,6 +31,7 @@ REG_EMAIL_INPUT = "//div[@class='form-item password']/input[@type='password']"
 LOGIN_BTN = "//input[@id='login_submit']"
 PROFILE_LINK = "//a[@href='/me/']"
 LOGOUT_LINK = "//a[@href='/user/registration/logout/']"
+FEMALE_CATEGORY_MENU = "//ul[@class='menu_holder']/li/p"
 
 
 #CAMPAIGN ELEMENTS

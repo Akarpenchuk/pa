@@ -10,10 +10,12 @@ from hover import Action
 from wait import Wait
 from config import *
 
+# from .campaign.campaign import Campaign
+
 
 class BaseClass(Wait, Clicking, Filling, Action):
 
-    def open_url(self, url, element):
+    def open_url(self, url, element, **args):
         self.driver.get(url)
         if self.wait_element_displayed_by_xpath(element):
             return True
@@ -43,7 +45,24 @@ class BaseClass(Wait, Clicking, Filling, Action):
     def refresh(self):
         self.driver.refresh()
 
-    def store_elements_count(self, element):
+    def elements_count(self, element):
         elements = self.driver.find_elements_by_xpath(element)
         return len(elements)
+
+    def check_fast_access_buttons(self):
+        self.driver.find_elements_by_xpath(fst_btn).click()
+        self.check_screen_position()
+        self.driver.find_elements_by_xpath(scnd_btn).click()
+        self.check_screen_position()
+        self.driver.find_elements_by_xpath(thrd_btn).click()
+        self.check_screen_position()
+        self.driver.find_elements_by_xpath(frth_btn).click()
+        self.check_screen_position()
+        self.driver.find_elements_by_xpath(ffth_btn).click()
+        self.check_screen_position()
+
+
+
+
+
 
