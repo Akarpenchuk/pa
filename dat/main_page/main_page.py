@@ -4,6 +4,7 @@
 from selenium import webdriver
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.common.action_chains import ActionChains
+import main_page_elements
 
 
 class MainPage:

@@ -8,6 +8,7 @@ from dat.base_methods.base import BaseClass
 from dat.main_page.main_page import MainPage
 from dat.anonym_check.anonym import Anonym
 from dat.base_methods.wait import Wait
+from ..main_page import *
 from dat.base_methods.config import *
 from time import sleep
 
