@@ -49,6 +49,8 @@ RECOVERY_EMAIL_INPUT = "//form[@id='recovery_input_form']//input[@name='email']"
 RECOVERY_EMAIL_BTN = "//input[@id='recovery_submit']"
 RECOVERY_EMAIL_INPUT_ERROR = "//form[@id='recovery_input_form']/div/input[@class='error']"
 
+MENU_HELP = "//a[@class='menu_item menu_holder_item']"
+
 
 
 #CAMPAIGN ELEMENTS

@@ -19,7 +19,7 @@ class TestSuite(unittest.TestCase, BaseClass, MainPage, Anonym, Wait):
         self.wait = WebDriverWait(self.driver, 10)
 
     def test_verify_main_page(self):
-        self.open_url(BASE_URL, LIST_CAMPAIGN)
+        self.open_url()
 
         self.assertTrue(self.check_main_page_elements(
             LOGO,

@@ -3,11 +3,15 @@
 
 from selenium import webdriver
 from selenium.webdriver.support.wait import WebDriverWait
-# from .base_methods.config import *
+from selenium.webdriver.common.action_chains import ActionChains
 
 
 class MainPage:
-    """verify main page by Anonym"""
+    
+    def __init__(self):
+        self.driver = driver
+        self.wait = WebDriverWait(self.driver, 5)
+        self.action = ActionChains(self.driver)
 
     def check_main_page_elements(self, *args):
         for i in args:
@@ -15,6 +19,18 @@ class MainPage:
             if self.driver.find_element_by_xpath(i) != True:
                 return False, i
         return True
+
+    def verify_help_menu(self, help_menu, help_menu_list, *args):
+
+        menu = self.driver.find_element_by_xpath(help_menu)
+        self.action.move_to_element(menu)
+        self.action.perform()
+        if self.driver.find_element_by_xpath(help_menu_list) == True:
+
+            args_lst = []
+            for i in args:
+                self.driver.find_element_by_xpath("%i") % i.click()
+
 
     def check_fast_access_buttons(self):
         self.driver.find_elements_by_xpath(fst_btn).click()

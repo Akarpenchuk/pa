@@ -13,9 +13,11 @@ from config import *
 
 class BaseClass(Wait, Action):
 
-    def open_url(self, url, element, **args):
-        self.driver.get(url)
-        if self.wait_element_displayed_by_xpath(element):
+    def open_url(self, *args):
+        args = [BASE_URL, LIST_CAMPAIGN]
+
+        self.driver.get(BASE_URL)
+        if self.wait_element_displayed_by_xpath(LIST_CAMPAIGN):
             return True
         return False
 
