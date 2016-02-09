@@ -6,10 +6,10 @@ from selenium import webdriver
 from selenium.webdriver.support.wait import WebDriverWait
 from dat.base_methods.base import BaseClass
 from dat.main_page.main_page import MainPage
-from dat.base_methods.base import clickandfill
+from dat.anonym_check.anonym import Anonym
 from dat.base_methods.config import *
 
-class TestSuite(unittest.TestCase, BaseClass, MainPage):
+class TestSuite(unittest.TestCase, BaseClass, MainPage, Anonym):
 
     def setUp(self):
         self.driver = webdriver.Chrome()
@@ -17,10 +17,32 @@ class TestSuite(unittest.TestCase, BaseClass, MainPage):
 
     def test_verify_main_page(self):
         self.open_url(BASE_URL, LIST_CAMPAIGN)
-        print self.check_main_page_elements(LOGO, AUTH_LINK, FEMALE_CATEGORY_MENU, LIST_CAMPAIGN)
-        # self.check_header_elements(FEMALE_CATEGORY_MENU)
-        self.check_validation_reg()
-        Anonym(driver).anonym_verify_auth()
+
+        self.assertTrue(self.check_main_page_elements(
+            LOGO,
+            AUTH_LINK,
+            FEMALE_CATEGORY_MENU,
+            LIST_CAMPAIGN))
+
+        self.assertTrue(self.check_validation_reg(
+            REG_LINK,
+            REG_FORM,
+            REG_EMAIL_INPUT,
+            REG_PASS_INPUT,
+            REG_BTN,
+            REG_EMAIL_INPUT_ERROR,
+            REG_PASS_INPUT_ERROR))
+
+
+        self.assertTrue(self.check_validation_auth(
+            AUTH_FORM,
+            AUTH_EMAIL_INPUT,
+            AUTH_PASS_INPUT,
+            AUTH_BTN,
+            AUTH_EMAIL_INPUT_ERROR, 
+            AUTH_PASS_INPUT_ERROR))
+
+
         Anonym(driver).anonym_verify_recovery()
 
         Menu(driver).verify_help_menu()
@@ -40,8 +62,8 @@ class TestSuite(unittest.TestCase, BaseClass, MainPage):
         self.verify_fast_access_buttons()
 
 
-    def tearDown(self):
-        self.driver.quit()
+    # def tearDown(self):
+    #     self.driver.quit()
 
 
 if __name__ == "__main__":

@@ -3,8 +3,6 @@
 
 import unittest
 from selenium import webdriver
-from clickandfill import Clicking
-from clickandfill import Filling
 from selenium.webdriver.common.by import By
 from hover import Action
 from wait import Wait
@@ -13,7 +11,7 @@ from config import *
 # from .campaign.campaign import Campaign
 
 
-class BaseClass(Wait, Clicking, Filling, Action):
+class BaseClass(Wait, Action):
 
     def open_url(self, url, element, **args):
         self.driver.get(url)
@@ -48,18 +46,6 @@ class BaseClass(Wait, Clicking, Filling, Action):
     def elements_count(self, element):
         elements = self.driver.find_elements_by_xpath(element)
         return len(elements)
-
-    def check_fast_access_buttons(self):
-        self.driver.find_elements_by_xpath(fst_btn).click()
-        self.check_screen_position()
-        self.driver.find_elements_by_xpath(scnd_btn).click()
-        self.check_screen_position()
-        self.driver.find_elements_by_xpath(thrd_btn).click()
-        self.check_screen_position()
-        self.driver.find_elements_by_xpath(frth_btn).click()
-        self.check_screen_position()
-        self.driver.find_elements_by_xpath(ffth_btn).click()
-        self.check_screen_position()
 
 
 
