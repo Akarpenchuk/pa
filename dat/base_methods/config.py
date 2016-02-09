@@ -43,6 +43,12 @@ REG_BTN = "//input[@id='register_submit']"
 PROFILE_LINK = "//a[@href='/me/']"
 LOGOUT_LINK = "//a[@href='/user/registration/logout/']"
 FEMALE_CATEGORY_MENU = "//ul[@class='menu_holder']/li/p"
+RECOVERY_EMAIL_LINK = "//a[@id='forgot_password']"
+RECOVERY_FORM = "//div[@id='recovery_form']"
+RECOVERY_EMAIL_INPUT = "//form[@id='recovery_input_form']//input[@name='email']"
+RECOVERY_EMAIL_BTN = "//input[@id='recovery_submit']"
+RECOVERY_EMAIL_INPUT_ERROR = "//form[@id='recovery_input_form']/div/input[@class='error']"
+
 
 
 #CAMPAIGN ELEMENTS

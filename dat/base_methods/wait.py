@@ -9,6 +9,10 @@ from selenium.common.exceptions import TimeoutException
 
 class Wait:
 
+    def __init(self):
+        self.driver = driver
+        self.wait = WebDriverWait(self.driver, 1)
+
     def wait_element_displayed_by_xpath(self, element):
         if self.wait.until(lambda self: self.find_element_by_xpath(element)):
             return True

@@ -7,9 +7,12 @@ from selenium.webdriver.support.wait import WebDriverWait
 from dat.base_methods.base import BaseClass
 from dat.main_page.main_page import MainPage
 from dat.anonym_check.anonym import Anonym
+from dat.base_methods.wait import Wait
 from dat.base_methods.config import *
+from time import sleep
 
-class TestSuite(unittest.TestCase, BaseClass, MainPage, Anonym):
+
+class TestSuite(unittest.TestCase, BaseClass, MainPage, Anonym, Wait):
 
     def setUp(self):
         self.driver = webdriver.Chrome()
@@ -33,19 +36,22 @@ class TestSuite(unittest.TestCase, BaseClass, MainPage, Anonym):
             REG_EMAIL_INPUT_ERROR,
             REG_PASS_INPUT_ERROR))
 
-
         self.assertTrue(self.check_validation_auth(
             AUTH_FORM,
             AUTH_EMAIL_INPUT,
             AUTH_PASS_INPUT,
             AUTH_BTN,
             AUTH_EMAIL_INPUT_ERROR, 
-            AUTH_PASS_INPUT_ERROR))
+            AUTH_PASS_INPUT_ERROR), "auth validation is failed")
 
+        self.assertTrue(self.check_validation_recovery(
+            RECOVERY_EMAIL_LINK,
+            RECOVERY_FORM,
+            RECOVERY_EMAIL_INPUT,
+            RECOVERY_EMAIL_BTN,
+            RECOVERY_EMAIL_INPUT_ERROR), "recovery validation is failed")
 
-        Anonym(driver).anonym_verify_recovery()
-
-        Menu(driver).verify_help_menu()
+        self.verify_help_menu()
         
         Menu(driver).verify_main_menu()
         
