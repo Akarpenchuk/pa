@@ -8,7 +8,9 @@ LOGO = "//a[@class='logo']/img"
 FEMALE_CATEGORY_MENU = "//ul[@class='menu_holder']/li/p"
 
 # menu help
-MENU_HELP = "//a[@class='menu_item menu_holder_item']"
+MENU_HELP = "//a[@class='menu_item menu_holder_item']/span[contains(text(),'Помощь')]"
+MENU_HELP_LIST_ITEM = "//div[@class='user_menu support_menu']//ul[@class='dropdown_column']/li[1]"
+
 
 # menu profile
 PROFILE_LINK = "//a[@href='/me/']"

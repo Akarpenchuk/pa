@@ -4,11 +4,12 @@
 import unittest
 from selenium import webdriver
 from selenium.webdriver.support.wait import WebDriverWait
+from selenium.webdriver.common.action_chains import ActionChains
 from dat.base_methods.base import BaseClass
 from dat.main_page.main_page import MainPage
 from dat.anonym_check.anonym import Anonym
 from dat.base_methods.wait import Wait
-from ..main_page import *
+from dat.main_page.main_page_elements import *
 from dat.base_methods.config import *
 from time import sleep
 
@@ -18,6 +19,7 @@ class TestSuite(unittest.TestCase, BaseClass, MainPage, Anonym, Wait):
     def setUp(self):
         self.driver = webdriver.Chrome()
         self.wait = WebDriverWait(self.driver, 10)
+        self.action = ActionChains(self.driver)
 
     def test_verify_main_page(self):
         self.open_url()

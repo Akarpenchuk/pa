@@ -1,13 +1,21 @@
 # !/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+import sys, os
+sys.path.append('/home/ace/Documents/git/autotests/dat')
+# sys.path.append(os.path.join(os.path.dirname('/home/ace/Documents/git/autotests/dat/base_methods')))
+
+
 from selenium import webdriver
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.common.action_chains import ActionChains
-import main_page_elements
+from base_methods.base import BaseClass
+import main_page_elements as mpe
+import static_page.static_page_elements as stpe
 
 
-class MainPage:
+
+class MainPage(BaseClass):
     
     def __init__(self):
         self.driver = driver
@@ -21,17 +29,30 @@ class MainPage:
                 return False, i
         return True
 
-    def verify_help_menu(self, help_menu, help_menu_list, *args):
+    def verify_help_menu(self):
 
-        menu = self.driver.find_element_by_xpath(help_menu)
+        self.driver.refresh()
+
+        menu = self.driver.find_element_by_xpath(mpe.MENU_HELP)
         self.action.move_to_element(menu)
         self.action.perform()
-        if self.driver.find_element_by_xpath(help_menu_list) == True:
 
-            args_lst = []
-            for i in args:
-                self.driver.find_element_by_xpath("%i") % i.click()
+        if self.driver.find_element_by_xpath(mpe.MENU_HELP_LIST_ITEM):
+            count = self.elements_count(mpe.MENU_HELP_LIST_ITEM)
+            print count
 
+            for i in xrange(count):
+
+                item_name = self.driver.find_element_by_xpath(mpe.MENU_HELP_LIST_ITEM).text
+                self.driver.find_element_by_xpath(mpe.MENU_HELP_LIST_ITEM).click()
+                self.wait_element_displayed_by_xpath(stpe.STATIC_PAGE_HEADER)
+                self.driver.find_element_by_xpath(stpe.STATIC_PAGE_HEADER)
+                self.driver.find_element_by_xpath(stpe.STATIC_PAGE_MENU_NAME + item_name + '\')]')
+
+                self.action.move_to_element(menu)
+                self.action.perform()
+        else:
+            return False
 
     def check_fast_access_buttons(self):
         self.driver.find_elements_by_xpath(fst_btn).click()
