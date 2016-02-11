@@ -3,6 +3,7 @@
 
 from selenium import webdriver
 from selenium.webdriver.support.wait import WebDriverWait
+import main_page.main_page_elements as mpe
 from time import sleep
 
 
@@ -12,157 +13,164 @@ class Anonym:
         self.driver = driver
         self.wait = WebDriverWait(self.driver, 5)
 
-    def check_validation_reg(self, link, form, email_input, pass_input, reg_btn, fst_error, scnd_error):
-        self.driver.find_element_by_xpath(link).click()
-        if self.wait_element_displayed_by_xpath(form) == True:
 
-            # invalid email and password
-            email_field = self.driver.find_element_by_xpath(email_input)
-            email_field.clear()
-            email_field.send_keys("slekslienseoi231@@i.ua")
-            pass_field = self.driver.find_element_by_xpath(pass_input)
-            pass_field.clear()
-            pass_field.send_keys("      ")
+    def check_validation_reg(self):
 
-            self.driver.find_element_by_xpath(reg_btn).click()
+        self.driver.find_element_by_xpath(mpe.REG_LINK).click()
 
-            self.driver.find_element_by_xpath(fst_error)
-            self.driver.find_element_by_xpath(scnd_error)
+        if self.wait_element_displayed_by_xpath(mpe.REG_FORM):
 
-            # empty fields
-            email_field = self.driver.find_element_by_xpath(email_input)
-            email_field.clear()
-            email_field.send_keys("")
-            pass_field = self.driver.find_element_by_xpath(pass_input)
-            pass_field.clear()
-            pass_field.send_keys("")
+            email_field = self.driver.find_element_by_xpath(mpe.REG_EMAIL_INPUT)
+            pass_field = self.driver.find_element_by_xpath(mpe.REG_PASS_INPUT)
+            reg_btn = self.driver.find_element_by_xpath(mpe.REG_BTN)
 
-            self.driver.find_element_by_xpath(reg_btn).click()
+            valid_email = ["mktestuser3@yopmail.com"]
+            invalid_email = ["mktestuser333333@yo pmail.com", "slekslienseoi231@@i.ua", ""]
 
-            self.driver.find_element_by_xpath(fst_error)
-            self.driver.find_element_by_xpath(scnd_error)
+            valid_pass = ["qwe123"]
+            invalid_pass = ["qwe12", "", "      "]
 
-            # empty password field and valid email
-            email_field = self.driver.find_element_by_xpath(email_input)
-            email_field.clear()
-            email_field.send_keys("mktestuser33333@yopmail.com")
-            pass_field = self.driver.find_element_by_xpath(pass_input)
-            pass_field.clear()
-            pass_field.send_keys("")
+            for i in xrange(len(valid_email)):
+                email_field.clear()
+                email_field.send_keys(valid_email[i])
+                pass_field.clear()
+                pass_field.send_keys(valid_pass)
+                reg_btn.click()
 
-            self.driver.find_element_by_xpath(reg_btn).click()
+                self.driver.find_element_by_xpath(mpe.REG_EMAIL_INPUT_ERROR)
 
-            self.driver.find_element_by_xpath(scnd_error)
+            for i in xrange(len(invalid_email)):
+                email_field.clear()
+                email_field.send_keys(invalid_email[i])
+                pass_field.clear()
+                pass_field.send_keys(valid_pass)
+                reg_btn.click()
 
-            # empty email field and valid password
-            email_field = self.driver.find_element_by_xpath(email_input)
-            email_field.clear()
-            email_field.send_keys("")
-            pass_field = self.driver.find_element_by_xpath(pass_input)
-            pass_field.clear()
-            pass_field.send_keys("qwe123")
+                self.driver.find_element_by_xpath(mpe.REG_EMAIL_INPUT_ERROR)
 
-            self.driver.find_element_by_xpath(reg_btn).click()
+            for i in xrange(len(invalid_pass)):
+                email_field.clear()
+                email_field.send_keys(valid_email)
+                pass_field.clear()
+                pass_field.send_keys(invalid_pass[i])
+                reg_btn.click()
 
-            self.driver.find_element_by_xpath(fst_error)
+                self.driver.find_element_by_xpath(mpe.REG_PASS_INPUT_ERROR)
 
             return True
-        else:
+        return False
+
+
+    def check_validation_auth(self):
+
+        if self.wait_element_displayed_by_xpath(mpe.AUTH_FORM):
+
+            email_field = self.driver.find_element_by_xpath(mpe.AUTH_EMAIL_INPUT)
+            pass_field = self.driver.find_element_by_xpath(mpe.AUTH_PASS_INPUT)
+            auth_btn = self.driver.find_element_by_xpath(mpe.AUTH_BTN)
+
+            valid_email = ["absolutelynewtestemail@gmail.com"]
+            invalid_email = ["   @yopmail.com", "!@#$%^&()_+~@i.ua", ""]
+
+            valid_pass = ["qwe123"]
+            invalid_pass = ["qwe12", "", "      "]
+
+            for i in xrange(len(valid_email)):
+                email_field.clear()
+                email_field.send_keys(valid_email)
+                pass_field.clear()
+                pass_field.send_keys(valid_pass)
+                auth_btn.click()
+
+                self.wait_element_displayed_by_xpath(mpe.AUTH_EMAIL_INPUT_ERROR)
+                self.driver.find_element_by_xpath(mpe.AUTH_EMAIL_INPUT_ERROR)
+                self.driver.find_element_by_xpath(mpe.AUTH_PASS_INPUT_ERROR)
+
+            for i in xrange(len(invalid_email)):
+                email_field.clear()
+                email_field.send_keys(invalid_email[i])
+                pass_field.clear()
+                pass_field.send_keys(valid_pass)
+                auth_btn.click()
+
+                self.driver.find_element_by_xpath(mpe.AUTH_EMAIL_INPUT_ERROR)
+
+            for i in xrange(len(invalid_pass)):
+                email_field.clear()
+                email_field.send_keys(valid_email)
+                pass_field.clear()
+                pass_field.send_keys(invalid_pass[i])
+                auth_btn.click()
+
+                self.driver.find_element_by_xpath(mpe.AUTH_PASS_INPUT_ERROR)
+                return True
             return False
 
-    def check_validation_auth(self, form, email_input, pass_input, login_btn, fst_error, scnd_error):
 
-        if self.wait_element_displayed_by_xpath(form) == True:
+    # def check_validation_recovery(self, recov_link, recov_form, email_input, send_btn, error):
+    def check_validation_recovery(self):
 
-            # not registered email and valid password
-            email_field = self.driver.find_element_by_xpath(email_input)
-            email_field.clear()
-            email_field.send_keys("absolutelynewtestemail@gmail.com")
-            pass_field = self.driver.find_element_by_xpath(pass_input)
-            pass_field.clear()
-            pass_field.send_keys("qwe123")
+        self.driver.find_element_by_xpath(mpe.RECOVERY_EMAIL_LINK).click()
+        if self.wait_element_displayed_by_xpath(mpe.RECOVERY_EMAIL_FORM):
 
-            self.driver.find_element_by_xpath(login_btn).click()
+            email_field = self.driver.find_element_by_xpath(mpe.RECOVERY_EMAIL_INPUT)
+            rec_btn = self.driver.find_element_by_xpath(mpe.RECOVERY_EMAIL_BTN)
 
-            self.wait_element_displayed_by_xpath(fst_error)
-            self.driver.find_element_by_xpath(scnd_error)
+            valid_email = ["absolutelynewtestemail@gmail.com"]
+            invalid_email = [" 2 @yopmail.com", "!@#$%^&()_+~@i.ua", ""]
 
-            # invalid registered email and valid password
-            email_field = self.driver.find_element_by_xpath(email_input)
-            email_field.clear()
-            email_field.send_keys("mktestuser 3@gmail.com")
-            pass_field = self.driver.find_element_by_xpath(pass_input)
-            pass_field.clear()
-            pass_field.send_keys("qwe123")
+            for i in xrange(len(valid_email)):
+                sleep(1)
+                email_field.clear()
+                email_field.send_keys(valid_email)
+                rec_btn.click()
 
-            self.driver.find_element_by_xpath(login_btn).click()
+                self.wait_element_displayed_by_xpath(mpe.RECOVERY_EMAIL_INPUT_ERROR)
+                self.driver.find_element_by_xpath(mpe.RECOVERY_EMAIL_INPUT_ERROR)
 
-            self.driver.find_element_by_xpath(fst_error)
+            for i in xrange(len(invalid_email)):
+                email_field.clear()
+                email_field.send_keys(invalid_email[i])
+                rec_btn.click()
 
-            # valid registered email and invalid password
-            email_field = self.driver.find_element_by_xpath(email_input)
-            email_field.clear()
-            email_field.send_keys("mktestuser3@gmail.com")
-            pass_field = self.driver.find_element_by_xpath(pass_input)
-            pass_field.clear()
-            pass_field.send_keys("qwe124")
+                self.driver.find_element_by_xpath(mpe.RECOVERY_EMAIL_INPUT_ERROR)
 
-            self.driver.find_element_by_xpath(login_btn).click()
-
-            self.wait_element_displayed_by_xpath(scnd_error)
-            # self.driver.find_element_by_xpath(scnd_error)
-
-            # valid registered email and invalid password
-            email_field = self.driver.find_element_by_xpath(email_input)
-            email_field.clear()
-            email_field.send_keys("mkt+estuser3@gmail.com")
-            pass_field = self.driver.find_element_by_xpath(pass_input)
-            pass_field.clear()
-            pass_field.send_keys("qwe12")
-
-            self.driver.find_element_by_xpath(login_btn).click()
-
-            self.driver.find_element_by_xpath(fst_error)
-            self.driver.find_element_by_xpath(scnd_error)
-            return True
-        else:
+                return True
             return False
 
-    def check_validation_recovery(self, recov_link, recov_form, email_input, send_btn, error):
 
-        self.driver.find_element_by_xpath(recov_link).click()
-        self.wait_element_displayed_by_xpath(recov_form)
+        # self.driver.find_element_by_xpath(recov_link).click()
+        # self.wait_element_displayed_by_xpath(recov_form)
 
-        if self.wait_element_displayed_by_xpath(recov_form) == True:
+        # if self.wait_element_displayed_by_xpath(recov_form) == True:
 
-            # valid and not registered email
-            email_field = self.driver.find_element_by_xpath(email_input)
-            sleep(1)
-            email_field.clear()
-            email_field.send_keys("absolutelynewtestemail@gmail.com")
+        #     # valid and not registered email
+        #     email_field = self.driver.find_element_by_xpath(email_input)
+        #     sleep(1)
+        #     email_field.clear()
+        #     email_field.send_keys("absolutelynewtestemail@gmail.com")
 
-            self.driver.find_element_by_xpath(send_btn).click()
-            self.driver.find_element_by_xpath(send_btn)
-            self.driver.find_element_by_xpath(error)
+        #     self.driver.find_element_by_xpath(send_btn).click()
+        #     self.driver.find_element_by_xpath(send_btn)
+        #     self.driver.find_element_by_xpath(error)
 
-            # empty email field
-            email_field.clear()
-            email_field.send_keys("")
+        #     # empty email field
+        #     email_field.clear()
+        #     email_field.send_keys("")
 
-            self.driver.find_element_by_xpath(send_btn).click()
-            self.wait_element_displayed_by_xpath(error)
+        #     self.driver.find_element_by_xpath(send_btn).click()
+        #     self.wait_element_displayed_by_xpath(error)
 
-            # invalid email
-            email_field = self.driver.find_element_by_xpath(email_input)
-            email_field.clear()
-            email_field.send_keys("in valid@@email+com")
+        #     # invalid email
+        #     email_field = self.driver.find_element_by_xpath(email_input)
+        #     email_field.clear()
+        #     email_field.send_keys("in valid@@email+com")
 
-            self.driver.find_element_by_xpath(send_btn).click()
+        #     self.driver.find_element_by_xpath(send_btn).click()
 
-            self.wait_element_displayed_by_xpath(error)
-            return True
-        else:
-            return False
+        #     self.wait_element_displayed_by_xpath(error)
+        #     return True
+        # return False
 
     def anonym_buy_product(self):
         pass        

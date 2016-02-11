@@ -21,42 +21,21 @@ class TestSuite(unittest.TestCase, BaseClass, MainPage, Anonym, Wait):
         self.wait = WebDriverWait(self.driver, 10)
         self.action = ActionChains(self.driver)
 
+
     def test_verify_main_page(self):
         self.open_url()
 
-        self.assertTrue(self.check_main_page_elements(
-            LOGO,
-            AUTH_LINK,
-            FEMALE_CATEGORY_MENU,
-            LIST_CAMPAIGN))
+        self.assertTrue(self.check_main_page_elements())
 
-        self.assertTrue(self.check_validation_reg(
-            REG_LINK,
-            REG_FORM,
-            REG_EMAIL_INPUT,
-            REG_PASS_INPUT,
-            REG_BTN,
-            REG_EMAIL_INPUT_ERROR,
-            REG_PASS_INPUT_ERROR))
+        self.assertTrue(self.check_validation_reg())
 
-        self.assertTrue(self.check_validation_auth(
-            AUTH_FORM,
-            AUTH_EMAIL_INPUT,
-            AUTH_PASS_INPUT,
-            AUTH_BTN,
-            AUTH_EMAIL_INPUT_ERROR, 
-            AUTH_PASS_INPUT_ERROR), "auth validation is failed")
+        self.assertTrue(self.check_validation_auth())
 
-        self.assertTrue(self.check_validation_recovery(
-            RECOVERY_EMAIL_LINK,
-            RECOVERY_FORM,
-            RECOVERY_EMAIL_INPUT,
-            RECOVERY_EMAIL_BTN,
-            RECOVERY_EMAIL_INPUT_ERROR), "recovery validation is failed")
+        self.assertTrue(self.check_validation_recovery())
 
-        self.verify_help_menu()
+        self.assertTrue(self.check_help_menu_items())
         
-        Menu(driver).verify_main_menu()
+        self.check_main_menu_items()
         
         Anonym(driver).anonym_buy_modnakarta()
         

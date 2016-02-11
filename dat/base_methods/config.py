@@ -7,6 +7,7 @@ import psycopg2
 
 BASE_URL = "http://modnakasta.ua" # TODO: make a dict 'user_data'
 # BASE_URL = "http://mk:mkstaging@catalogue.modnakasta.ua"
+# BASE_URL = "http://mk:mkstaging@staging.modnakasta.ua"
 EMAIL = "yopmail.com"
 EMAIL_ADDRESS = "@yopmail.com"
 USER = "mktestuser3"

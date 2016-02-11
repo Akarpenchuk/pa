@@ -8,10 +8,10 @@ sys.path.append('/home/ace/Documents/git/autotests/dat')
 
 from selenium import webdriver
 from selenium.webdriver.support.wait import WebDriverWait
-from selenium.webdriver.common.action_chains import ActionChains
 from base_methods.base import BaseClass
 import main_page_elements as mpe
 import static_page.static_page_elements as stpe
+import campaign.campaign_elements as ce
 
 
 
@@ -22,37 +22,36 @@ class MainPage(BaseClass):
         self.wait = WebDriverWait(self.driver, 5)
         self.action = ActionChains(self.driver)
 
-    def check_main_page_elements(self, *args):
-        for i in args:
-            self.wait_element_displayed_by_xpath(i)
-            if self.driver.find_element_by_xpath(i) != True:
-                return False, i
-        return True
 
-    def verify_help_menu(self):
+    def check_main_page_elements(self):
+
+        lst = [mpe.LOGO,
+            mpe.AUTH_LINK,
+            mpe.BANNER_PROMO,
+            mpe.BANNER_TRAILER,
+            mpe.BANNER_APPS,
+            mpe.FEMALE_CATEGORY_MENU,
+            mpe.LIST_CAMPAIGN,
+            mpe.SOON_END_CAMPAIGNS,
+            mpe.COMING_SOON]
+
+        for i in lst:
+            if self.driver.find_element_by_xpath(i):
+                return True
+            return False
+
+
+    def check_help_menu_items(self):
 
         self.driver.refresh()
 
-        menu = self.driver.find_element_by_xpath(mpe.MENU_HELP)
-        self.action.move_to_element(menu)
-        self.action.perform()
-
-        if self.driver.find_element_by_xpath(mpe.MENU_HELP_LIST_ITEM):
-            count = self.elements_count(mpe.MENU_HELP_LIST_ITEM)
-            print count
-
-            for i in xrange(count):
-
-                item_name = self.driver.find_element_by_xpath(mpe.MENU_HELP_LIST_ITEM).text
-                self.driver.find_element_by_xpath(mpe.MENU_HELP_LIST_ITEM).click()
-                self.wait_element_displayed_by_xpath(stpe.STATIC_PAGE_HEADER)
-                self.driver.find_element_by_xpath(stpe.STATIC_PAGE_HEADER)
-                self.driver.find_element_by_xpath(stpe.STATIC_PAGE_MENU_NAME + item_name + '\')]')
-
-                self.action.move_to_element(menu)
-                self.action.perform()
-        else:
+        self.hover(mpe.HELP_DICT.get("MENU_HELP"))
+        for i in mpe.HELP_DICT.values():
+            element = self.driver.find_element_by_xpath(i)
+            if element:
+                return True
             return False
+
 
     def check_fast_access_buttons(self):
         self.driver.find_elements_by_xpath(fst_btn).click()
@@ -65,6 +64,7 @@ class MainPage(BaseClass):
         self.check_screen_position()
         self.driver.find_elements_by_xpath(ffth_btn).click()
         self.check_screen_position()
+
 
     def anonym_verify_reg(self):
         open_register_form = self.driver.find_element_by_xpath(u"//span[contains(text(),'Регистрация')]").click()
@@ -79,6 +79,7 @@ class MainPage(BaseClass):
         
         close_popup = self.driver.find_element_by_xpath("//a[@class='popup_close']").click()
 
+
     def anonym_verify_auth(self):
         open_login_form = self.driver.find_element_by_xpath(u"//span[contains(text(),'Вход')]").click()
         self.wait
@@ -88,6 +89,7 @@ class MainPage(BaseClass):
         login_validation_email = self.driver.find_element_by_xpath("//form[@id='login_form_validate']/div/input[@class='error']").is_displayed()
         login_validation_password = self.driver.find_element_by_xpath("//form[@id='login_form_validate']/div[2]/input[@class='error']").is_displayed()
         self.wait
+
 
     def anonym_verify_recovery(self):
         open_recovery_form = self.driver.find_element_by_xpath(u"//a[contains(text(),'Забыли пароль?')]").click()
@@ -102,6 +104,7 @@ class MainPage(BaseClass):
 
         self.wait.until(lambda self: self.find_element_by_xpath("//a[@class='popup_close']").is_displayed())
         close_popup = self.driver.find_element_by_xpath("//a[@class='popup_close']").click()
+
     
     def anonym_buy_modnakarta(self):
         open_mk_menu_button = self.driver.find_element_by_xpath("//div[@class='container_full main_menu']/ul/li/p/a[@href='/modnakarta/']").click()
@@ -119,7 +122,7 @@ class MainPage(BaseClass):
         close_auth_popup = self.driver.find_element_by_xpath("//a[@class='popup_close']").click()
         self.wait.until(lambda self: self.find_element_by_xpath("//div[@class='row margin-top']/div[@class='column_item column_1']/a").is_displayed())
 
-    
+
 class Registration:
     """all kinds of registration, validation of forms"""
 
