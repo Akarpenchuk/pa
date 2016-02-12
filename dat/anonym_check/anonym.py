@@ -107,7 +107,6 @@ class Anonym:
             return False
 
 
-    # def check_validation_recovery(self, recov_link, recov_form, email_input, send_btn, error):
     def check_validation_recovery(self):
 
         self.driver.find_element_by_xpath(mpe.RECOVERY_EMAIL_LINK).click()
@@ -139,38 +138,6 @@ class Anonym:
             return False
 
 
-        # self.driver.find_element_by_xpath(recov_link).click()
-        # self.wait_element_displayed_by_xpath(recov_form)
-
-        # if self.wait_element_displayed_by_xpath(recov_form) == True:
-
-        #     # valid and not registered email
-        #     email_field = self.driver.find_element_by_xpath(email_input)
-        #     sleep(1)
-        #     email_field.clear()
-        #     email_field.send_keys("absolutelynewtestemail@gmail.com")
-
-        #     self.driver.find_element_by_xpath(send_btn).click()
-        #     self.driver.find_element_by_xpath(send_btn)
-        #     self.driver.find_element_by_xpath(error)
-
-        #     # empty email field
-        #     email_field.clear()
-        #     email_field.send_keys("")
-
-        #     self.driver.find_element_by_xpath(send_btn).click()
-        #     self.wait_element_displayed_by_xpath(error)
-
-        #     # invalid email
-        #     email_field = self.driver.find_element_by_xpath(email_input)
-        #     email_field.clear()
-        #     email_field.send_keys("in valid@@email+com")
-
-        #     self.driver.find_element_by_xpath(send_btn).click()
-
-        #     self.wait_element_displayed_by_xpath(error)
-        #     return True
-        # return False
 
     def anonym_buy_product(self):
         pass        

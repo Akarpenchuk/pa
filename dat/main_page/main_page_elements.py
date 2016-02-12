@@ -5,7 +5,14 @@
 LOGO = "//a[@class='logo']/img"
 
 # menu catories
-FEMALE_CATEGORY_MENU = "//ul[@class='menu_holder']/li/p"
+MENU_CATEGORIES = {
+"CATEGORY_FEMALE": "//ul[@class='menu_holder']/li[1]",
+"CATEGORY_MALE": "//ul[@class='menu_holder']/li[2]",
+"CATEGORY_KIDS": "//ul[@class='menu_holder']/li[3]",
+"CATEGORY_HOME": "//ul[@class='menu_holder']/li[4]",
+"CATEGORY_FOOD&WINE": "//ul[@class='menu_holder']/li[5]",
+"CATEGORY_OUTLET": "//ul[@class='menu_holder']/li[6]"
+}
 
 # menu help
 HELP_DICT = {

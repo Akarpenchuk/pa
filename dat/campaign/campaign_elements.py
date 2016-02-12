@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 #CAMPAIGN ELEMENTS
-
+CAMPAIGN_NAME = "//div[@class='shop_title']/h1"
 SPINNER = "//div[@class='products']/div[@class='spinner']"
 
 #--filters

@@ -3,6 +3,7 @@
 
 import sys, os
 sys.path.append('/home/ace/Documents/git/autotests/dat')
+from time import sleep
 # sys.path.append(os.path.join(os.path.dirname('/home/ace/Documents/git/autotests/dat/base_methods')))
 
 
@@ -30,7 +31,7 @@ class MainPage(BaseClass):
             mpe.BANNER_PROMO,
             mpe.BANNER_TRAILER,
             mpe.BANNER_APPS,
-            mpe.FEMALE_CATEGORY_MENU,
+            mpe.MENU_CATEGORY_FEMAIL,
             mpe.LIST_CAMPAIGN,
             mpe.SOON_END_CAMPAIGNS,
             mpe.COMING_SOON]
@@ -51,6 +52,34 @@ class MainPage(BaseClass):
             if element:
                 return True
             return False
+
+    def check_main_menu_items(self):
+
+        menu_category_btn = sorted(mpe.MENU_CATEGORIES.values())
+
+        for i in menu_category_btn:
+            print menu_category_btn
+            self.hover(i)
+            
+            menu_category_campaign_count = self.driver.find_elements_by_xpath(i + '//a')
+            print len(menu_category_campaign_count)
+            assert len(menu_category_campaign_count) >= 1
+            
+            menu_category_campaign = self.driver.find_element_by_xpath(i + '//div//a')
+            campaign_name = menu_category_campaign.text
+            print campaign_name.encode('utf-8')
+            # # sleep(1)
+            menu_category_campaign.click()
+            self.wait_element_displayed_by_xpath(ce.CAMPAIGN_NAME)
+
+            assert campaign_name == self.driver.find_element_by_xpath(ce.CAMPAIGN_NAME).text
+
+            self.driver.back()
+            self.driver.find_element_by_xpath(mpe.LIST_CAMPAIGN)
+            continue
+            
+            return True
+        return False
 
 
     def check_fast_access_buttons(self):

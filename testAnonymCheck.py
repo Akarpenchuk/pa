@@ -25,29 +25,29 @@ class TestSuite(unittest.TestCase, BaseClass, MainPage, Anonym, Wait):
     def test_verify_main_page(self):
         self.open_url()
 
-        self.assertTrue(self.check_main_page_elements())
+        # self.assertTrue(self.check_main_page_elements())
 
-        self.assertTrue(self.check_validation_reg())
+        # self.assertTrue(self.check_validation_reg())
 
-        self.assertTrue(self.check_validation_auth())
+        # self.assertTrue(self.check_validation_auth())
 
-        self.assertTrue(self.check_validation_recovery())
+        # self.assertTrue(self.check_validation_recovery())
 
-        self.assertTrue(self.check_help_menu_items())
+        # self.assertTrue(self.check_help_menu_items())
         
         self.check_main_menu_items()
         
-        Anonym(driver).anonym_buy_modnakarta()
+        # Anonym(driver).anonym_buy_modnakarta()
         
-        self.elements_count(CURRENT_CAMPAIGNS)
-        self.element_displayed_by_xpath(BANNER_MOB_SHOPPING)
-        self.element_displayed_by_xpath(BANNER_HOW_IT_WORKS)
+        # self.elements_count(CURRENT_CAMPAIGNS)
+        # self.element_displayed_by_xpath(BANNER_MOB_SHOPPING)
+        # self.element_displayed_by_xpath(BANNER_HOW_IT_WORKS)
 
 
-        self.elements_count(SOON_END_CAMPAIGNS)
-        self.elements_count(COMING_SOON)
+        # self.elements_count(SOON_END_CAMPAIGNS)
+        # self.elements_count(COMING_SOON)
 
-        self.verify_fast_access_buttons()
+        # self.verify_fast_access_buttons()
 
 
     # def tearDown(self):
