@@ -1,10 +1,19 @@
 # !/usr/bin/env/ python
 # -*- coding: utf-8 -*-
 
+import sys, os
+sys.path.append('/home/ace/Documents/git/autotests/dat')
+
 from selenium import webdriver
 from selenium.webdriver.support.wait import WebDriverWait
 import main_page.main_page_elements as mpe
-from time import sleep
+import modnakarta_page.modnakarta_page_elements as mkpe
+import base_methods.base as base
+import base_methods.hover as hover
+from base_methods.config import *
+from selenium.common.exceptions import NoSuchElementException
+
+
 
 
 class Anonym:
@@ -109,7 +118,14 @@ class Anonym:
 
     def check_validation_recovery(self):
 
-        self.driver.find_element_by_xpath(mpe.RECOVERY_EMAIL_LINK).click()
+        if self.driver.find_element_by_xpath(mpe.RECOVERY_EMAIL_LINK).is_displayed():
+            self.driver.find_element_by_xpath(mpe.RECOVERY_EMAIL_LINK).click()
+        else:
+            self.open_url(BASE_URL, mpe.AUTH_LINK)
+            self.driver.find_element_by_xpath(mpe.AUTH_LINK).click()
+            self.wait_element_displayed_by_xpath(mpe.AUTH_FORM)
+            self.driver.find_element_by_xpath(mpe.RECOVERY_EMAIL_LINK).click()
+
         if self.wait_element_displayed_by_xpath(mpe.RECOVERY_EMAIL_FORM):
 
             email_field = self.driver.find_element_by_xpath(mpe.RECOVERY_EMAIL_INPUT)
@@ -134,16 +150,39 @@ class Anonym:
 
                 self.driver.find_element_by_xpath(mpe.RECOVERY_EMAIL_INPUT_ERROR)
 
-                return True
-            return False
+            return True
+        return False
 
-
-
-    def anonym_buy_product(self):
-        pass        
 
     def anonym_buy_modnakarta(self):
-        pass
 
-    def anonym_buy_modnakarta(self):
-        pass
+        #buy via modnakarta btn
+        self.driver.find_element_by_xpath(mpe.MODNAKARTA_MENU_BTN).click()
+        self.wait_element_displayed_by_xpath(mkpe.MODNAKARTA_BASKET_ADD)
+        self.driver.find_element_by_xpath(mkpe.MODNAKARTA_BASKET_ADD).click()
+
+        if self.wait_element_displayed_by_xpath(mpe.AUTH_FORM):
+            self.open_url(BASE_URL, LIST_CAMPAIGN)
+        else:
+            raise NoSuchElementException
+
+        #buy via campaign
+        self.driver.find_element_by_xpath(mpe.MODNAKARTA_CAMPAIGN).click()
+        self.wait_element_displayed_by_xpath(mkpe.MODNAKARTA_BASKET_ADD)
+        self.driver.find_element_by_xpath(mkpe.MODNAKARTA_BASKET_ADD).click()
+
+        if self.wait_element_displayed_by_xpath(mpe.AUTH_FORM):
+            self.open_url(BASE_URL, LIST_CAMPAIGN)
+        else:
+            raise NoSuchElementException
+
+        #buy via help menu
+        self.hover(mpe.HELP_DICT.itervalues().next())
+        self.driver.find_element_by_xpath(mpe.MODNAKARTA_MENU_HELP).click()
+        if self.wait_element_displayed_by_xpath(mpe.AUTH_FORM):
+            self.open_url(BASE_URL, LIST_CAMPAIGN)
+        else:
+            raise NoSuchElementException
+
+        #open modnakarta via url
+        self.open_url(mkpe.MODNAKARTA_PRODUCT_URL, LIST_CAMPAIGN)

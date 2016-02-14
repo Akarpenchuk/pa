@@ -31,7 +31,7 @@ class MainPage(BaseClass):
             mpe.BANNER_PROMO,
             mpe.BANNER_TRAILER,
             mpe.BANNER_APPS,
-            mpe.MENU_CATEGORY_FEMAIL,
+            mpe.MENU_CATEGORIES.itervalues().next(),
             mpe.LIST_CAMPAIGN,
             mpe.SOON_END_CAMPAIGNS,
             mpe.COMING_SOON]
@@ -58,28 +58,24 @@ class MainPage(BaseClass):
         menu_category_btn = sorted(mpe.MENU_CATEGORIES.values())
 
         for i in menu_category_btn:
-            print menu_category_btn
             self.hover(i)
             
             menu_category_campaign_count = self.driver.find_elements_by_xpath(i + '//a')
-            print len(menu_category_campaign_count)
             assert len(menu_category_campaign_count) >= 1
             
             menu_category_campaign = self.driver.find_element_by_xpath(i + '//div//a')
             campaign_name = menu_category_campaign.text
-            print campaign_name.encode('utf-8')
             # # sleep(1)
             menu_category_campaign.click()
             self.wait_element_displayed_by_xpath(ce.CAMPAIGN_NAME)
 
             assert campaign_name == self.driver.find_element_by_xpath(ce.CAMPAIGN_NAME).text
+            print campaign_name.encode('utf-8') + 'checked'
 
             self.driver.back()
             self.driver.find_element_by_xpath(mpe.LIST_CAMPAIGN)
             continue
-            
-            return True
-        return False
+        return True
 
 
     def check_fast_access_buttons(self):
@@ -135,7 +131,7 @@ class MainPage(BaseClass):
         close_popup = self.driver.find_element_by_xpath("//a[@class='popup_close']").click()
 
     
-    def anonym_buy_modnakarta(self):
+    def old_anonym_buy_modnakarta(self):
         open_mk_menu_button = self.driver.find_element_by_xpath("//div[@class='container_full main_menu']/ul/li/p/a[@href='/modnakarta/']").click()
         self.wait
         verify_female_button_present = self.driver.find_element_by_xpath("//nav[@class='menu']/div/a[@href='https://modnakasta.ua/f/female/']").is_displayed()

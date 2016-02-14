@@ -35,9 +35,9 @@ class TestSuite(unittest.TestCase, BaseClass, MainPage, Anonym, Wait):
 
         # self.assertTrue(self.check_help_menu_items())
         
-        self.check_main_menu_items()
-        
-        # Anonym(driver).anonym_buy_modnakarta()
+        # self.assertTrue(self.check_main_menu_items())
+
+        self.anonym_buy_modnakarta()
         
         # self.elements_count(CURRENT_CAMPAIGNS)
         # self.element_displayed_by_xpath(BANNER_MOB_SHOPPING)
