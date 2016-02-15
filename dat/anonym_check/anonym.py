@@ -162,7 +162,7 @@ class Anonym:
         self.driver.find_element_by_xpath(mkpe.MODNAKARTA_BASKET_ADD).click()
 
         if self.wait_element_displayed_by_xpath(mpe.AUTH_FORM):
-            self.open_url(BASE_URL, LIST_CAMPAIGN)
+            self.open_base_url()
         else:
             raise NoSuchElementException
 
@@ -172,7 +172,7 @@ class Anonym:
         self.driver.find_element_by_xpath(mkpe.MODNAKARTA_BASKET_ADD).click()
 
         if self.wait_element_displayed_by_xpath(mpe.AUTH_FORM):
-            self.open_url(BASE_URL, LIST_CAMPAIGN)
+            self.open_base_url()
         else:
             raise NoSuchElementException
 
@@ -180,9 +180,10 @@ class Anonym:
         self.hover(mpe.HELP_DICT.itervalues().next())
         self.driver.find_element_by_xpath(mpe.MODNAKARTA_MENU_HELP).click()
         if self.wait_element_displayed_by_xpath(mpe.AUTH_FORM):
-            self.open_url(BASE_URL, LIST_CAMPAIGN)
+            self.open_base_url()
         else:
             raise NoSuchElementException
 
         #open modnakarta via url
         self.open_url(mkpe.MODNAKARTA_PRODUCT_URL, LIST_CAMPAIGN)
+        return True

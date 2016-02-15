@@ -1,11 +1,15 @@
 # !/usr/bin/env/ python
 # -*- coding: utf-8 -*-
 
+import sys, os
+sys.path.append('/home/ace/Documents/git/autotests/dat')
+
 import unittest
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from hover import Action
 from wait import Wait
+import main_page as mpe
 from config import *
 
 # from .campaign.campaign import Campaign
@@ -13,11 +17,17 @@ from config import *
 
 class BaseClass(Wait, Action):
 
-    def open_url(self, *args):
-        args = [BASE_URL, LIST_CAMPAIGN]
+    def open_base_url(self):
 
         self.driver.get(BASE_URL)
-        if self.wait_element_displayed_by_xpath(LIST_CAMPAIGN):
+        # if self.wait_element_displayed_by_xpath(LIST_CAMPAIGN):
+        if self.check_main_page_elements() == True:
+            return True
+        return False
+
+    def open_url(self, url, element):
+        self.driver.get(url)
+        if self.driver.find_elements_by_xpath(element):
             return True
         return False
 

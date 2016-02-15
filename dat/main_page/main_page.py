@@ -3,8 +3,9 @@
 
 import sys, os
 sys.path.append('/home/ace/Documents/git/autotests/dat')
+
 from time import sleep
-# sys.path.append(os.path.join(os.path.dirname('/home/ace/Documents/git/autotests/dat/base_methods')))
+
 
 
 from selenium import webdriver
