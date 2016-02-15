@@ -39,9 +39,8 @@ class TestSuite(unittest.TestCase, BaseClass, MainPage, Anonym, Wait):
 
         self.assertTrue(self.anonym_buy_modnakarta())
         
+        """verify campaign length"""
         # self.elements_count(CURRENT_CAMPAIGNS)
-        # self.element_displayed_by_xpath(BANNER_MOB_SHOPPING)
-        # self.element_displayed_by_xpath(BANNER_HOW_IT_WORKS)
 
 
         # self.elements_count(SOON_END_CAMPAIGNS)
