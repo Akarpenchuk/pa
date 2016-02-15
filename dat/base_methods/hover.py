@@ -5,7 +5,6 @@ from selenium import webdriver
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import TimeoutException
-from isDisplayed import isDisplayed
 from selenium.webdriver.support import expected_conditions as EC
 
 from selenium import webdriver

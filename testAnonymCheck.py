@@ -38,12 +38,13 @@ class TestSuite(unittest.TestCase, BaseClass, MainPage, Anonym, Wait):
         self.assertTrue(self.check_main_menu_items())
 
         self.assertTrue(self.anonym_buy_modnakarta())
+
+        self.assertTrue(self.anonym_buy_product())
         
         # self.elements_count(SOON_END_CAMPAIGNS)
         # self.elements_count(COMING_SOON)
 
         # self.verify_fast_access_buttons()
-
 
     # def tearDown(self):
     #     self.driver.quit()

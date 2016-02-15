@@ -4,25 +4,27 @@
 import sys, os
 sys.path.append('/home/ace/Documents/git/autotests/dat')
 from time import sleep
-
 from selenium import webdriver
 from selenium.webdriver.support.wait import WebDriverWait
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.common.action_chains import ActionChains
+
+from base_methods.base import BaseClass
+from base_methods.hover import Action
+from base_methods.wait import Wait
+from base_methods.config import *
+
 import main_page.main_page_elements as mpe
 import modnakarta_page.modnakarta_page_elements as mkpe
-import base_methods.base as base
-import base_methods.hover as hover
-from base_methods.config import *
+import campaign.campaign_elements as ce
+import product.product_page_elements as ppe
+
 from selenium.common.exceptions import NoSuchElementException
 
 
 
 
-class Anonym:
-
-    def __init__(self):
-        self.driver = driver
-        self.wait = WebDriverWait(self.driver, 5)
-
+class Anonym(Action, Wait, BaseClass):
 
     def check_validation_reg(self):
 
@@ -188,3 +190,41 @@ class Anonym:
         #open modnakarta via url
         self.open_url(mkpe.MODNAKARTA_PRODUCT_URL, LIST_CAMPAIGN)
         return True
+
+    def anonym_buy_product(self):
+
+        self.driver.find_element_by_xpath(mpe.LIST_CAMPAIGN_CURRENT).click()
+
+        #if outlet
+        if self.wait_element_displayed_by_xpath(ce.OUTLET_CATEGORY):
+            self.driver.find_element_by_xpath(ce.OUTLET_CATEGORY).click()
+            self.wait_element_displayed_by_xpath(ce.LIST_PRODUCT)
+
+        #if simple campaign
+        if self.wait_element_displayed_by_xpath(ce.LIST_PRODUCT):
+
+            self.driver.find_element_by_xpath(ce.HIDE_SOLD).click()
+            self.wait_element_displayed_by_xpath(ce.LIST_PRODUCT)
+            self.driver.find_element_by_xpath(ce.LIST_PRODUCT).click()
+            self.wait_element_displayed_by_xpath(ppe.PRODUCT_IMG)
+
+            try:
+                self.driver.find_element_by_xpath(ppe.SIZE_AVAILABLE)
+                self.driver.find_element_by_css_selector(ppe.SIZE_AVAILABLE_CSS).click()
+                self.driver.find_element_by_xpath(ppe.PRODUCT_BASKET_ADD).click()
+                self.wait_element_displayed_by_xpath(mpe.AUTH_FORM)
+                return True
+            except:
+                try:
+                    self.driver.find_element_by_xpath(ppe.SIZE_SELECTED)
+                    self.driver.find_element_by_xpath(ppe.PRODUCT_BASKET_ADD).click()
+                    self.wait_element_displayed_by_xpath(mpe.AUTH_FORM)
+                except:
+                    try:
+                        self.driver.find_element_by_xpath(ppe.PRODUCT_BASKET_ADD).click()
+                        self.wait_element_displayed_by_xpath(mpe.AUTH_FORM)
+                        return True
+                    except:
+                        return False
+
+

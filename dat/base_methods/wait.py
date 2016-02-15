@@ -3,7 +3,6 @@
 
 from selenium import webdriver
 from selenium.webdriver.support.ui import WebDriverWait
-from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import TimeoutException
 
 
@@ -16,19 +15,19 @@ class Wait:
     def wait_element_displayed_by_xpath(self, element):
         if self.wait.until(lambda self: self.find_element_by_xpath(element)):
             return True
-        return False
+        return False, TimeoutException
 
     def wait_element_displayed_by_id(self, element):
         if self.wait.until(lambda self: self.find_element_by_id(element)):
             return True
-        return False
+        return False, TimeoutException
 
     def wait_element_displayed_by_class_name(self, element):
         if self.wait.until(lambda self: self.find_element_by_class_name(element)):
             return True
-        return False
+        return False, TimeoutException
 
     def wait_element_displayed_by_link_text(self, element):
         if self.wait.until(lambda self: self.find_element_by_link_text(element)):
             return True
-        return False
+        return False, TimeoutException

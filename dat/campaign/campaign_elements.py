@@ -4,6 +4,7 @@
 #CAMPAIGN ELEMENTS
 CAMPAIGN_NAME = "//div[@class='shop_title']/h1"
 SPINNER = "//div[@class='products']/div[@class='spinner']"
+OUTLET_CATEGORY = "//div[@class='column_item column_2 column_outlet'][1]/a"
 
 #--filters
 #affiliation
@@ -45,10 +46,17 @@ BRAND_BTN = u"/following-sibling::div[@class='sidebar__filters']/div/label/input
 BRAND_NAME = u"/following-sibling::div[@class='sidebar__filters']/div/label/div"
 
 #product sort
-SORT_TITLE_UP = u"//div[@class='sort__by']/span[contains(text(),'По возрастанию цены')]"
-SORT_TITLE_DOWN = u"//div[@class='sort__by']/span[contains(text(),'По убыванию цены')]"
+SORT_UP_LABEL = u"//div[@class='sort__by']/span[contains(text(),'По возрастанию цены')]"
+SORT_DOWN_LABEL = u"//div[@class='sort__by']/span[contains(text(),'По убыванию цены')]"
 SORT_UP_BTN = "//span[@class='accordion__icon-up']"
 SORT_DOWN_BTN = "//span[@class='accordion__icon-down']"
 #HIDE_SOLD_BTN = u"//div[@class='sidebar__section'][last()]/div[@class='sidebar__filters']/div/label/div[contains(text(),'Скрыть проданные')]/preceding-sibling::input[@class='filters__checkbox']"
-HIDE_SOLD_BTN = u"//div[@class='sidebar__section'][last()]/div[@class='sidebar__filters']/div/label/input"
+# HIDE_SOLD = u"//div[@class='sidebar__section'][last()]/div[@class='sidebar__filters']/div/label/input"
+HIDE_SOLD = "//a[text()='Скрыть проданные']"
 PRODUCT_COUNTER = u"//div[@class='filters-selection__results-right']/span[2]"
+
+#products
+LIST_PRODUCT = "//div[@class='shop_item shop_item_adaptive'][1]/a"
+
+
+
