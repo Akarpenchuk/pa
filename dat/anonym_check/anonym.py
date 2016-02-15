@@ -3,6 +3,7 @@
 
 import sys, os
 sys.path.append('/home/ace/Documents/git/autotests/dat')
+from time import sleep
 
 from selenium import webdriver
 from selenium.webdriver.support.wait import WebDriverWait

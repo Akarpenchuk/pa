@@ -3,21 +3,19 @@
 
 import sys, os
 sys.path.append('/home/ace/Documents/git/autotests/dat')
-
 from time import sleep
 
 
 
 from selenium import webdriver
 from selenium.webdriver.support.wait import WebDriverWait
-from base_methods.base import BaseClass
 import main_page_elements as mpe
 import static_page.static_page_elements as stpe
 import campaign.campaign_elements as ce
 
 
 
-class MainPage(BaseClass):
+class MainPage:
     
     def __init__(self):
         self.driver = driver
@@ -59,18 +57,25 @@ class MainPage(BaseClass):
         menu_category_btn = sorted(mpe.MENU_CATEGORIES.values())
 
         for i in menu_category_btn:
+            self.driver.find_element_by_xpath(i).click()
+            self.wait_element_displayed_by_xpath(mpe.LIST_CAMPAIGN)
+
             self.hover(i)
             
             menu_category_campaign_count = self.driver.find_elements_by_xpath(i + '//a')
             assert len(menu_category_campaign_count) >= 1
-            
+
             menu_category_campaign = self.driver.find_element_by_xpath(i + '//div//a')
             campaign_name = menu_category_campaign.text
-            # # sleep(1)
+
+            print menu_category_campaign
+            print campaign_name.encode('utf-8')
+            
+            # sleep(1)
             menu_category_campaign.click()
             self.wait_element_displayed_by_xpath(ce.CAMPAIGN_NAME)
 
-            assert campaign_name == self.driver.find_element_by_xpath(ce.CAMPAIGN_NAME).text
+            assert campaign_name in self.driver.find_element_by_xpath(ce.CAMPAIGN_NAME).text
             print campaign_name.encode('utf-8') + 'checked'
 
             self.driver.back()
@@ -92,61 +97,6 @@ class MainPage(BaseClass):
         self.check_screen_position()
 
 
-    def anonym_verify_reg(self):
-        open_register_form = self.driver.find_element_by_xpath(u"//span[contains(text(),'Регистрация')]").click()
-        self.wait
-        type_nonregister_email = self.driver.find_element_by_xpath("//form[@id='register_form_validate']//input[@name='email']").send_keys('')
-        type_nonregister_password = self.driver.find_element_by_xpath("//form[@id='register_form_validate']//input[@name='password']").send_keys('')
-        click_register_btn = self.driver.find_element_by_xpath(u"//input[@value='Зарегистрироваться']").click()
-        self.wait
-        register_validation_email = self.driver.find_element_by_xpath("//form[@id='register_form_validate']/div/input[@class='error']").is_displayed()
-        register_validation_password = self.driver.find_element_by_xpath("//form[@id='register_form_validate']/div[2]/input[@class='error']").is_displayed()
-        verify_privat_policy = self.driver.find_element_by_xpath("//form[@id='register_form_validate']//a[contains(@href,'agreement.pdf')]").is_displayed() #TODO: verify contains text of file
-        
-        close_popup = self.driver.find_element_by_xpath("//a[@class='popup_close']").click()
-
-
-    def anonym_verify_auth(self):
-        open_login_form = self.driver.find_element_by_xpath(u"//span[contains(text(),'Вход')]").click()
-        self.wait
-        type_nonregister_email = self.driver.find_element_by_xpath("//form[@id='login_form_validate']//input[@id='username']").send_keys(RAND_EMAIL)
-        type_nonregister_password = self.driver.find_element_by_xpath("//form[@id='login_form_validate']//input[@type='password']").send_keys(PASSWORD)
-        click_login_btn = self.driver.find_element_by_xpath("//input[@id='login_submit']").click()
-        login_validation_email = self.driver.find_element_by_xpath("//form[@id='login_form_validate']/div/input[@class='error']").is_displayed()
-        login_validation_password = self.driver.find_element_by_xpath("//form[@id='login_form_validate']/div[2]/input[@class='error']").is_displayed()
-        self.wait
-
-
-    def anonym_verify_recovery(self):
-        open_recovery_form = self.driver.find_element_by_xpath(u"//a[contains(text(),'Забыли пароль?')]").click()
-        self.wait.until(lambda self: self.find_element_by_xpath("//input[@id='recovery_submit']").is_displayed())
-        send_recovery_email = self.driver.find_element_by_xpath("//input[@id='recovery_submit']").click()
-        verify_recovery_error = self.driver.find_element_by_xpath("//form[@id='recovery_input_form']/div/input[@class='error']").is_displayed()
-
-        verify_fb_displayed = self.driver.find_element_by_xpath("//a[@id='facebook_auth']/img[contains(@src,'https://media.modnakasta.ua/')]").is_displayed()
-        verify_vk_displayed = self.driver.find_element_by_xpath("//a[@id='vkontakte_auth']/img[contains(@src,'https://media.modnakasta.ua/')]").is_displayed()
-        verify_gmail_displayed = self.driver.find_element_by_xpath("//a[@id='gmail_auth']/img[contains(@src,'https://media.modnakasta.ua/')]").is_displayed()
-        verify_mailru_displayed = self.driver.find_element_by_xpath("//a[@id='mailru_auth']/img[contains(@src,'https://media.modnakasta.ua/')]").is_displayed()
-
-        self.wait.until(lambda self: self.find_element_by_xpath("//a[@class='popup_close']").is_displayed())
-        close_popup = self.driver.find_element_by_xpath("//a[@class='popup_close']").click()
-
-    
-    def old_anonym_buy_modnakarta(self):
-        open_mk_menu_button = self.driver.find_element_by_xpath("//div[@class='container_full main_menu']/ul/li/p/a[@href='/modnakarta/']").click()
-        self.wait
-        verify_female_button_present = self.driver.find_element_by_xpath("//nav[@class='menu']/div/a[@href='https://modnakasta.ua/f/female/']").is_displayed()
-        verify_female_button_present = self.driver.find_element_by_xpath("//nav[@class='menu']/div/a[@href='https://modnakasta.ua/f/male/']").is_displayed()
-        verify_female_button_present = self.driver.find_element_by_xpath("//nav[@class='menu']/div/a[@href='https://modnakasta.ua/f/child/']").is_displayed()
-        verify_female_button_present = self.driver.find_element_by_xpath("//nav[@class='menu']/div/a[@href='https://modnakasta.ua/f/home/']").is_displayed()
-        verify_female_button_present = self.driver.find_element_by_xpath("//nav[@class='menu']/div/a[@href='https://modnakasta.ua/f/foodwine/']").is_displayed()
-        verify_female_button_present = self.driver.find_element_by_xpath("//nav[@class='menu']/div/a[@href='https://modnakasta.ua/f/outlet/']").is_displayed()
-        verify_female_button_present = self.driver.find_element_by_xpath("//nav[@class='menu']/div/a[@href='https://modnakasta.ua/modnakarta/']").is_displayed()
-
-        add_modnakarta = self.driver.find_element_by_xpath("//form[contains(@action,'/basket/add/')]/input[@type='submit']").click()
-        self.wait.until(lambda self: self.find_element_by_xpath("//form[@id='login_form_validate']").is_displayed())
-        close_auth_popup = self.driver.find_element_by_xpath("//a[@class='popup_close']").click()
-        self.wait.until(lambda self: self.find_element_by_xpath("//div[@class='row margin-top']/div[@class='column_item column_1']/a").is_displayed())
 
 
 class Registration:

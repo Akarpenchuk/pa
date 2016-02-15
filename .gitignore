@@ -1,0 +1,9 @@
+*.pyc
+*.gz
+*.pyo
+*.swp
+*.swo
+*.esproj
+.idea
+*~
+a-  sdf
