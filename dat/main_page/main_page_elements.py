@@ -79,5 +79,22 @@ LIST_CAMPAIGN_TIMER = ""
 
 
 SOON_END_CAMPAIGNS = "//div[@id='soon_end']/following-sibling::div[@class='row']//a"
-COMING_SOON = "//div[@id='coming_soon']//div[@class='coming_list']/div[@class='coming_item']"
+
+COMING_SOON_ITEM = "//div[@id='coming_soon']//div[@class='coming_list']/div[@class='coming_item']"
+COMING_SOON_COLUMNS = "//div[@id='coming_soon']//div[@class='coming_list']"
+# COMING_SOON_DATES = {
+# 1: "//div[@id='coming_soon']//div[@class='coming_list']/div[1]/span",
+# 2: "//div[@id='coming_soon']//div[@class='coming_list']/following-sibling::div[2]/div[1]/span",
+# 3: "//div[@class='coming_list'][1]/div[1]/span",
+# }
+
+COMING_SOON_DATES = [
+"//div[@id='coming_soon']//div[@class='coming_list']/div[1]/span",
+"//div[@id='coming_soon']//div[@class='coming_list']/following-sibling::div[2]/div[1]/span",
+"//div[@class='coming_list'][1]/div[1]/span"
+]
+
+# COMING_SOON_CURRENT_DATE = "//div[@class='coming_list'][1]/div[1]/span"
+
+
 

@@ -20,8 +20,7 @@ class BaseClass(Wait, Action):
     def open_base_url(self):
 
         self.driver.get(BASE_URL)
-        # if self.wait_element_displayed_by_xpath(LIST_CAMPAIGN):
-        if self.check_main_page_elements() == True:
+        if self.check_main_page_elements():
             return True
         return False
 
