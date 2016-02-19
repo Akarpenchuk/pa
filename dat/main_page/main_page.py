@@ -123,13 +123,10 @@ class MainPage:
 
 
     def check_fast_access_buttons(self):
-        self.driver.find_elements_by_xpath(fst_btn).click()
-        self.check_screen_position()
-        self.driver.find_elements_by_xpath(scnd_btn).click()
-        self.check_screen_position()
-        self.driver.find_elements_by_xpath(thrd_btn).click()
-        self.check_screen_position()
-        self.driver.find_elements_by_xpath(frth_btn).click()
-        self.check_screen_position()
-        self.driver.find_elements_by_xpath(ffth_btn).click()
-        self.check_screen_position()
+
+        fast_btns = self.driver.find_elements_by_xpath(mpe.FAST_ACCESS_BTNS)
+        
+        count = 1
+        for i in fast_btns:
+            self.driver.find_elements_by_xpath(i + '[%d]' % count)
+        

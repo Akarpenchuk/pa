@@ -3,6 +3,7 @@
 
 # HEADER
 LOGO = "//a[@class='logo']/img"
+FAST_ACCESS_BTNS = "//div[@class='right_menu_fixed right_widget']/ul/li"
 
 # menu catories
 MENU_CATEGORIES = {
