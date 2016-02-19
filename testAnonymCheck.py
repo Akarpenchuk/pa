@@ -12,12 +12,16 @@ from dat.base_methods.wait import Wait
 from dat.main_page.main_page_elements import *
 from dat.base_methods.config import *
 from time import sleep
+from selenium.webdriver.chrome.options import Options
+
 
 
 class TestSuite(unittest.TestCase, BaseClass, MainPage, Anonym, Wait):
 
     def setUp(self):
-        self.driver = webdriver.Chrome()
+        chromeOptions = Options()
+        chromeOptions.add_argument("--start-maximized")
+        self.driver = webdriver.Chrome(chrome_options=chromeOptions)
         self.wait = WebDriverWait(self.driver, 10)
         self.action = ActionChains(self.driver)
 
@@ -41,10 +45,10 @@ class TestSuite(unittest.TestCase, BaseClass, MainPage, Anonym, Wait):
 
         self.assertTrue(self.anonym_buy_product())
         
-        self.check_soon_end_campaigns()
+        self.assertTrue(self.check_soon_end_campaigns())
         self.assertTrue(self.check_coming_soon_campaigns())
 
-        # self.verify_fast_access_buttons()
+        # self.assertTrue(self.check_fast_access_buttons())
 
     # def tearDown(self):
     #     self.driver.quit()

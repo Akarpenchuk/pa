@@ -3,6 +3,7 @@
 
 import sys, os
 sys.path.append('/home/ace/Documents/git/autotests/dat')
+from time import sleep
 import time
 
 
@@ -16,12 +17,6 @@ import campaign.campaign_elements as ce
 
 
 class MainPage:
-    
-    def __init__(self):
-        self.driver = driver
-        self.wait = WebDriverWait(self.driver, 5)
-        self.action = ActionChains(self.driver)
-
 
     def check_main_page_elements(self):
 
@@ -68,8 +63,7 @@ class MainPage:
             menu_category_campaign = self.driver.find_element_by_xpath(i + '//div//a')
             campaign_name = menu_category_campaign.text
 
-            print menu_category_campaign
-            print campaign_name.encode('utf-8')
+            print "open ", campaign_name.encode('utf-8')
             
             menu_category_campaign.click()
 
@@ -104,7 +98,8 @@ class MainPage:
         return True
 
     def check_soon_end_campaigns(self):
-
+        
+        self.open_base_url()
         assert self.driver.find_elements_by_xpath(mpe.SOON_END_CAMPAIGNS) >= 3
 
         soon_end_camps = self.driver.find_elements_by_xpath(mpe.SOON_END_CAMPAIGNS)
@@ -113,20 +108,25 @@ class MainPage:
 
         for i in xrange(len(soon_end_camps)):
             print count
-            print campaigns_time
+
             self.hover(mpe.SOON_END_CAMPAIGNS + '[%d]' % count)
-
             time = self.driver.find_element_by_xpath(mpe.SOON_END_CAMPAIGNS + '[%d]' % count + "//div[@class='timer_time']").text
-
-            assert '0' in time
+            # time = time.encode('utf-8')
             count += 1
+            if '0' in time.encode('utf-8'):
+                continue
+        return True
 
 
     def check_fast_access_buttons(self):
 
         fast_btns = self.driver.find_elements_by_xpath(mpe.FAST_ACCESS_BTNS)
         
-        count = 1
-        for i in fast_btns:
-            self.driver.find_elements_by_xpath(i + '[%d]' % count)
-        
+        count = 3
+        for i in xrange(3):
+            self.driver.find_element_by_xpath(mpe.FAST_ACCESS_BTNS + "[%d]/a" % count).click()
+            sleep(1)
+            self.driver.find_element_by_xpath(mpe.COMING_SOON_ITEM)
+            count += 1
+            continue
+        return True

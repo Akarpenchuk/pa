@@ -77,7 +77,7 @@ LIST_CAMPAIGN_NAME = ""
 LIST_CAMPAIGN_BANNER = ""
 LIST_CAMPAIGN_TIMER = ""
 
-
+SOON_END_TITLE = "//div[text()='Скоро заканчиваются']"
 SOON_END_CAMPAIGNS = "//div[@id='soon_end']/following-sibling::div[@class='row']/div"
 SOON_END_CAMPAIGN = "//div[@class='column_item column_2']/a"
 SOON_END_CAMPAIGN_TIME = "//div[@id='soon_end']/following-sibling::div[@class='row']//div[@class='timer_time']"
