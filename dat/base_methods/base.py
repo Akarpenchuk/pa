@@ -31,15 +31,12 @@ class BaseClass(Wait, Action):
         return False
 
     def login(self):
-        self.driver.get(BASE_URL)
-        self.wait_element_displayed_by_xpath(AUTH_LINK)
-        self.click_by_xpath(AUTH_LINK)
+        auth_link = self.driver.find_elements_by_xpath(AUTH_LINK)
+        auth_link.click()
         self.wait_element_displayed_by_xpath(AUTH_FORM)
-        self.click_by_xpath(AUTH_EMAIL_INPUT)
-        self.filling_field_by_xpath(AUTH_EMAIL_INPUT, USER_EMAIL)
-        self.click_by_xpath(REG_EMAIL_INPUT)
-        self.filling_field_by_xpath(REG_EMAIL_INPUT, USER_PASS)
-        self.click_by_xpath(LOGIN_BTN)
+        self.driver.find_elements_by_xpath(AUTH_EMAIL_INPUT).send_keys(USER_EMAIL)
+        self.driver.find_elements_by_xpath(AUTH_EMAIL_INPUT).send_keys(USER_PASS)
+        self.driver.find_elements_by_xpath(AUTH_BTN).click()
         if self.wait_element_displayed_by_xpath(PROFILE_LINK):
             return True
         return False

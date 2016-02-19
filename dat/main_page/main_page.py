@@ -47,6 +47,7 @@ class MainPage:
                 return True
             return False
 
+
     def check_main_menu_items(self):
 
         menu_category_btn = sorted(mpe.MENU_CATEGORIES.values())
