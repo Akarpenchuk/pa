@@ -103,6 +103,24 @@ class MainPage:
                 continue
         return True
 
+    def check_soon_end_campaigns(self):
+
+        assert self.driver.find_elements_by_xpath(mpe.SOON_END_CAMPAIGNS) >= 3
+
+        soon_end_camps = self.driver.find_elements_by_xpath(mpe.SOON_END_CAMPAIGNS)
+        campaigns_time = self.driver.find_elements_by_xpath(mpe.SOON_END_CAMPAIGN_TIME)
+        count = 1
+
+        for i in xrange(len(soon_end_camps)):
+            print count
+            print campaigns_time
+            self.hover(mpe.SOON_END_CAMPAIGNS + '[%d]' % count)
+
+            time = self.driver.find_element_by_xpath(mpe.SOON_END_CAMPAIGNS + '[%d]' % count + "//div[@class='timer_time']").text
+
+            assert '0' in time
+            count += 1
+
 
     def check_fast_access_buttons(self):
         self.driver.find_elements_by_xpath(fst_btn).click()
