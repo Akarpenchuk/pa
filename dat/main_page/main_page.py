@@ -1,3 +1,4 @@
+
 # !/usr/bin/env python
 # -*- coding: utf-8 -*-
 
@@ -21,7 +22,6 @@ class MainPage:
     def check_main_page_elements(self):
 
         lst = [mpe.LOGO,
-            mpe.AUTH_LINK,
             mpe.BANNER_PROMO,
             mpe.BANNER_TRAILER,
             mpe.BANNER_APPS,

@@ -8,8 +8,8 @@ import unittest
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from hover import Action
-from wait import Wait
-import main_page as mpe
+from base_methods.wait import Wait
+import main_page.main_page_elements as mpe
 from config import *
 
 # from .campaign.campaign import Campaign
@@ -31,20 +31,20 @@ class BaseClass(Wait, Action):
         return False
 
     def login(self):
-        auth_link = self.driver.find_elements_by_xpath(AUTH_LINK)
+        auth_link = self.driver.find_element_by_xpath(mpe.AUTH_LINK)
         auth_link.click()
-        self.wait_element_displayed_by_xpath(AUTH_FORM)
-        self.driver.find_elements_by_xpath(AUTH_EMAIL_INPUT).send_keys(USER_EMAIL)
-        self.driver.find_elements_by_xpath(AUTH_EMAIL_INPUT).send_keys(USER_PASS)
-        self.driver.find_elements_by_xpath(AUTH_BTN).click()
-        if self.wait_element_displayed_by_xpath(PROFILE_LINK):
+        self.wait_element_displayed_by_xpath(mpe.AUTH_FORM)
+        self.driver.find_element_by_xpath(mpe.AUTH_EMAIL_INPUT).send_keys(USER_EMAIL)
+        self.driver.find_element_by_xpath(mpe.AUTH_PASS_INPUT).send_keys(USER_PASS)
+        self.driver.find_element_by_xpath(mpe.AUTH_BTN).click()
+        if self.wait_element_displayed_by_xpath(mpe.PROFILE_LINK):
             return True
         return False
 
     def logout(self):
-        self.element_displayed_by_xpath(PROFILE_LINK)
-        self.hover_and_click(PROFILE_LINK, LOGOUT_LINK)
-        if self.wait_element_displayed_by_xpath(AUTH_LINK):
+        self.wait_element_displayed_by_xpath(mpe.PROFILE_LINK)
+        self.hover_and_click(mpe.PROFILE_LINK, mpe.LOGOUT_LINK)
+        if self.wait_element_displayed_by_xpath(mpe.AUTH_LINK):
             return True
         return False
 
