@@ -25,12 +25,14 @@ class BaseClass(Wait, Action):
         return False
 
     def open_url(self, url, element):
+
         self.driver.get(url)
         if self.driver.find_elements_by_xpath(element):
             return True
         return False
 
     def login(self):
+
         auth_link = self.driver.find_element_by_xpath(mpe.AUTH_LINK)
         auth_link.click()
         self.wait_element_displayed_by_xpath(mpe.AUTH_FORM)
@@ -42,6 +44,7 @@ class BaseClass(Wait, Action):
         return False
 
     def logout(self):
+
         self.wait_element_displayed_by_xpath(mpe.PROFILE_LINK)
         self.hover_and_click(mpe.PROFILE_LINK, mpe.LOGOUT_LINK)
         if self.wait_element_displayed_by_xpath(mpe.AUTH_LINK):
@@ -49,9 +52,11 @@ class BaseClass(Wait, Action):
         return False
 
     def refresh(self):
+
         self.driver.refresh()
 
     def elements_count(self, element):
+
         elements = self.driver.find_elements_by_xpath(element)
         return len(elements)
 

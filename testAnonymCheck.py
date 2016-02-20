@@ -1,24 +1,28 @@
 # !/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+from time import sleep
 import unittest
+
 from selenium import webdriver
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.common.action_chains import ActionChains
+from selenium.webdriver.chrome.options import Options
+
 from dat.base_methods.base import BaseClass
 from dat.main_page.main_page import MainPage
 from dat.anonym_check.anonym import Anonym
 from dat.base_methods.wait import Wait
+
 from dat.main_page.main_page_elements import *
 from dat.base_methods.config import *
-from time import sleep
-from selenium.webdriver.chrome.options import Options
 
 
 
 class TestSuite(unittest.TestCase, BaseClass, MainPage, Anonym, Wait):
 
     def setUp(self):
+
         chromeOptions = Options()
         chromeOptions.add_argument("--start-maximized")
         self.driver = webdriver.Chrome(chrome_options=chromeOptions)
@@ -26,7 +30,9 @@ class TestSuite(unittest.TestCase, BaseClass, MainPage, Anonym, Wait):
         self.action = ActionChains(self.driver)
 
 
-    def test_verify_main_page(self):
+    def testAnonymChecking(self):
+        '''check common functional by anonym'''
+
         self.open_base_url()
 
         self.assertTrue(self.check_main_page_elements())
@@ -48,10 +54,11 @@ class TestSuite(unittest.TestCase, BaseClass, MainPage, Anonym, Wait):
         self.assertTrue(self.check_soon_end_campaigns())
         self.assertTrue(self.check_coming_soon_campaigns())
 
-        # self.assertTrue(self.check_fast_access_buttons())
+        self.assertTrue(self.check_fast_access_buttons())
 
-    # def tearDown(self):
-    #     self.driver.quit()
+    def tearDown(self):
+
+        self.driver.quit()
 
 
 if __name__ == "__main__":

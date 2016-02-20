@@ -1,24 +1,22 @@
 # !/usr/bin/env python 
 # -*- coding: utf-8 -*-
 
-from ..config import *
+import sys, os
+sys.path.append('/home/ace/Documents/git/autotests/dat')
+
 from selenium import webdriver
-from data.main_page.main_page import Registration
 from selenium.webdriver.support.wait import WebDriverWait
-from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.keys import Keys
+import mail_elements as me
+from base_methods.config import *
 
 class Mail:
     """verify emails elements"""
+    
+    def check_ragistration_email(self):
 
-    def __init__(self, driver):
-        self.driver = driver
-        self.wait = WebDriverWait(driver, 10)
-        self.action = ActionChains(driver)
-        
-    def preconditions(self, BASE_URL):
-        open_main_page = self.driver.get()
-        self.wait.until(lambda self: self.find_element_by_xpath(LOGO).is_displayed())
+        self.open_url("http://yopmail.com", me.EMAIL_INPUT)       
+    
 
     def verify_registration_email(self):
         self.driver.get(EMAIL)

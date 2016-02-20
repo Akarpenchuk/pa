@@ -54,11 +54,12 @@ AUTH_BTN = "//input[@id='login_submit']"
 # registration
 REG_LINK = "//div[@class='user_menu registration_link']/a"
 REG_FORM = "//form[@id='register_form_validate']"
-REG_EMAIL_INPUT = "//*[@id='register_form_validate']//input[@type='password']"
+REG_EMAIL_INPUT = "//*[@id='register_form_validate']//input[@name='email']"
 REG_EMAIL_INPUT_ERROR = "//input[@name='email']/following-sibling::label[@class='error']"
 REG_PASS_INPUT = "//div[@class='auth_block_right']//input[@type='password']"
 REG_PASS_INPUT_ERROR = "//div[@class='auth_block_right']//div[@class='form-item password']/input[@class='error']"
 REG_BTN = "//input[@id='register_submit']"
+REG_FORM_SEND_LOGO = "//div[@id='register_ok']/div/img"
 
 # recovery
 RECOVERY_EMAIL_LINK = "//a[@id='forgot_password']"

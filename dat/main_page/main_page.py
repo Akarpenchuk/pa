@@ -7,14 +7,13 @@ sys.path.append('/home/ace/Documents/git/autotests/dat')
 from time import sleep
 import time
 
-
-
 from selenium import webdriver
 from selenium.webdriver.support.wait import WebDriverWait
 import main_page_elements as mpe
 import static_page.static_page_elements as stpe
 import campaign.campaign_elements as ce
-
+import base_methods.config as conf
+import mail.mail_elements as me
 
 
 class MainPage:
@@ -131,3 +130,17 @@ class MainPage:
             count += 1
             continue
         return True
+
+    def send_registration_email(self):
+
+        self.driver.find_element_by_xpath(mpe.REG_LINK).click()
+        self.wait_element_displayed_by_xpath(mpe.REG_FORM)
+        self.driver.find_element_by_xpath(mpe.REG_EMAIL_INPUT).send_keys(conf.RAND_EMAIL)
+        self.driver.find_element_by_xpath(mpe.REG_PASS_INPUT).send_keys(conf.USER_PASS)
+        self.driver.find_element_by_xpath(mpe.REG_BTN).click()
+        if self.wait_element_displayed_by_xpath(mpe.REG_FORM_SEND_LOGO):
+            return True
+        return False
+
+
+        
