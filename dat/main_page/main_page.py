@@ -137,8 +137,6 @@ class MainPage:
         self.driver.find_element_by_xpath(mpe.REG_LINK).click()
         self.wait_element_displayed_by_xpath(mpe.REG_FORM)
         self.driver.find_element_by_xpath(mpe.REG_EMAIL_INPUT).send_keys(conf.RAND_EMAIL)
-        print conf.RAND_EMAIL
-
         self.driver.find_element_by_xpath(mpe.REG_PASS_INPUT).send_keys(conf.USER_PASS)
         self.driver.find_element_by_xpath(mpe.REG_BTN).click()
         if self.wait_element_displayed_by_xpath(mpe.REG_FORM_SEND_LOGO):
