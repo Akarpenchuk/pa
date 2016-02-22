@@ -7,105 +7,112 @@ sys.path.append('/home/ace/Documents/git/autotests/dat')
 from selenium import webdriver
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.common.keys import Keys
+
+
+# from main_page.main_page import MainPage as cre
+
 import mail_elements as me
-from base_methods.config import *
+import base_methods.config as conf
 
 class Mail:
-    """verify emails elements"""
+    """check emails"""
     
     def check_ragistration_email(self):
 
-        self.open_url("http://yopmail.com", me.EMAIL_INPUT)       
+        self.open_url("http://yopmail.com", me.EMAIL_INPUT)
+        self.driver.find_element_by_xpath(me.EMAIL_INPUT).send_keys(conf.RAND_EMAIL)
+        self.driver.find_element_by_xpath(me.EMAIL_CHECK_BTN).click()
+        self.wait_element_displayed_by_xpath(me.EMAIL_REG_LETTER_INBOX)
     
 
-    def verify_registration_email(self):
-        self.driver.get(EMAIL)
-        self.wait
-        type_new_email = self.driver.find_element_by_xpath("//input[@id='inboxfield']").send_keys(RAND_NAME)
-        enter_email = self.driver.find_element_by_xpath("//btn[@class='btn btn-success']").click()
-        self.wait.until(lambda self: self.find_element_by_xpath("//h2[@id='InboxNameCtrl']").is_displayed())
+    # def verify_registration_email(self):
+    #     self.driver.get(EMAIL)
+    #     self.wait
+    #     type_new_email = self.driver.find_element_by_xpath("//input[@id='inboxfield']").send_keys(RAND_NAME)
+    #     enter_email = self.driver.find_element_by_xpath("//btn[@class='btn btn-success']").click()
+    #     self.wait.until(lambda self: self.find_element_by_xpath("//h2[@id='InboxNameCtrl']").is_displayed())
 
-        try:
-            verify_register_email = self.driver.find_element_by_xpath(u"//div[contains(@class,'subject ng-binding') and normalize-space(text())='Подтвердите регистрацию на modnaKasta.ua']")
-            verify_register_email.click()
-            self.wait.until(lambda self: self.find_element_by_xpath("//iframe[@name='rendermail']").is_displayed())
-            print 'click on mail'
-        except:
-            self.driver.refresh()
-            verify_register_email
-            print 'verify email is displayed'
+    #     try:
+    #         verify_register_email = self.driver.find_element_by_xpath(u"//div[contains(@class,'subject ng-binding') and normalize-space(text())='Подтвердите регистрацию на modnaKasta.ua']")
+    #         verify_register_email.click()
+    #         self.wait.until(lambda self: self.find_element_by_xpath("//iframe[@name='rendermail']").is_displayed())
+    #         print 'click on mail'
+    #     except:
+    #         self.driver.refresh()
+    #         verify_register_email
+    #         print 'verify email is displayed'
 
-        mail_iframe = self.driver.find_element_by_xpath("//iframe[@name='rendermail']")
-        self.driver.switch_to.frame(mail_iframe)
+    #     mail_iframe = self.driver.find_element_by_xpath("//iframe[@name='rendermail']")
+    #     self.driver.switch_to.frame(mail_iframe)
 
-        click_confirm_link = self.driver.find_element_by_xpath("//a[contains(@href,'https://modnakasta.ua/user/confirm/')]").click()
+    #     click_confirm_link = self.driver.find_element_by_xpath("//a[contains(@href,'https://modnakasta.ua/user/confirm/')]").click()
 
-        handles = self.driver.window_handles
-        self.driver.switch_to.window(handles[-1])
+    #     handles = self.driver.window_handles
+    #     self.driver.switch_to.window(handles[-1])
         
-        self.wait.until(lambda self: self.find_element_by_xpath("//input[@id='first_name']").is_displayed())
+    #     self.wait.until(lambda self: self.find_element_by_xpath("//input[@id='first_name']").is_displayed())
 
-    def verify_registration_bot(self, BOT_NAME):
-        self.driver.get(EMAIL)
-        self.wait
+    # def verify_registration_bot(self, BOT_NAME):
+    #     self.driver.get(EMAIL)
+    #     self.wait
 
-        type_new_email = self.driver.find_element_by_xpath("//input[@id='inboxfield']").send_keys(BOT_NAME)
-        enter_email = self.driver.find_element_by_xpath("//btn[@class='btn btn-success']").click()
-        self.wait.until(lambda self: self.find_element_by_xpath("//h2[@id='InboxNameCtrl']").is_displayed()) 
-        try:
-            while self.driver.find_element_by_xpath(u"//div[contains(@class,'subject ng-binding') and normalize-space(text())='Ваша регистрация в клубе modnaKasta завершена!']"):
-                change_email = self.driver.get(EMAIL)
-                self.wait
-                type_new_email = self.driver.find_element_by_xpath("//input[@id='inboxfield']").send_keys(NEW_BOT_NAME)
-                enter_email = self.driver.find_element_by_xpath("//btn[@class='btn btn-success']").click()
-                self.wait.until(lambda self: self.find_element_by_xpath("//h2[@id='InboxNameCtrl']").is_displayed())
-                NEW_BOT_NAME = BOT_COUNT
-                continue
-        except:
-            verify_register_email = self.driver.find_element_by_xpath(u"//div[contains(@class,'subject ng-binding') and normalize-space(text())='Подтвердите регистрацию на modnaKasta.ua']")
-            verify_register_email.click()
-            self.wait.until(lambda self: self.find_element_by_xpath("//iframe[@name='rendermail']").is_displayed())
+    #     type_new_email = self.driver.find_element_by_xpath("//input[@id='inboxfield']").send_keys(BOT_NAME)
+    #     enter_email = self.driver.find_element_by_xpath("//btn[@class='btn btn-success']").click()
+    #     self.wait.until(lambda self: self.find_element_by_xpath("//h2[@id='InboxNameCtrl']").is_displayed()) 
+    #     try:
+    #         while self.driver.find_element_by_xpath(u"//div[contains(@class,'subject ng-binding') and normalize-space(text())='Ваша регистрация в клубе modnaKasta завершена!']"):
+    #             change_email = self.driver.get(EMAIL)
+    #             self.wait
+    #             type_new_email = self.driver.find_element_by_xpath("//input[@id='inboxfield']").send_keys(NEW_BOT_NAME)
+    #             enter_email = self.driver.find_element_by_xpath("//btn[@class='btn btn-success']").click()
+    #             self.wait.until(lambda self: self.find_element_by_xpath("//h2[@id='InboxNameCtrl']").is_displayed())
+    #             NEW_BOT_NAME = BOT_COUNT
+    #             continue
+    #     except:
+    #         verify_register_email = self.driver.find_element_by_xpath(u"//div[contains(@class,'subject ng-binding') and normalize-space(text())='Подтвердите регистрацию на modnaKasta.ua']")
+    #         verify_register_email.click()
+    #         self.wait.until(lambda self: self.find_element_by_xpath("//iframe[@name='rendermail']").is_displayed())
 
-            mail_iframe = self.driver.find_element_by_xpath("//iframe[@name='rendermail']")
-            self.driver.switch_to.frame(mail_iframe)
+    #         mail_iframe = self.driver.find_element_by_xpath("//iframe[@name='rendermail']")
+    #         self.driver.switch_to.frame(mail_iframe)
 
-            click_confirm_link = self.driver.find_element_by_xpath("//a[contains(@href,'https://modnakasta.ua/user/confirm/')]").click()
+    #         click_confirm_link = self.driver.find_element_by_xpath("//a[contains(@href,'https://modnakasta.ua/user/confirm/')]").click()
 
-            handles = self.driver.window_handles
-            self.driver.switch_to.window(handles[-1])
+    #         handles = self.driver.window_handles
+    #         self.driver.switch_to.window(handles[-1])
             
-            self.wait.until(lambda self: self.find_element_by_xpath("//input[@id='first_name']").is_displayed())
+    #         self.wait.until(lambda self: self.find_element_by_xpath("//input[@id='first_name']").is_displayed())
 
-    def verify_recovery_email(self):
-        self.driver.get(EMAIL)
-        self.wait
-        type_new_email = self.driver.find_element_by_xpath("//input[@id='inboxfield']").send_keys(USER)
-        enter_email = self.driver.find_element_by_xpath("//btn[@class='btn btn-success']").click()
-        self.wait.until(lambda self: self.find_element_by_xpath("//h2[@id='InboxNameCtrl']").is_displayed())
+    # def verify_recovery_email(self):
+    #     self.driver.get(EMAIL)
+    #     self.wait
+    #     type_new_email = self.driver.find_element_by_xpath("//input[@id='inboxfield']").send_keys(USER)
+    #     enter_email = self.driver.find_element_by_xpath("//btn[@class='btn btn-success']").click()
+    #     self.wait.until(lambda self: self.find_element_by_xpath("//h2[@id='InboxNameCtrl']").is_displayed())
 
-        try:
-            verify_recovery_email = self.driver.find_element_by_xpath(u"//div[contains(@class,'subject ng-binding') and normalize-space(text())='Восстановление вашего пароля на modnaKasta']")
-            verify_recovery_email.click()
-            self.wait.until(lambda self: self.find_element_by_xpath("//iframe[@name='rendermail']").is_displayed())
-            print 'click on mail'
+    #     try:
+    #         verify_recovery_email = self.driver.find_element_by_xpath(u"//div[contains(@class,'subject ng-binding') and normalize-space(text())='Восстановление вашего пароля на modnaKasta']")
+    #         verify_recovery_email.click()
+    #         self.wait.until(lambda self: self.find_element_by_xpath("//iframe[@name='rendermail']").is_displayed())
+    #         print 'click on mail'
             
-        except:
-            self.driver.refresh()
-            verify_recovery_email = self.driver.find_element_by_xpath(u"//div[contains(@class,'subject ng-binding') and normalize-space(text())='Восстановление вашего пароля на modnaKasta']")
-            print 'verify email is displayed'
+    #     except:
+    #         self.driver.refresh()
+    #         verify_recovery_email = self.driver.find_element_by_xpath(u"//div[contains(@class,'subject ng-binding') and normalize-space(text())='Восстановление вашего пароля на modnaKasta']")
+    #         print 'verify email is displayed'
 
-        mail_iframe = self.driver.find_element_by_xpath("//iframe[@name='rendermail']")
-        self.driver.switch_to.frame(mail_iframe)
+    #     mail_iframe = self.driver.find_element_by_xpath("//iframe[@name='rendermail']")
+    #     self.driver.switch_to.frame(mail_iframe)
 
-        click_confirm_link = self.driver.find_element_by_xpath("//a[contains(@href,'https://modnakasta.ua/user/password/reset/confirm/')]").click()
+    #     click_confirm_link = self.driver.find_element_by_xpath("//a[contains(@href,'https://modnakasta.ua/user/password/reset/confirm/')]").click()
         
-        handles = self.driver.window_handles
-        self.driver.switch_to.window(handles[-1])
+    #     handles = self.driver.window_handles
+    #     self.driver.switch_to.window(handles[-1])
 
-        self.wait.until(lambda self: self.find_element_by_xpath(u"//input[@placeholder='Новый пароль']").is_displayed())
+    #     self.wait.until(lambda self: self.find_element_by_xpath(u"//input[@placeholder='Новый пароль']").is_displayed())
 
-    def verify_ordered_order_email(self):
-        pass
+    # def verify_ordered_order_email(self):
+    #     pass
 
 
 # class RecoveryMail:
