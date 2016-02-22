@@ -12,8 +12,6 @@ from base_methods.wait import Wait
 import main_page.main_page_elements as mpe
 from config import *
 
-# from .campaign.campaign import Campaign
-
 
 class BaseClass(Wait, Action):
 
@@ -59,6 +57,11 @@ class BaseClass(Wait, Action):
 
         elements = self.driver.find_elements_by_xpath(element)
         return len(elements)
+
+    def switch_to_iframe(self, iframe):
+
+        inbox = self.driver.find_element_by_xpath(iframe)
+        self.driver.switch_to.frame(inbox)
 
 
 

@@ -8,10 +8,10 @@ import psycopg2
 BASE_URL = "http://modnakasta.ua" # TODO: make a dict 'user_data'
 # BASE_URL = "http://mk:mkstaging@catalogue.modnakasta.ua"
 # BASE_URL = "http://mk:mkstaging@staging.modnakasta.ua"
-EMAIL_ADDRESS = "yopmail.com"
-EMAIL_DOMAIN = "@yopmail.com"
+EMAIL_ADDRESS = "mailinator.com"
+EMAIL_DOMAIN = "@mailinator.com"
 USER = "mktestuser3"
-USER_EMAIL = "mktestuser3@yopmail.com"
+USER_EMAIL = "mktest1@mailinator.com"
 USER_PASS = "qwe123"
 PHONE = 380639728933
 RAND_NAME = ''.join(random.choice(string.ascii_lowercase + string.digits) for _ in range(8))

@@ -3,27 +3,34 @@
 
 import sys, os
 sys.path.append('/home/ace/Documents/git/autotests/dat')
+from time import sleep
 
 from selenium import webdriver
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.common.keys import Keys
-
-
-# from main_page.main_page import MainPage as cre
 
 import mail_elements as me
 import base_methods.config as conf
 
 class Mail:
     """check emails"""
-    
-    def check_ragistration_email(self):
 
-        self.open_url("http://yopmail.com", me.EMAIL_INPUT)
-        self.driver.find_element_by_xpath(me.EMAIL_INPUT).send_keys(conf.RAND_EMAIL)
-        self.driver.find_element_by_xpath(me.EMAIL_CHECK_BTN).click()
-        self.wait_element_displayed_by_xpath(me.EMAIL_REG_LETTER_INBOX)
+    def __init__(self):
+        self.driver = driver
+        self.wait = WebDriverWait(self.driver, 15)
     
+    def check_registration_email(self):
+
+        self.open_url("http://mailinator.com/inbox.jsp?to=" + conf.RAND_NAME, me.EMAIL_INPUT)
+
+        # self.open_url("http://mailinator.com", me.EMAIL_INPUT)
+        # self.wait_element_displayed_by_xpath(me.EMAIL_INPUT)
+        # self.driver.find_element_by_xpath(me.EMAIL_INPUT).send_keys(conf.RAND_EMAIL)
+        self.wait_with_check(me.EMAIL_SELECT_LETTER)
+        self.driver.find_element_by_xpath(me.EMAIL_SELECT_LETTER).click()
+
+        # self.wait_element_displayed_by_xpath()
+
 
     # def verify_registration_email(self):
     #     self.driver.get(EMAIL)

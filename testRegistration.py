@@ -20,17 +20,17 @@ class TestSuite(unittest.TestCase, BaseClass, MainPage, Wait, Mail):
 
     def setUp(self):
 
-        # chromeOptions = Options()
-        # chromeOptions.add_argument("--start-maximized")
-        # self.driver = webdriver.Chrome(chrome_options=chromeOptions)
-        self.driver = webdriver.Chrome()
+        chromeOptions = Options()
+        chromeOptions.add_argument("--start-maximized")
+        self.driver = webdriver.Chrome(chrome_options=chromeOptions)
+        # self.driver = webdriver.Chrome()
         self.wait = WebDriverWait(self.driver, 10)
 
     def testRegistrations(self):
 
-        self.open_base_url()
-        self.send_registration_email()
-        self.check_ragistration_email()
+        self.assertTrue(self.open_base_url())
+        self.assertTrue(self.send_registration_email())
+        self.check_registration_email()
         
         # Registration(driver).fill_personal_info_popup()
         # PersonalInfo(driver).verify_user_email()
