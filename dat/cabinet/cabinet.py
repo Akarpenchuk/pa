@@ -1,23 +1,50 @@
 # !/usr/bin/env python 
 # -*- coding: utf-8 -*-
 
-from ..config import *
+
+import sys, os
+sys.path.append('/home/ace/Documents/git/autotests/dat')
+
 from selenium import webdriver
-from data.main_page.main_page import *
 from selenium.webdriver.support.wait import WebDriverWait
+
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.keys import Keys
 
+from dat.cabinet.cabinet_elements import *
+
+
+
 class PersonalInfo:
 
-    def __init__(self, driver):
-        self.driver = driver
-        self.wait = WebDriverWait(driver, 30)
-        self.action = ActionChains(driver)
+    def check_personal_data(self):
+        name = self.driver.find_element_by_xpath(myinfo.NAME).text
+        name.encode("utf-8")
+        assert name in u'тест'
 
-    def preconditions(self):
-        open_main_page = self.driver.get(BASE_URL)
-        #TODO: clear cookies, etc..
+        surname = self.driver.find_element_by_xpath(myinfo.SURNAME).text
+        surname.encode("utf-8")
+        assert surname == u'тест'
+
+        email = self.driver.find_element_by_xpath(myinfo.EMAIL).text
+        assert email == conf.RAND_EMAIL
+
+        gender = self.driver.find_element_by_xpath(myinfo.GENDER).text
+        gender.encode('utf-8')
+        assert gender == u'Женский'
+
+        day = self.driver.find_element_by_xpath(myinfo.PERSONAL_INFO_POPUP_DATE)
+        assert day == myinfo.PERSONAL_INFO_POPUP_DATE_SELECT
+
+        month = self.driver.find_element_by_xpath(myinfo.PERSONAL_INFO_POPUP_MONTH)
+        assert month == myinfo.PERSONAL_INFO_POPUP_MONTH_SELECT
+
+        year = self.driver.find_element_by_xpath(myinfo.PERSONAL_INFO_POPUP_YEAR)
+        assert year == myinfo.PERSONAL_INFO_POPUP_YEAR_SELECT
+
+        phone = self.driver.find_element_by_xpath(myinfo.PERSOAN_INFO_PHONE).text
+        assert phohe == ""
+
 
     def verify_user_email(self):
         open_cabinet = self.driver.find_element_by_xpath("//a[@href='/me/']").click()

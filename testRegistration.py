@@ -11,26 +11,32 @@ from dat.base_methods.base import BaseClass
 from dat.main_page.main_page import MainPage
 from dat.mail.mail import Mail
 from dat.base_methods.wait import Wait
+from dat.cabinet.cabinet import PersonalInfo
 
 from dat.main_page.main_page_elements import *
 from dat.mail.mail_elements import *
 from dat.base_methods.config import *
 
-class TestSuite(unittest.TestCase, BaseClass, MainPage, Wait, Mail):
+class TestSuite(unittest.TestCase, BaseClass, MainPage, Wait, Mail, PersonalInfo):
 
     def setUp(self):
 
         chromeOptions = Options()
         chromeOptions.add_argument("--start-maximized")
         self.driver = webdriver.Chrome(chrome_options=chromeOptions)
-        # self.driver = webdriver.Chrome()
         self.wait = WebDriverWait(self.driver, 10)
 
     def testRegistrations(self):
 
         self.assertTrue(self.open_base_url())
         self.assertTrue(self.send_registration_email())
-        self.check_registration_email()
+        self.assertTrue(self.check_registration_email())
+        self.assertTrue(self.fill_personal_data_popup())
+        
+        # self.login() # TEST
+        self.open_personal_cabinet()
+        self.check_personal_data()
+
         
         # Registration(driver).fill_personal_info_popup()
         # PersonalInfo(driver).verify_user_email()

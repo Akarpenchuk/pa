@@ -34,7 +34,7 @@ class Wait:
 
     def wait_with_check(self, element):
         count = 0
-        while count <= 8:
+        while count <= 10:
             try:
                 self.wait_element_displayed_by_xpath(element)
                 break
@@ -43,3 +43,7 @@ class Wait:
                 self.wait
                 self.driver.refresh()
                 continue
+
+    def switch_to_new_window(self):
+        self.wait.until(lambda self: len(self.window_handles) == 2)
+        self.driver.switch_to.window(1)

@@ -4,7 +4,21 @@
 # HEADER
 LOGO = "//a[@class='logo']/img"
 FAST_ACCESS_BTNS = "//div[@class='right_menu_fixed right_widget']/ul/li"
-REG_PERSONAL_INFO_POPUP = "//span[@class='h2']"
+PERSONAL_INFO_POPUP = "//span[@class='h2']"
+PERSONAL_INFO_POPUP_NAME = "//input[@id='first_name']"
+PERSONAL_INFO_POPUP_SURNAME = "//input[@id='last_name']"
+PERSONAL_INFO_POPUP_DATE = "//div[@id='id_birthday_day_chzn']/a"
+PERSONAL_INFO_POPUP_DATE_SELECT = "//li[@id='id_birthday_day_chzn_o_2']"
+PERSONAL_INFO_POPUP_MONTH = "//div[@id='id_birthday_month_chzn']/a"
+PERSONAL_INFO_POPUP_MONTH_SELECT = "//li[@id='id_birthday_month_chzn_o_2']"
+PERSONAL_INFO_POPUP_YEAR = "//div[@id='id_birthday_year_chzn']/a"
+PERSONAL_INFO_POPUP_YEAR_SELECT = "//li[@id='id_birthday_year_chzn_o_2']"
+PERSONAL_INFO_POPUP_GENDER = "//div[@id='id_gender_chzn']/a"
+PERSONAL_INFO_POPUP_GENDER_SELECT = "//ul/li[contains(text(),'1910')]"
+PERSONAL_INFO_POPUP_SUBMIT = "//input[@id='personal_info_submit']"
+
+PROFILE_ICON = "//span[@id='user_name']"
+PROFILE_MENU = "//div[@class='user_menu profile_menu']//li/a[@href='/me/']"
 
 # menu catories
 MENU_CATEGORIES = {
@@ -36,6 +50,7 @@ HELP_DICT = {
 
 # menu profile
 PROFILE_LINK = "//a[@href='/me/']"
+PROFILE_HEADER_NAME = "//a[@href='/me/']/span"
 LOGOUT_LINK = "//a[@href='/user/registration/logout/']"
 
 #banners
@@ -94,7 +109,7 @@ COMING_SOON_DATES = [
 "//div[@class='coming_list'][1]/div[1]/span"
 ]
 
-# COMING_SOON_CURRENT_DATE = "//div[@class='coming_list'][1]/div[1]/span"
+
 
 
 
