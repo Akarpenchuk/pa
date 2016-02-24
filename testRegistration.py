@@ -15,7 +15,7 @@ from dat.cabinet.cabinet import PersonalInfo
 
 from dat.main_page.main_page_elements import *
 from dat.mail.mail_elements import *
-from dat.base_methods.config import *
+import base_methods.config as conf
 
 class TestSuite(unittest.TestCase, BaseClass, MainPage, Wait, Mail, PersonalInfo):
 
@@ -31,20 +31,15 @@ class TestSuite(unittest.TestCase, BaseClass, MainPage, Wait, Mail, PersonalInfo
         self.assertTrue(self.open_base_url())
         self.assertTrue(self.send_registration_email())
         self.assertTrue(self.check_registration_email())
-        self.assertTrue(self.fill_personal_data_popup())
-        
-        # self.login() # TEST
-        self.open_personal_cabinet()
-        self.check_personal_data()
+        self.assertTrue(self.fill_personal_data_popup())    
+        self.assertTrue(self.open_personal_cabinet())
+        self.assertTrue(self.check_personal_data())
+        self.assertTrue(self.logout())
+        self.assertTrue(self.login(conf.RAND_EMAIL))
 
-        
-        # Registration(driver).fill_personal_info_popup()
-        # PersonalInfo(driver).verify_user_email()
+    def tearDown(self):
 
-
-    # def tearDown(self):
-
-    #     self.driver.quit()
+        self.driver.quit()
 
 
 if __name__ == "__main__":

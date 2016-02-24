@@ -11,7 +11,9 @@ from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.keys import Keys
 
-from dat.cabinet.cabinet_elements import *
+import main_page.main_page_elements as mpe
+import cabinet_elements as myinfo
+import base_methods.config as conf
 
 
 
@@ -24,26 +26,28 @@ class PersonalInfo:
 
         surname = self.driver.find_element_by_xpath(myinfo.SURNAME).text
         surname.encode("utf-8")
-        assert surname == u'тест'
+        assert surname in u'тест'
 
         email = self.driver.find_element_by_xpath(myinfo.EMAIL).text
-        assert email == conf.RAND_EMAIL
+        assert email in conf.RAND_EMAIL
 
         gender = self.driver.find_element_by_xpath(myinfo.GENDER).text
         gender.encode('utf-8')
-        assert gender == u'Женский'
+        assert gender in u'Женский'
 
-        day = self.driver.find_element_by_xpath(myinfo.PERSONAL_INFO_POPUP_DATE)
-        assert day == myinfo.PERSONAL_INFO_POPUP_DATE_SELECT
+        day = self.driver.find_element_by_xpath(mpe.PERSONAL_INFO_POPUP_DATE).text
+        assert day in "3"
 
-        month = self.driver.find_element_by_xpath(myinfo.PERSONAL_INFO_POPUP_MONTH)
-        assert month == myinfo.PERSONAL_INFO_POPUP_MONTH_SELECT
+        month = self.driver.find_element_by_xpath(mpe.PERSONAL_INFO_POPUP_MONTH).text
+        month.encode('utf-8')
+        assert month in u"Март"
 
-        year = self.driver.find_element_by_xpath(myinfo.PERSONAL_INFO_POPUP_YEAR)
-        assert year == myinfo.PERSONAL_INFO_POPUP_YEAR_SELECT
+        year = self.driver.find_element_by_xpath(mpe.PERSONAL_INFO_POPUP_YEAR).text
+        assert year in u"1916"
 
-        phone = self.driver.find_element_by_xpath(myinfo.PERSOAN_INFO_PHONE).text
-        assert phohe == ""
+        phone = self.driver.find_element_by_xpath(myinfo.PERSONAL_INFO_PHONE).text
+        assert phone == ""
+        return True
 
 
     def verify_user_email(self):

@@ -29,12 +29,12 @@ class BaseClass(Wait, Action):
             return True
         return False
 
-    def login(self):
+    def login(self, email):
 
         auth_link = self.driver.find_element_by_xpath(mpe.AUTH_LINK)
         auth_link.click()
         self.wait_element_displayed_by_xpath(mpe.AUTH_FORM)
-        self.driver.find_element_by_xpath(mpe.AUTH_EMAIL_INPUT).send_keys(USER_EMAIL)
+        self.driver.find_element_by_xpath(mpe.AUTH_EMAIL_INPUT).send_keys(email)
         self.driver.find_element_by_xpath(mpe.AUTH_PASS_INPUT).send_keys(USER_PASS)
         self.driver.find_element_by_xpath(mpe.AUTH_BTN).click()
         if self.wait_element_displayed_by_xpath(mpe.PROFILE_LINK):
