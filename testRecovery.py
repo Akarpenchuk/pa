@@ -1,6 +1,9 @@
 # !/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+import sys, os
+sys.path.append('/home/ace/Documents/git/autotests/dat')
+
 import unittest
 from selenium.webdriver.chrome.options import Options
 
@@ -28,6 +31,16 @@ class TestSuite(unittest.TestCase, BaseClass, MainPage, Wait, Mail, PersonalInfo
 
     def testRecovery(self):
 
+        #registration
+        # self.assertTrue(self.open_base_url())
+        # self.assertTrue(self.send_registration_email())
+        # self.assertTrue(self.check_registration_email())
+        # self.assertTrue(self.fill_personal_data_popup())    
+        # self.assertTrue(self.open_personal_cabinet())
+        # self.assertTrue(self.check_personal_data())
+        # self.assertTrue(self.logout())
+
+        #recovery
         self.assertTrue(self.open_base_url())
         self.assertTrue(self.send_recovery_email())
         self.assertTrue(self.check_recovery_email())
@@ -37,9 +50,9 @@ class TestSuite(unittest.TestCase, BaseClass, MainPage, Wait, Mail, PersonalInfo
         # self.assertTrue(self.logout())
         # self.assertTrue(self.login(conf.USER_EMAIL))
 
-    # def tearDown(self):
+    def tearDown(self):
 
-    #     self.driver.quit()
+        self.driver.quit()
 
 
 if __name__ == "__main__":

@@ -20,7 +20,9 @@ PERSONAL_INFO_POPUP_SUBMIT = "//input[@id='personal_info_submit']"
 PROFILE_ICON = "//span[@id='user_name']"
 PROFILE_MENU = "//div[@class='user_menu profile_menu']//li/a[@href='/me/']"
 
-CREATE_NEW_EMAIL = "//"
+NEW_EMAIL_INPUT = "//form[@id='password_reset_valid']//input[@id='id_new_password1']"
+NEW_EMAIL_REPEAT_INPUT = "//form[@id='password_reset_valid']//input[@id='id_new_password2']"
+NEW_EMAIL_SAVE_BTN = "//form[@id='password_reset_valid']//input[@id='submit_password']"
 
 # menu catories
 MENU_CATEGORIES = {

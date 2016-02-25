@@ -27,7 +27,7 @@ class Mail:
 
         self.wait_with_check(me.EMAIL_SELECT_LETTER)
         self.driver.find_element_by_xpath(me.EMAIL_SELECT_LETTER).click()
-        self.wait_element_displayed_by_xpath(me.SELECT_REG_BTN)
+        self.wait_element_displayed_by_xpath(me.SELECT_FRAME)
         self.driver.switch_to.frame(self.driver.find_element_by_xpath(me.SELECT_REG_BTN))      
         self.driver.find_element_by_xpath(me.EMAIL_REG_BTN).click()
 
@@ -38,16 +38,22 @@ class Mail:
         return True
 
     def check_recovery_email(self):
-        self.open_url("http://mailinator.com/inbox.jsp?to=" + conf.USER_NAME, me.EMAIL_INPUT)
+
+        self.open_url("http://mailinator.com/", me.EMAIL_INPUT)
+
+        self.driver.find_element_by_xpath(me.EMAIL_INPUT).send_keys(conf.RAND_EMAIL)
+        print conf.RAND_EMAIL
+        self.driver.find_element_by_xpath(me.EMAIL_INPUT).send_keys(Keys.ENTER)
 
         self.wait_with_check(me.EMAIL_SELECT_LETTER)
         self.driver.find_element_by_xpath(me.EMAIL_SELECT_LETTER).click()
-        self.wait_element_displayed_by_xpath(me.SELECT_RECOVERY_LINK)
-        self.driver.switch_to.frame(self.driver.find_element_by_xpath(me.SELECT_RECOVERY_LINK))      
-        self.driver.find_element_by_xpath(me.EMAIL_REG_BTN).click()
+        self.wait_element_displayed_by_xpath(me.SELECT_FRAME)
+        # self.wait_element_displayed_by_xpath(me.SELECT_RECOVERY_LINK)
+        self.driver.switch_to.frame(self.driver.find_element_by_xpath(me.SELECT_FRAME))
+        self.driver.find_element_by_xpath(me.SELECT_RECOVERY_LINK).click()
 
         sleep(2)
         windows = self.driver.window_handles
         self.driver.switch_to.window(windows[1])
-        self.driver.find_element_by_xpath(mpe.CREATE_NEW_EMAIL)
+        self.driver.find_element_by_xpath(mpe.CREATE_NEW_EMAIL_FORM)
         return True
