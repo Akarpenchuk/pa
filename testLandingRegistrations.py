@@ -1,24 +1,30 @@
 # !/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+
+import sys, os
+sys.path.append('/home/ace/Documents/git/autotests/dat')
+
 import unittest
 from selenium import webdriver
 from selenium.webdriver.support.wait import WebDriverWait
-from data.main_page.main_page import Anonym
-from data.main_page.main_page import Auth
-from data.campaign.campaign import Campaign
-from data.product.product import Product
-from data.basket.basket import Basket
-from data.checkout.checkout import DeliveryStep
-from data.checkout.checkout import PaymentStep
-from data.checkout.checkout import ConfirmStep
-from data.checkout.checkout import CompleteStep
-from data.mail.mail import Mail
-from data.cabinet.cabinet import PersonalInfo
-from data.config import *
+from selenium.webdriver.chrome.options import Options
 
-class Test(unittest.TestCase):
-    """Verify order creation and cancellation path """
+from base_methods.base import BaseClass
+from dat.landing_page.landing import Landing
+
+import dat.base_methods.config as conf
+import dat.landing_page.landing_elements as le
+
+
+class Test(unittest.TestCase, BaseClass, Landing):
+
+    def setUp(self):
+
+        chromeOptions = Options()
+        chromeOptions.add_argument("--start-maximized")
+        self.driver = webdriver.Chrome(chrome_options=chromeOptions)
+        self.wait = WebDriverWait(self.driver, 10)
 
     def test_case(self):
 

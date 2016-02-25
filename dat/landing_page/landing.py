@@ -18,7 +18,7 @@ class Landing:
 	def landing_login(self):
 		self.driver.find_element_by_xpath(le.AUTH_LINK).click()
 		# self.wait_element_displayed_by_xpath(le.AUTH_EMAIL_INPUT)
-		sleep(2)
+		sleep(1)
 		self.driver.find_element_by_xpath(le.AUTH_EMAIL_INPUT).clear()
 		self.driver.find_element_by_xpath(le.AUTH_EMAIL_INPUT).send_keys(conf.USER_EMAIL)
 		self.driver.find_element_by_xpath(le.AUTH_PASS_INPUT).clear()

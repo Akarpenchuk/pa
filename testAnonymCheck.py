@@ -33,7 +33,7 @@ class TestSuite(unittest.TestCase, BaseClass, MainPage, Anonym, Wait):
     def testAnonymChecking(self):
         '''check common functional by anonym'''
 
-        self.open_base_url()
+        self.assertTrue(self.open_base_url())
 
         self.assertTrue(self.check_main_page_elements())
 
