@@ -149,7 +149,6 @@ class MainPage:
     def fill_personal_data_popup(self):
         
         self.driver.find_element_by_xpath(mpe.PERSONAL_INFO_POPUP)
-        # self.driver.find_element_by_xpath(mpe.PERSONAL_INFO_POPUP_NAME).click()
 
         self.driver.find_element_by_xpath(mpe.PERSONAL_INFO_POPUP_NAME).send_keys(u"тест")
         self.driver.find_element_by_xpath(mpe.PERSONAL_INFO_POPUP_SURNAME).send_keys(u"тест")
@@ -191,6 +190,21 @@ class MainPage:
             # menu = self.driver.find_element_by_xpath(mpe.PROFILE_MENU_MY_DATA)
             self.driver.find_element_by_xpath(mpe.PROFILE_MENU).click()
             self.wait_element_displayed_by_xpath(myinfo.NAME)
+            return True
+        return False
+
+    def send_recovery_email(self):
+
+        self.driver.find_element_by_xpath(mpe.REG_LINK).click()
+        self.wait_element_displayed_by_xpath(mpe.REG_FORM)
+        self.driver.find_element_by_xpath(mpe.RECOVERY_EMAIL_LINK).click()
+
+        if self.wait_element_displayed_by_xpath(mpe.RECOVERY_EMAIL_FORM):
+            sleep(1)
+            self.driver.find_element_by_xpath(mpe.RECOVERY_EMAIL_INPUT).send_keys(conf.USER_EMAIL)
+            self.driver.find_element_by_xpath(mpe.RECOVERY_EMAIL_BTN).click()
+
+        if self.wait_element_displayed_by_xpath(mpe.REG_FORM_SEND_LOGO):
             return True
         return False
 

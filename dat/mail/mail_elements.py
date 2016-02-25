@@ -9,4 +9,5 @@ EMAIL_SELECT_LETTER = "//ul[@id='mailcontainer']/li/a"
 
 SELECT_REG_BTN = "//*[@id='mailshowdivbody']/iframe"
 EMAIL_REG_BTN = "html/body/div/div/div/table/tbody/tr[2]/td/table/tbody/tr/td/table/tbody/tr[2]/td/table/tbody/tr/td/table/tbody/tr/td[2]/font/a"
+SELECT_RECOVERY_LINK = "html/body/div/div/div/table/tbody/tr[2]/td/table/tbody/tr[1]/td/table/tbody/tr[2]/td/p[4]/font/font/a/font"
 # EMAIL_REG_BTN = "//a[contains(text(),'https://modnakasta.ua/user/confirm/')]"

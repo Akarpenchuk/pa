@@ -20,6 +20,8 @@ PERSONAL_INFO_POPUP_SUBMIT = "//input[@id='personal_info_submit']"
 PROFILE_ICON = "//span[@id='user_name']"
 PROFILE_MENU = "//div[@class='user_menu profile_menu']//li/a[@href='/me/']"
 
+CREATE_NEW_EMAIL = "//"
+
 # menu catories
 MENU_CATEGORIES = {
 "CATEGORY_FEMALE": "//ul[@class='menu_holder']/li[1]",

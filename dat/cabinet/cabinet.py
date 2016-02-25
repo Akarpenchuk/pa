@@ -69,16 +69,6 @@ class PersonalInfo:
         self.wait.until(lambda self: self.find_element_by_xpath(u"//span[contains(text(),'Регистрация')]").is_displayed())
 
 
-
-# def check_personal_email(self):
-        
-#         self.driver.find_element_by_xpath("//a[@href='/me/']").click()
-#         self.wait
-#         self.driver.find_element_by_xpath("//div[@class='personal_info_left']/div[1]/input[@value='%s']" % self.user_email)
-#         self.driver.find_element_by_xpath("//div[@class='personal_info_left']/div[2]/input[@value='%s']" % self.user_email)
-#         self.driver.find_element_by_xpath("//div[@class='personal_info_right']/div[1]/input[@value='%s']" % self.user_email)
-#         print 'user has been registered'
-
     def verify_order_details(self):
 
         profile = self.driver.find_element_by_xpath("//a[@href='/me/']")
@@ -109,20 +99,3 @@ class PersonalInfo:
         status = self.driver.find_element_by_xpath(u"//div[@class='order_details_block']/div[4]/span[@class='order_details_title__data']").text
         print 'status', status.encode('utf-8')
         assert u'Заказ оформлен' in status
-
-# def verify_product_info(self):
-#   pass
-
-# def cancel_order(self):
-#     cancellation = self.driver.find_element_by_xpath(u"//a[contains(text(),'Отменить')]").click()
-#     self.wait
-#     self.driver.find_element_by_xpath(u"//a[contains(text(),'Да')]").click()
-#     self.wait
-#     self.driver.find_element_by_xpath(u"//p[contains(text(),'Ваш запрос на отмену принят.')]").is_displayed()
-#     self.driver.find_element_by_xpath(u"//select[@id='id_reason']").click()
-#     self.wait
-#     self.driver.find_element_by_xpath("//select[@id='id_reason']/option[3]").click()
-#     self.wait
-#     self.driver.find_element_by_xpath(u"//a[contains(text(),'Вернуться к покупкам')]").click()
-#     self.wait.until(lambda self: self.driver.find_element_by_xpath("//div[@class='row']/div[@class='column_item column_1']/a").is_displayed())
-#     print 'order is cancelled'
