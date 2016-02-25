@@ -13,6 +13,7 @@ from selenium.webdriver.chrome.options import Options
 from base_methods.base import BaseClass
 from dat.landing_page.landing import Landing
 
+import dat.base_methods.config as conf
 import dat.landing_page.landing_elements as le
 
 
@@ -28,7 +29,9 @@ class Test(unittest.TestCase, BaseClass, Landing):
     def testLandingLogin(self):
 
         self.open_url("https://modnakasta.ua/landing/nike", le.AUTH_FORM)
-        self.landing_login()
+        self.assertTrue(self.landing_login())
+        self.assertTrue(self.logout())
+        self.assertTrue(self.login(conf.USER_EMAIL))
 
     def tearDown(self):
         self.driver.quit()
