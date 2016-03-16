@@ -49,7 +49,7 @@ class Anonym(Action, Wait, BaseClass):
                 pass_field.send_keys(valid_pass)
                 reg_btn.click()
 
-                self.driver.find_element_by_xpath(mpe.REG_EMAIL_INPUT_ERROR)
+                self.wait_element_displayed_by_xpath(mpe.REG_EMAIL_INPUT_ERROR)
 
             for i in xrange(len(invalid_email)):
                 email_field.clear()
@@ -58,7 +58,7 @@ class Anonym(Action, Wait, BaseClass):
                 pass_field.send_keys(valid_pass)
                 reg_btn.click()
 
-                self.driver.find_element_by_xpath(mpe.REG_EMAIL_INPUT_ERROR)
+                self.wait_element_displayed_by_xpath(mpe.REG_EMAIL_INPUT_ERROR)
 
             for i in xrange(len(invalid_pass)):
                 email_field.clear()
@@ -67,7 +67,7 @@ class Anonym(Action, Wait, BaseClass):
                 pass_field.send_keys(invalid_pass[i])
                 reg_btn.click()
 
-                self.driver.find_element_by_xpath(mpe.REG_PASS_INPUT_ERROR)
+                self.wait_element_displayed_by_xpath(mpe.REG_EMAIL_INPUT_ERROR)
 
             return True
         return False
@@ -95,8 +95,6 @@ class Anonym(Action, Wait, BaseClass):
                 auth_btn.click()
 
                 self.wait_element_displayed_by_xpath(mpe.AUTH_EMAIL_INPUT_ERROR)
-                self.driver.find_element_by_xpath(mpe.AUTH_EMAIL_INPUT_ERROR)
-                self.driver.find_element_by_xpath(mpe.AUTH_PASS_INPUT_ERROR)
 
             for i in xrange(len(invalid_email)):
                 email_field.clear()
@@ -105,7 +103,7 @@ class Anonym(Action, Wait, BaseClass):
                 pass_field.send_keys(valid_pass)
                 auth_btn.click()
 
-                self.driver.find_element_by_xpath(mpe.AUTH_EMAIL_INPUT_ERROR)
+                self.wait_element_displayed_by_xpath(mpe.AUTH_EMAIL_INPUT_ERROR)
 
             for i in xrange(len(invalid_pass)):
                 email_field.clear()
@@ -114,7 +112,8 @@ class Anonym(Action, Wait, BaseClass):
                 pass_field.send_keys(invalid_pass[i])
                 auth_btn.click()
 
-                self.driver.find_element_by_xpath(mpe.AUTH_PASS_INPUT_ERROR)
+                self.wait_element_displayed_by_xpath(mpe.AUTH_EMAIL_INPUT_ERROR)
+
                 return True
             return False
 
@@ -151,7 +150,7 @@ class Anonym(Action, Wait, BaseClass):
                 email_field.send_keys(invalid_email[i])
                 rec_btn.click()
 
-                self.driver.find_element_by_xpath(mpe.RECOVERY_EMAIL_INPUT_ERROR)
+                self.wait_element_displayed_by_xpath(mpe.RECOVERY_EMAIL_INPUT_ERROR)
 
             return True
         return False

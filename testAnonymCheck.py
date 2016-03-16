@@ -56,9 +56,9 @@ class TestSuite(unittest.TestCase, BaseClass, MainPage, Anonym, Wait):
 
         self.assertTrue(self.check_fast_access_buttons())
 
-    def tearDown(self):
+    # def tearDown(self):
 
-        self.driver.quit()
+    #     self.driver.quit()
 
 
 if __name__ == "__main__":

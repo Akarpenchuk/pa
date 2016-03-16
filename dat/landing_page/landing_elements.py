@@ -6,11 +6,11 @@ AUTH_BTN = "//a[@id='login-button']"
 
 REG_LINK = "//"
 REG_FORM = "//"
-REG_EMAIL_INPUT = "//"
-REG_PASS_INPUT = "//"
-REG_BTN = "//"
-REG_ICO = "//"
+REG_EMAIL_INPUT = "//input[@id='mk-email']"
+REG_BTN = "//a[@class='register-button']"
+REG_SENT = "//label[@class='email']"
 
+CHECK_EMAIL_BTN = "//a[@id='check-mail-button']"
 
 AUTH_FB = "//"
 AUTH_GMAIL = "//"

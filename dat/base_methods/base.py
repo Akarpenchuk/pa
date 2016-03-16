@@ -29,6 +29,13 @@ class BaseClass(Wait, Action):
             return True
         return False
 
+    def open_url_css(self, url, element):
+
+        self.driver.get(url)
+        if self.driver.find_element_by_css_selector(element):
+            return True
+        return False
+
     def login(self, email):
 
         auth_link = self.driver.find_element_by_xpath(mpe.AUTH_LINK)

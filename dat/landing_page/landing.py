@@ -15,15 +15,29 @@ import base_methods.config as conf
 
 class Landing:
 
-	def landing_login(self):
-		self.driver.find_element_by_xpath(le.AUTH_LINK).click()
-		# self.wait_element_displayed_by_xpath(le.AUTH_EMAIL_INPUT)
-		sleep(1)
-		self.driver.find_element_by_xpath(le.AUTH_EMAIL_INPUT).clear()
-		self.driver.find_element_by_xpath(le.AUTH_EMAIL_INPUT).send_keys(conf.USER_EMAIL)
-		self.driver.find_element_by_xpath(le.AUTH_PASS_INPUT).clear()
-		self.driver.find_element_by_xpath(le.AUTH_PASS_INPUT).send_keys(conf.USER_PASS)
-		self.driver.find_element_by_xpath(le.AUTH_BTN).click()
-		if self.wait_element_displayed_by_xpath(mpe.LIST_CAMPAIGN):
-			return True
-		return False
+    def landing_login(self):
+        self.driver.find_element_by_xpath(le.AUTH_LINK).click()
+        # self.wait_element_displayed_by_xpath(le.AUTH_EMAIL_INPUT)
+        sleep(1)
+        self.driver.find_element_by_xpath(le.AUTH_EMAIL_INPUT).clear()
+        self.driver.find_element_by_xpath(le.AUTH_EMAIL_INPUT).send_keys(conf.USER_EMAIL)
+        self.driver.find_element_by_xpath(le.AUTH_PASS_INPUT).clear()
+        self.driver.find_element_by_xpath(le.AUTH_PASS_INPUT).send_keys(conf.USER_PASS)
+        self.driver.find_element_by_xpath(le.AUTH_BTN).click()
+        if self.wait_element_displayed_by_xpath(mpe.LIST_CAMPAIGN):
+            return True
+        return False
+
+    def landing_registration(self):
+        self.driver.find_element_by_xpath(le.REG_EMAIL_INPUT).send_keys(conf.RAND_EMAIL)
+        self.driver.find_element_by_xpath(le.REG_BTN).click()
+        self.wait_element_displayed_by_xpath(le.REG_SENT)
+        email = self.driver.find_element_by_xpath(le.REG_SENT).text
+        assert email in conf.RAND_EMAIL
+        sleep(1)
+        self.driver.find_element_by_xpath(le.CHECK_EMAIL_BTN).click()
+        sleep(1)
+        windows = self.driver.window_handles
+        self.driver.switch_to.window(windows[1])
+        self.driver.find_element_by_xpath(me.EMAIL_INPUT)
+        return True

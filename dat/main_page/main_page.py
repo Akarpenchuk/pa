@@ -43,7 +43,7 @@ class MainPage:
 
         self.driver.refresh()
 
-        self.hover(mpe.HELP_DICT.get("MENU_HELP"))
+        self.driver.find_element_by_xpath(mpe.HELP_DICT.get("MENU_HELP")).click()
         for i in mpe.HELP_DICT.values():
             element = self.driver.find_element_by_xpath(i)
             if element:
@@ -52,10 +52,12 @@ class MainPage:
 
 
     def check_main_menu_items(self):
-
-        menu_category_btn = sorted(mpe.MENU_CATEGORIES.values())
-
-        for i in menu_category_btn:
+        count = 1
+        menu_element = (mpe.MENU_CATEGORY + '[%d]' % count)
+        menu_count = len(mpe.MENU_CATEGORY)
+        # for menu_element in menu_count:
+        # ((mpe.MENU_CATEGORIES.itervalues().next()))
+        for i in menu_count:
             self.driver.find_element_by_xpath(i).click()
             self.wait_element_displayed_by_xpath(mpe.LIST_CAMPAIGN)
 
@@ -85,6 +87,7 @@ class MainPage:
 
             self.driver.back()
             self.driver.find_element_by_xpath(mpe.LIST_CAMPAIGN)
+            count += 1
             continue
         return True
 

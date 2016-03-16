@@ -39,7 +39,7 @@ class Mail:
 
     def check_recovery_email(self):
 
-        self.open_url("http://mailinator.com/", me.EMAIL_INPUT)
+        self.open_url("http://mailinator.com", me.EMAIL_INPUT)
 
         self.driver.find_element_by_xpath(me.EMAIL_INPUT).send_keys(conf.RAND_EMAIL)
         print conf.RAND_EMAIL
