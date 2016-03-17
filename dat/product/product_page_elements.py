@@ -1,7 +1,7 @@
 # !/usr/bin/env/ python
 # -*- coding: utf-8 -*-
 
-PRODUCT_IMG = "//div[@class='product_thumb_item active']//img"
+PRODUCT_IMG = "//div[@class='img-big']//img"
 PRODUCT_BASKET_ADD = "//a[text()='В корзину']"
 SIZE_AVAILABLE = "//div[@class='product_sizes']/div[normalize-space(@class='sizes__button_on')]"    #XPATH
 SIZE_AVAILABLE_CSS = "div[class*='sizes__button_on"                                                                         #CSS

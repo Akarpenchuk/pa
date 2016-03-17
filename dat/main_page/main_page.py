@@ -21,9 +21,7 @@ import base_methods.config as conf
 
 class MainPage:
 
-
     def check_main_page_elements(self):
-
         lst = [mpe.LOGO,
             mpe.BANNER_PROMO,
             mpe.BANNER_TRAILER,
@@ -40,54 +38,55 @@ class MainPage:
 
 
     def check_help_menu_items(self):
-
         self.driver.refresh()
 
         self.driver.find_element_by_xpath(mpe.HELP_DICT.get("MENU_HELP")).click()
         for i in mpe.HELP_DICT.values():
-            if i:
-                return True
+            return True
+        return False
+        
+        self.driver.find_element_by_xpath(mpe.PHONE).click()
+
+        if self.driver.find_element_by_xpath(mpe.HELP_DICT.values()[1]):
             return False
+        return True
 
 
     def check_main_menu_items(self):
-        for i in mpe.MENU_CATEGORIES.values():
+        for i in sorted(mpe.MENU_CATEGORIES.itervalues()):
+
             self.hover(i)
-            self.driver.find_elements_by_xpath(mpe.MENU_DROPDOWN)
+            self.wait_element_displayed_by_xpath(mpe.MENU_CAMPAIGN)
+            menu_campaign_count = self.driver.find_elements_by_xpath(mpe.MENU_CAMPAIGN)
+            assert len(menu_campaign_count) >= 1, len(menu_campaign_count)
+
             self.driver.find_element_by_xpath(i).click()
             self.wait_element_displayed_by_xpath(mpe.LIST_CAMPAIGN)
 
-            self.hover(i)
-            dropdown_campaign_count = self.driver.find_elements_by_xpath(mpe.MENU_DROPDOWN)
-
-            assert len(dropdown_campaign_count) >= 1
-
             campaign_name = self.driver.find_element_by_xpath(i).text
-
-            print "open ", campaign_name.encode('utf-8')
+            print "campaign is ", campaign_name.encode('utf-8')
             
-            menu_category_campaign.click()
+            self.driver.find_element_by_xpath(mpe.MENU_CAMPAIGN).click()
 
             #if outlet
             try:
                 self.wait_element_displayed_by_xpath(ce.OUTLET_CATEGORY)
                 self.driver.find_element_by_xpath(ce.OUTLET_CATEGORY).click()
                 self.wait_element_displayed_by_xpath(ce.LIST_PRODUCT)
-
+                self.driver.back()
+                self.driver.back()
+                self.driver.find_element_by_xpath(mpe.LIST_CAMPAIGN)
             #if simple campaign
             except:
-                self.driver.find_element_by_xpath(ce.LIST_PRODUCT)
-
+                self.wait_element_displayed_by_xpath(ce.LIST_PRODUCT)
+                self.driver.back()
+                self.check_main_page_elements()
             # assert str(campaign_name) in self.driver.find_element_by_xpath(ce.CAMPAIGN_NAME).text # BUG https://jira.modnakasta.ua/browse/MK-1456
-
-            self.driver.back()
-            self.driver.find_element_by_xpath(mpe.LIST_CAMPAIGN)
-            count += 1
             continue
         return True
 
-    def check_coming_soon_campaigns(self):
 
+    def check_coming_soon_campaigns(self):
         assert self.elements_count(mpe.COMING_SOON_COLUMNS) == 3
 
         date = time.strftime("%d")
@@ -99,8 +98,8 @@ class MainPage:
                 continue
         return True
 
+
     def check_soon_end_campaigns(self):
-        
         self.open_base_url()
         assert self.driver.find_elements_by_xpath(mpe.SOON_END_CAMPAIGNS) >= 3
 
@@ -121,7 +120,6 @@ class MainPage:
 
 
     def check_fast_access_buttons(self):
-
         fast_btns = self.driver.find_elements_by_xpath(mpe.FAST_ACCESS_BTNS)
         
         count = 3
@@ -133,8 +131,8 @@ class MainPage:
             continue
         return True
 
-    def send_registration_email(self):
 
+    def send_registration_email(self):
         self.driver.find_element_by_xpath(mpe.REG_LINK).click()
         self.wait_element_displayed_by_xpath(mpe.REG_FORM)
         self.driver.find_element_by_xpath(mpe.REG_EMAIL_INPUT).send_keys(conf.RAND_EMAIL)
@@ -144,8 +142,8 @@ class MainPage:
             return True
         return False
 
+
     def fill_personal_data_popup(self):
-        
         self.driver.find_element_by_xpath(mpe.PERSONAL_INFO_POPUP)
 
         self.driver.find_element_by_xpath(mpe.PERSONAL_INFO_POPUP_NAME).send_keys(u"тест")
@@ -179,8 +177,7 @@ class MainPage:
         return True
 
 
-    def open_personal_cabinet(self):
-        
+    def open_personal_cabinet(self):      
         login = self.driver.find_element_by_xpath(mpe.PROFILE_LINK)
         if login:
             self.hover(mpe.PROFILE_ICON)
@@ -191,8 +188,8 @@ class MainPage:
             return True
         return False
 
-    def send_recovery_email(self):
 
+    def send_recovery_email(self):
         self.driver.find_element_by_xpath(mpe.REG_LINK).click()
         self.wait_element_displayed_by_xpath(mpe.REG_FORM)
         self.driver.find_element_by_xpath(mpe.RECOVERY_EMAIL_LINK).click()

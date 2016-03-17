@@ -2,8 +2,9 @@
 # -*- coding: utf-8 -*-
 
 # HEADER
+BANNER_CONTAINER_BLOCK = "//div[@class='banners-container']"
 LOGO = "//a[@class='header-top_logo']"
-FAST_ACCESS_BTNS = "//div[@class='right_menu_fixed right_widget']/ul/li"
+PHONE = "//div[@class='header-top_telephone header-top_anon-tel']"
 PERSONAL_INFO_POPUP = "//span[@class='h2']"
 PERSONAL_INFO_POPUP_NAME = "//input[@id='first_name']"
 PERSONAL_INFO_POPUP_SURNAME = "//input[@id='last_name']"
@@ -26,24 +27,24 @@ NEW_EMAIL_SAVE_BTN = "//form[@id='password_reset_valid']//input[@id='submit_pass
 
 # menu catories
 MENU_CATEGORIES = {
-"CATEGORY_FEMALE": "//ul[@class='menu_holder']/li[1]",
-"CATEGORY_MALE": "//ul[@class='menu_holder']/li[2]",
-"CATEGORY_KIDS": "//ul[@class='menu_holder']/li[3]",
-"CATEGORY_HOME": "//ul[@class='menu_holder']/li[4]",
-"CATEGORY_OUTLET": "//ul[@class='menu_holder']/li[5]"
+"CATEGORY_FEMALE": "//ul[@class='nav_content']/li[1]/a",
+"CATEGORY_MALE": "//ul[@class='nav_content']/li[2]/a",
+"CATEGORY_KIDS": "//ul[@class='nav_content']/li[3]/a",
+"CATEGORY_HOME": "//ul[@class='nav_content']/li[4]/a",
+"CATEGORY_OUTLET": "//ul[@class='nav_content']/li[5]/a"
 # "CATEGORY_FOOD&WINE": "//ul[@class='menu_holder']/li[5]",
 }
 
-MENU_DROPDOWN = "//a[@class='drop-content_item']"
+MENU_CAMPAIGN = "//a[@class='drop-content_item']"
 
 #modnakarta
-MODNAKARTA_MENU_BTN = "//li[@class='menu_holder_item'][last()]//a"
-MODNAKARTA_MENU_HELP = "//div[@class='user_menu support_menu']//a[@href='/me/prime/']"
+MODNAKARTA_HEADER_LINK = "//div[@class='header-top_anon-right']//a[@href='/modnakarta/']"
+MODNAKARTA_MENU_HELP = "//li[@class='header-top_item']//a[@href='/a/about/ModnaKarta/']"
 MODNAKARTA_CAMPAIGN = "//a[@href='/campaign/modnakarta/']"
 
 # menu help
 HELP_DICT = {
-"MENU_HELP": "//div[@class='header-top_help']",
+"MENU_HELP": "//div[contains(text(),'Помощь')]",
 "MENU_HELP_PAYMENT": "//div[@class='header-top_help']//a[contains(text(),'Оплата')]",
 "MENU_HELP_DELIVERY": "//div[@class='header-top_help']//a[contains(text(),'Доставка')]",
 "MENU_HELP_REFOUND": "//div[@class='header-top_help']//a[contains(text(),'Возврат')]",
@@ -92,7 +93,7 @@ RECOVERY_EMAIL_BTN = "//form[@class='popup__left-form']//input[@value='Отпр�
 RECOVERY_EMAIL_INPUT_ERROR = "//form[@class='popup__left-form']//div[@class='error']"
 
 # campaigns
-LIST_CAMPAIGN_CURRENT = "//*[@id='current']//div/a"
+LIST_CAMPAIGN_CURRENT = "//*[@class='big-small big-small--normal']/a"
 LIST_CAMPAIGN = "//a[contains(@href,'/campaign/')]"
 
 LIST_CAMPAIGN_LINK = "//div[@class='column_item column_1']/a/@href"
@@ -101,12 +102,15 @@ LIST_CAMPAIGN_NAME = ""
 LIST_CAMPAIGN_BANNER = ""
 LIST_CAMPAIGN_TIMER = ""
 
+
+LAST_MINUTES_BTN = "//a[@href='#last-minutes']"
 SOON_END_TITLE = "//div[text()='Скоро заканчиваются']"
 SOON_END_CAMPAIGNS = "//div[@id='soon_end']/following-sibling::div[@class='row']/div"
 SOON_END_CAMPAIGN = "//div[@class='column_item column_2']/a"
 SOON_END_CAMPAIGN_TIME = "//div[@id='soon_end']/following-sibling::div[@class='row']//div[@class='timer_time']"
 
 
+SOON_BTN = "//a[@href='#soon']"
 COMING_SOON_ITEM = "//div[@id='coming_soon']//div[@class='coming_list']/div[@class='coming_item']"
 COMING_SOON_COLUMNS = "//div[@id='coming_soon']//div[@class='coming_list']"
 
@@ -116,6 +120,7 @@ COMING_SOON_DATES = [
 "//div[@class='coming_list'][1]/div[1]/span"
 ]
 
+UP_BTN = "//a[@href='#up']"
 
 
 

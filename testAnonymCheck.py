@@ -35,19 +35,17 @@ class TestSuite(unittest.TestCase, BaseClass, MainPage, Anonym, Wait):
 
         self.assertTrue(self.open_base_url())
 
-        self.assertTrue(self.check_main_page_elements())
+        # self.assertTrue(self.check_main_page_elements())
 
-        self.assertTrue(self.check_validation_reg())
+        # self.assertTrue(self.check_validation_reg()
+        # self.assertTrue(self.check_validation_auth())
 
-        self.assertTrue(self.check_validation_auth())
+        # self.assertTrue(self.check_validation_recovery())
 
-        self.assertTrue(self.check_validation_recovery())
+        # self.assertTrue(self.check_help_menu_items())
+        # self.assertTrue(self.check_main_menu_items())
 
-        self.assertTrue(self.check_help_menu_items())
-        
-        self.assertTrue(self.check_main_menu_items())
-
-        self.assertTrue(self.anonym_buy_modnakarta())
+        # self.assertTrue(self.anonym_buy_modnakarta()) TODO!
 
         self.assertTrue(self.anonym_buy_product())
         
