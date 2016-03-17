@@ -25,7 +25,6 @@ NEW_EMAIL_REPEAT_INPUT = "//form[@id='password_reset_valid']//input[@id='id_new_
 NEW_EMAIL_SAVE_BTN = "//form[@id='password_reset_valid']//input[@id='submit_password']"
 
 # menu catories
-MENU_CATEGORY = "//ul[@class='nav_content']/li"
 MENU_CATEGORIES = {
 "CATEGORY_FEMALE": "//ul[@class='menu_holder']/li[1]",
 "CATEGORY_MALE": "//ul[@class='menu_holder']/li[2]",
@@ -34,6 +33,8 @@ MENU_CATEGORIES = {
 "CATEGORY_OUTLET": "//ul[@class='menu_holder']/li[5]"
 # "CATEGORY_FOOD&WINE": "//ul[@class='menu_holder']/li[5]",
 }
+
+MENU_DROPDOWN = "//a[@class='drop-content_item']"
 
 #modnakarta
 MODNAKARTA_MENU_BTN = "//li[@class='menu_holder_item'][last()]//a"

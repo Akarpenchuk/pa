@@ -45,29 +45,24 @@ class MainPage:
 
         self.driver.find_element_by_xpath(mpe.HELP_DICT.get("MENU_HELP")).click()
         for i in mpe.HELP_DICT.values():
-            element = self.driver.find_element_by_xpath(i)
-            if element:
+            if i:
                 return True
             return False
 
 
     def check_main_menu_items(self):
-        count = 1
-        menu_element = (mpe.MENU_CATEGORY + '[%d]' % count)
-        menu_count = len(mpe.MENU_CATEGORY)
-        # for menu_element in menu_count:
-        # ((mpe.MENU_CATEGORIES.itervalues().next()))
-        for i in menu_count:
+        for i in mpe.MENU_CATEGORIES.values():
+            self.hover(i)
+            self.driver.find_elements_by_xpath(mpe.MENU_DROPDOWN)
             self.driver.find_element_by_xpath(i).click()
             self.wait_element_displayed_by_xpath(mpe.LIST_CAMPAIGN)
 
             self.hover(i)
-            
-            menu_category_campaign_count = self.driver.find_elements_by_xpath(i + '//a')
-            assert len(menu_category_campaign_count) >= 1
+            dropdown_campaign_count = self.driver.find_elements_by_xpath(mpe.MENU_DROPDOWN)
 
-            menu_category_campaign = self.driver.find_element_by_xpath(i + '//div//a')
-            campaign_name = menu_category_campaign.text
+            assert len(dropdown_campaign_count) >= 1
+
+            campaign_name = self.driver.find_element_by_xpath(i).text
 
             print "open ", campaign_name.encode('utf-8')
             
