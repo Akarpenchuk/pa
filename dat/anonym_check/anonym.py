@@ -155,17 +155,14 @@ class Anonym(Action, Wait, BaseClass):
 
     def anonym_buy_modnakarta(self):
         #buy via modnakarta btn
+        self.wait_element_displayed_by_xpath(mpe.MODNAKARTA_HEADER_LINK)
         self.driver.find_element_by_xpath(mpe.MODNAKARTA_HEADER_LINK).click()
 
-        # windows = self.driver.window_handles
-        # self.driver.switch_to.window(windows[0])
+        self.driver.close()
+        windows = self.driver.window_handles
+        self.driver.switch_to.window(windows[0])
 
-        # for handle in self.driver.window_handles:
-        #     self.driver.switch_to.window(handle)
-
-        # window = self.driver.current_window_handle
-        # self.driver.switch_to.window(window)
-        self.wait_element_displayed_by_xpath(mkpe.MODNAKARTA_PAGE_HEADER)
+        self.driver.find_element_by_xpath(mkpe.MODNAKARTA_BASKET_ADD).click()
 
         if self.wait_element_displayed_by_xpath(mpe.AUTH_FORM):
             self.open_base_url()
@@ -184,9 +181,12 @@ class Anonym(Action, Wait, BaseClass):
 
         #buy via help menu
         self.driver.find_element_by_xpath(mpe.HELP_DICT.itervalues().next()).click()
+        self.wait_element_displayed_by_xpath(mpe.MODNAKARTA_MENU_HELP)
         self.driver.find_element_by_xpath(mpe.MODNAKARTA_MENU_HELP).click()
+
         if self.wait_element_displayed_by_xpath(mkpe.ABOUT_MODNAKARTA):
             self.open_base_url()
+            return True
         else:
             raise NoSuchElementException
 
