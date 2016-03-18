@@ -90,11 +90,13 @@ class MainPage:
         assert self.elements_count(mpe.COMING_SOON_COLUMNS) == 3, len(mpe.COMING_SOON_COLUMNS)
 
         date = time.strftime("%d")
+        print date
 
         for i in mpe.COMING_SOON_DATES:
+            print i
             if date in self.driver.find_element_by_xpath(i).text:
                 date = int(date) + 1
-                date = str(date)          
+                date = str(date)
                 continue
         return True
 

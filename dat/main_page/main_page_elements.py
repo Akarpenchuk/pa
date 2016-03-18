@@ -115,9 +115,9 @@ COMING_SOON_ITEM = "//div[@id='coming_soon']//div[@class='coming_list']/div[@cla
 COMING_SOON_COLUMNS = "//div[@class='coming-soon__content']/div[@class='block']"
 
 COMING_SOON_DATES = [
-"//div[@id='coming_soon']//div[@class='coming_list']/div[1]/span",
-"//div[@id='coming_soon']//div[@class='coming_list']/following-sibling::div[2]/div[1]/span",
-"//div[@class='coming_list'][1]/div[1]/span"
+"//div[@class='coming-soon__content']/div[@class='block'][1]//span[@class='pink']"
+"//div[@class='coming-soon__content']/div[@class='block'][2]//span[@class='pink']"
+"//div[@class='coming-soon__content']/div[@class='block'][3]//span[@class='pink']"
 ]
 
 UP_BTN = "//a[@href='#up']"
