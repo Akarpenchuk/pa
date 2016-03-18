@@ -112,7 +112,7 @@ SOON_END_CAMPAIGN_TIME = "//div[@id='soon_end']/following-sibling::div[@class='r
 
 SOON_BTN = "//a[@href='#soon']"
 COMING_SOON_ITEM = "//div[@id='coming_soon']//div[@class='coming_list']/div[@class='coming_item']"
-COMING_SOON_COLUMNS = "//div[@id='coming_soon']//div[@class='coming_list']"
+COMING_SOON_COLUMNS = "//div[@class='coming-soon__content']/div[@class='block']"
 
 COMING_SOON_DATES = [
 "//div[@id='coming_soon']//div[@class='coming_list']/div[1]/span",

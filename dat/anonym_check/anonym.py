@@ -194,48 +194,56 @@ class Anonym(Action, Wait, BaseClass):
         self.driver.find_element_by_xpath(mpe.LIST_CAMPAIGN_CURRENT).click()
         sleep(2)
 
+        while False:
+
         #if outlet
-        try:
-            self.wait_element_displayed_by_xpath(ce.OUTLET_CATEGORY)
-            self.driver.find_element_by_xpath(ce.OUTLET_CATEGORY).click()
-            self.wait_element_displayed_by_xpath(ce.LIST_PRODUCT)
-            self.driver.find_element_by_xpath(ce.HIDE_SOLD).click()
-            self.wait_element_displayed_by_xpath(ce.LIST_PRODUCT)
-            self.driver.find_element_by_xpath(ce.LIST_PRODUCT).click()
-            self.wait_element_displayed_by_xpath(ppe.PRODUCT_IMG)
-
-        #if simple campaign
-        except:
-            self.wait_element_displayed_by_xpath(ce.LIST_PRODUCT)
-
-            self.driver.find_element_by_xpath(ce.HIDE_SOLD).click()
-            self.wait_element_displayed_by_xpath(ce.LIST_PRODUCT)
-            self.driver.find_element_by_xpath(ce.LIST_PRODUCT).click()
-            self.wait_element_displayed_by_xpath(ppe.PRODUCT_IMG)
-
             try:
-                self.driver.find_element_by_xpath(ppe.SIZE_AVAILABLE)
-                self.driver.find_element_by_css_selector(ppe.SIZE_AVAILABLE_CSS).click()
-                self.driver.find_element_by_xpath(ppe.PRODUCT_BASKET_ADD).click()
-                self.wait_element_displayed_by_xpath(mpe.AUTH_FORM)
+                self.wait_element_displayed_by_xpath(ce.OUTLET_CATEGORY)
+                self.driver.find_element_by_xpath(ce.OUTLET_CATEGORY).click()
+                self.wait_element_displayed_by_xpath(ce.LIST_PRODUCT)
+                self.driver.find_element_by_xpath(ce.HIDE_SOLD).click()
+                self.wait_element_displayed_by_xpath(ce.LIST_PRODUCT)
+                self.driver.find_element_by_xpath(ce.LIST_PRODUCT).click()
+                if self.wait_element_displayed_by_xpath(ppe.PRODUCT_BASKET_ADD):
+                    continue
 
-                return True
-
+            #if simple campaign
             except:
+                self.wait_element_displayed_by_xpath(ce.LIST_PRODUCT)
+
+                self.driver.find_element_by_xpath(ce.HIDE_SOLD).click()
+                self.wait_element_displayed_by_xpath(ce.LIST_PRODUCT)
+                self.driver.find_element_by_xpath(ce.LIST_PRODUCT).click()
+                self.wait_element_displayed_by_xpath(ppe.PRODUCT_IMG)
+
+                #if size available
                 try:
-                    self.driver.find_element_by_xpath(ppe.SIZE_SELECTED)
+                    self.driver.find_element_by_xpath(ppe.SIZE_AVAILABLE)
+                    self.driver.find_element_by_css_selector(ppe.SIZE_AVAILABLE_CSS).click()
                     self.driver.find_element_by_xpath(ppe.PRODUCT_BASKET_ADD).click()
                     self.wait_element_displayed_by_xpath(mpe.AUTH_FORM)
 
                     return True
 
                 except:
+
+                    #if size selected
                     try:
+                        self.driver.find_element_by_xpath(ppe.SIZE_SELECTED)
                         self.driver.find_element_by_xpath(ppe.PRODUCT_BASKET_ADD).click()
                         self.wait_element_displayed_by_xpath(mpe.AUTH_FORM)
 
                         return True
+
                     except:
-                        return False
+
+                        #if without size
+                        try:
+                            self.driver.find_element_by_xpath(ppe.PRODUCT_BASKET_ADD).click()
+                            self.wait_element_displayed_by_xpath(mpe.AUTH_FORM)
+
+                            return True
+                        except:
+                            return False
 
 

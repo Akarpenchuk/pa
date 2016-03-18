@@ -87,7 +87,7 @@ class MainPage:
 
 
     def check_coming_soon_campaigns(self):
-        assert self.elements_count(mpe.COMING_SOON_COLUMNS) == 3
+        assert self.elements_count(mpe.COMING_SOON_COLUMNS) == 3, len(mpe.COMING_SOON_COLUMNS)
 
         date = time.strftime("%d")
 
