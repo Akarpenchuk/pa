@@ -18,8 +18,8 @@ PERSONAL_INFO_POPUP_GENDER = "//div[@id='id_gender_chzn']/a"
 PERSONAL_INFO_POPUP_GENDER_SELECT = "//ul/li[contains(text(),'1910')]"
 PERSONAL_INFO_POPUP_SUBMIT = "//input[@id='personal_info_submit']"
 
-PROFILE_ICON = "//span[@id='user_name']"
-PROFILE_MENU = "//div[@class='user_menu profile_menu']//li/a[@href='/me/']"
+
+
 
 NEW_EMAIL_INPUT = "//form[@id='password_reset_valid']//input[@id='id_new_password1']"
 NEW_EMAIL_REPEAT_INPUT = "//form[@id='password_reset_valid']//input[@id='id_new_password2']"
@@ -56,9 +56,10 @@ HELP_DICT = {
 }
 
 # menu profile
+PROFILE_MENU = "//div[@class='header-top_user']"
 PROFILE_LINK = "//a[@href='/me/']"
 PROFILE_HEADER_NAME = "//a[@href='/me/']/span"
-LOGOUT_LINK = "//a[@href='/user/registration/logout/']"
+LOGOUT_LINK = "//a[text()='Выход']"
 
 #banners
 BANNER_PROMO = "//div[@id='PH_campaign_002']//img"

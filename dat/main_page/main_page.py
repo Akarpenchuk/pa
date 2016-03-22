@@ -122,7 +122,7 @@ class MainPage:
         return True
 
 
-    def check_fast_access_buttons(self):
+    def check_fast_access_buttons(self): #TODO !
 
         for i in mpe.FAST_ACCESS_BTNS:
             print self.driver.get_window_position(windowHandle='current')

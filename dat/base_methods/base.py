@@ -50,8 +50,10 @@ class BaseClass(Wait, Action):
 
     def logout(self):
 
-        self.wait_element_displayed_by_xpath(mpe.PROFILE_LINK)
-        self.hover_and_click(mpe.PROFILE_LINK, mpe.LOGOUT_LINK)
+        self.wait_element_displayed_by_xpath(mpe.PROFILE_MENU)
+        self.driver.find_element_by_xpath(mpe.PROFILE_MENU).click()
+        self.wait_element_displayed_by_xpath(mpe.LOGOUT_LINK)
+        self.driver.find_element_by_xpath(mpe.LOGOUT_LINK).click()
         if self.wait_element_displayed_by_xpath(mpe.AUTH_LINK):
             return True
         return False
