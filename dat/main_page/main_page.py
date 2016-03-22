@@ -29,7 +29,7 @@ class MainPage:
             mpe.MENU_CATEGORIES.itervalues().next(),
             mpe.LIST_CAMPAIGN,
             mpe.SOON_END_CAMPAIGNS,
-            mpe.COMING_SOON_ITEM]
+            mpe.COMING_SOON_ITEMS[0]]
 
         for i in lst:
             if self.driver.find_element_by_xpath(i):
@@ -87,17 +87,18 @@ class MainPage:
 
 
     def check_coming_soon_campaigns(self):
-        assert self.elements_count(mpe.COMING_SOON_COLUMNS) == 3, len(mpe.COMING_SOON_COLUMNS)
-
+        '''check dates'''
         date = time.strftime("%d")
-        print date
-
         for i in mpe.COMING_SOON_DATES:
-            print i
             if date in self.driver.find_element_by_xpath(i).text:
                 date = int(date) + 1
                 date = str(date)
                 continue
+
+        '''check campaign count'''
+        for i in mpe.COMING_SOON_ITEMS:
+            assert len(self.driver.find_elements_by_xpath(i)) >= 1
+            continue
         return True
 
 
@@ -122,16 +123,20 @@ class MainPage:
 
 
     def check_fast_access_buttons(self):
-        fast_btns = self.driver.find_elements_by_xpath(mpe.FAST_ACCESS_BTNS)
-        
-        count = 3
-        for i in xrange(3):
-            self.driver.find_element_by_xpath(mpe.FAST_ACCESS_BTNS + "[%d]/a" % count).click()
-            sleep(1)
-            self.driver.find_element_by_xpath(mpe.COMING_SOON_ITEM)
-            count += 1
-            continue
-        return True
+
+        for i in mpe.FAST_ACCESS_BTNS:
+            print self.driver.get_window_position(windowHandle='current')
+            screen_position = ["u'y': 0, u'x': 1920"] ==  str(self.driver.get_window_position(windowHandle='current'))
+            
+        #     for i in screen_position:
+        #     self.driver.find_element_by_xpath(i).click()
+
+        #     sleep(1)
+            
+        #         print current_position = self.driver.get_window_position(windowHandle='current')
+        #         assert i == current_position
+        #     continue
+        # return True
 
 
     def send_registration_email(self):

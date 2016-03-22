@@ -93,7 +93,7 @@ RECOVERY_EMAIL_BTN = "//form[@class='popup__left-form']//input[@value='Отпр�
 RECOVERY_EMAIL_INPUT_ERROR = "//form[@class='popup__left-form']//div[@class='error']"
 
 # campaigns
-LIST_CAMPAIGN_CURRENT = "//*[@class='big-small big-small--normal']/a"
+LIST_CAMPAIGN_CURRENT = "//*[@class='big-small big-small--normal']//a"
 LIST_CAMPAIGN = "//a[contains(@href,'/campaign/')]"
 
 LIST_CAMPAIGN_LINK = "//div[@class='column_item column_1']/a/@href"
@@ -111,16 +111,23 @@ SOON_END_CAMPAIGN_TIME = "//div[@id='soon_end']/following-sibling::div[@class='r
 
 
 SOON_BTN = "//a[@href='#soon']"
-COMING_SOON_ITEM = "//div[@id='coming_soon']//div[@class='coming_list']/div[@class='coming_item']"
-COMING_SOON_COLUMNS = "//div[@class='coming-soon__content']/div[@class='block']"
+COMING_SOON_ITEMS = [
+"//div[@class='coming-soon__content']/div[@class='block'][1]/div[@class='coming-item']//span",
+"//div[@class='coming-soon__content']/div[@class='block'][2]/div[@class='coming-item']//span",
+"//div[@class='coming-soon__content']/div[@class='block'][3]/div[@class='coming-item']//span"
+]
 
 COMING_SOON_DATES = [
-"//div[@class='coming-soon__content']/div[@class='block'][1]//span[@class='pink']"
-"//div[@class='coming-soon__content']/div[@class='block'][2]//span[@class='pink']"
+"//div[@class='coming-soon__content']/div[@class='block'][1]//span[@class='pink']",
+"//div[@class='coming-soon__content']/div[@class='block'][2]//span[@class='pink']",
 "//div[@class='coming-soon__content']/div[@class='block'][3]//span[@class='pink']"
 ]
 
-UP_BTN = "//a[@href='#up']"
+FAST_ACCESS_BTNS = [
+"//a[@href='#last-minutes']",
+"//a[@href='#soon']",
+"//a[@href='#up']"
+]
 
 
 

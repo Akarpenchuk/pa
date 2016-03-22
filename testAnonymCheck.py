@@ -47,12 +47,10 @@ class TestSuite(unittest.TestCase, BaseClass, MainPage, Anonym, Wait):
 
         # self.assertTrue(self.anonym_buy_modnakarta())
 
-        # self.assertTrue(self.anonym_buy_product())
+        self.assertTrue(self.anonym_buy_product())
 
-        # self.assertTrue(self.check_soon_end_campaigns())
+        self.assertTrue(self.check_soon_end_campaigns())
         self.assertTrue(self.check_coming_soon_campaigns())
-
-        # self.assertTrue(self.check_fast_access_buttons())
 
     # def tearDown(self):
 
