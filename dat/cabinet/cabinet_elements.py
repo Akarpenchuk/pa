@@ -8,3 +8,6 @@ RESET_POPUP = "//div[@class='popup_form']"
 NEW_PASSWORD = "//input[@name='new_password1']"
 NEW_PASSWORD_AGAIN = "//input[@name='new_password2']"
 SAVE = "//input[@type='submit']"
+
+RECOVERY_AUTH_EMAIL = "//input[@id='login__email']"
+RECOVERY_AUTH_PASS = "//input[@id='login__pass']"

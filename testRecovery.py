@@ -10,17 +10,15 @@ from selenium.webdriver.chrome.options import Options
 from selenium import webdriver
 from selenium.webdriver.support.ui import WebDriverWait
 
-from dat.base_methods.base import BaseClass
-from dat.main_page.main_page import MainPage
-from dat.mail.mail import Mail
-from dat.base_methods.wait import Wait
-from dat.cabinet.cabinet import PersonalInfo
+from base_methods.base import BaseClass
+from main_page.main_page import MainPage
+from mail.mail import Mail
+from base_methods.wait import Wait
+from cabinet.cabinet import Cabinet
 
-from dat.main_page.main_page_elements import *
-from dat.mail.mail_elements import *
 import base_methods.config as conf
 
-class TestSuite(unittest.TestCase, BaseClass, MainPage, Wait, Mail, PersonalInfo):
+class TestSuite(unittest.TestCase, BaseClass, MainPage, Wait, Mail, Cabinet):
 
     def setUp(self):
 
@@ -31,28 +29,16 @@ class TestSuite(unittest.TestCase, BaseClass, MainPage, Wait, Mail, PersonalInfo
 
     def testRecovery(self):
 
-        #registration
-        # self.assertTrue(self.open_base_url())
-        # self.assertTrue(self.send_registration_email())
-        # self.assertTrue(self.check_registration_email())
-        # self.assertTrue(self.fill_personal_data_popup())    
-        # self.assertTrue(self.open_personal_cabinet())
-        # self.assertTrue(self.check_personal_data())
-        # self.assertTrue(self.logout())
-
-        #recovery
         self.assertTrue(self.open_base_url())
         self.assertTrue(self.send_recovery_email())
         self.assertTrue(self.check_recovery_email())
         
-        # self.assertTrue(self.create_new_password_and_login())
+        self.recovery_set_pass_and_login()
+        self.assertTrue(self.logout())
 
-        # self.assertTrue(self.logout())
-        # self.assertTrue(self.login(conf.USER_EMAIL))
+    # def tearDown(self):
 
-    def tearDown(self):
-
-        self.driver.quit()
+        # self.driver.quit()
 
 
 if __name__ == "__main__":

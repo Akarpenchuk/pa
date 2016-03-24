@@ -19,15 +19,6 @@ import base_methods.config as conf
 
 class Cabinet:
 
-    def create_new_password(self):
-        self.driver.find_element_by_xpath(myinfo.NEW_PASSWORD).send_keys(conf.USER_PASS)
-        self.driver.find_element_by_xpath(myinfo.NEW_PASSWORD_AGAIN).send_keys(conf.USER_PASS)
-        self.driver.find_element_by_xpath(myinfo.SAVE).click()
-        if self.wait_element_displayed_by_xpath(mpe.AUTH_FORM):
-            return True
-        return False
-
-
     def check_personal_data(self):
         name = self.driver.find_element_by_xpath(myinfo.NAME).text
         name.encode("utf-8")

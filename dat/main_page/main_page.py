@@ -189,7 +189,6 @@ class MainPage:
         if login:
             self.hover(mpe.PROFILE_ICON)
             self.wait_element_displayed_by_xpath(mpe.PROFILE_MENU)
-            # menu = self.driver.find_element_by_xpath(mpe.PROFILE_MENU_MY_DATA)
             self.driver.find_element_by_xpath(mpe.PROFILE_MENU).click()
             self.wait_element_displayed_by_xpath(myinfo.NAME)
             return True
@@ -205,11 +204,10 @@ class MainPage:
             sleep(1)
             self.driver.find_element_by_xpath(mpe.RECOVERY_EMAIL_INPUT).send_keys(conf.USER_EMAIL)
             self.driver.find_element_by_xpath(mpe.RECOVERY_EMAIL_BTN).click()
-
-        if self.wait_element_displayed_by_xpath(mpe.REG_FORM_SEND_LOGO):
-            return True
-        return False
-
+            self.wait
+            if self.wait_element_displayed_by_xpath(mpe.REG_FORM_SEND_LOGO):
+                return True
+            return False
 
 
 

@@ -70,7 +70,7 @@ REG_EMAIL_INPUT_ERROR = "//div[@class='error']"
 REG_PASS_INPUT = "//form[@class='popup__right-form']//input[@id='password']"
 REG_PASS_INPUT_ERROR = "//div[@class='auth_block_right']//div[@class='form-item password']/input[@class='error']"
 REG_BTN = "//form[@class='popup__right-form']//input[@value='Зарегистрироваться']"
-REG_FORM_SEND_LOGO = "//div[@id='register_ok']/div/img"
+REG_FORM_SEND_LOGO = "//div[@class='popup__recovery-email-img']"
 
 # recovery
 RECOVERY_EMAIL_LINK = "//a[@class='popup__forgot-pass-text']"
