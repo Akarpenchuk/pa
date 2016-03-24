@@ -8,14 +8,14 @@ import psycopg2
 BASE_URL = "http://modnakasta.ua" # TODO: make a dict 'user_data'
 # BASE_URL = "http://mk:mkstaging@catalogue.modnakasta.ua"
 # BASE_URL = "http://mk:mkstaging@staging.modnakasta.ua"
-EMAIL_ADDRESS = "mailinator.com"
 EMAIL_DOMAIN = "@mailinator.com"
+RAND_NAME = ''.join(random.choice(string.ascii_lowercase + string.digits) for _ in range(8))
+RAND_EMAIL = RAND_NAME + EMAIL_DOMAIN
+EMAIL_ADDRESS = "https://mailinator.com"
 USER_NAME = "mktest1"
 USER_EMAIL = "mktest1@mailinator.com"
 USER_PASS = "qwe123"
 PHONE = 380639728933
-RAND_NAME = ''.join(random.choice(string.ascii_lowercase + string.digits) for _ in range(8))
-RAND_EMAIL = RAND_NAME + EMAIL_DOMAIN
 
 CARD_NUBER = "4149 5070 2155 7861" # TOD    O: make a dict for 'card data'
 CARD_MONTH = "07"

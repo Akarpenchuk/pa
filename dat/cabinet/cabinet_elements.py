@@ -4,3 +4,7 @@ EMAIL = "//input[@id='id_email']"
 GENDER = "//div[@id='id_gender_chzn']/a/span"
 PERSONAL_INFO_PHONE = "//input[@id='id_phone']"
 
+RESET_POPUP = "//div[@class='popup_form']"
+NEW_PASSWORD = "//input[@name='new_password1']"
+NEW_PASSWORD_AGAIN = "//input[@name='new_password2']"
+SAVE = "//input[@type='submit']"

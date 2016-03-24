@@ -6,11 +6,10 @@ sys.path.append('/home/ace/Documents/git/autotests/dat')
 
 import unittest
 from selenium import webdriver
-from selenium.webdriver.common.by import By
-from hover import Action
 from base_methods.wait import Wait
+
 import main_page.main_page_elements as mpe
-from config import *
+import base_methods.config as conf
 
 
 class BaseClass(Wait, Action):
@@ -22,12 +21,14 @@ class BaseClass(Wait, Action):
             return True
         return False
 
+
     def open_url(self, url, element):
 
         self.driver.get(url)
-        if self.driver.find_elements_by_xpath(element):
+        if self.wait_element_displayed_by_xpath(element):
             return True
         return False
+
 
     def open_url_css(self, url, element):
 
@@ -36,44 +37,74 @@ class BaseClass(Wait, Action):
             return True
         return False
 
-    def login(self, email):
 
-        auth_link = self.driver.find_element_by_xpath(mpe.AUTH_LINK)
-        auth_link.click()
-        self.wait_element_displayed_by_xpath(mpe.AUTH_FORM)
-        self.driver.find_element_by_xpath(mpe.AUTH_EMAIL_INPUT).send_keys(email)
-        self.driver.find_element_by_xpath(mpe.AUTH_PASS_INPUT).send_keys(USER_PASS)
-        self.driver.find_element_by_xpath(mpe.AUTH_BTN).click()
-        if self.wait_element_displayed_by_xpath(mpe.PROFILE_LINK):
-            return True
-        return False
+    def login_new_user(self):
+
+        try:
+            self.driver.find_element_by_xpath(mpe.AUTH_LINK).click()
+            self.wait_element_displayed_by_xpath(mpe.AUTH_FORM)
+            self.wait_element_displayed_by_xpath(mpe.AUTH_FORM)
+            self.driver.find_element_by_xpath(mpe.AUTH_EMAIL_INPUT).send_keys(conf.RAND_EMAIL)
+            self.driver.find_element_by_xpath(mpe.AUTH_PASS_INPUT).send_keys(USER_PASS)
+            self.driver.find_element_by_xpath(mpe.AUTH_BTN).click()
+            if self.wait_element_displayed_by_xpath(mpe.PROFILE_LINK):
+                return True
+            return False
+        except:
+            self.wait_element_displayed_by_xpath(mpe.AUTH_FORM)
+            self.driver.find_element_by_xpath(mpe.AUTH_EMAIL_INPUT).send_keys(conf.RAND_EMAIL)
+            self.driver.find_element_by_xpath(mpe.AUTH_PASS_INPUT).send_keys(conf.USER_PASS)
+            self.driver.find_element_by_xpath(mpe.AUTH_BTN).click()
+            if self.wait_element_displayed_by_xpath(mpe.PROFILE_LINK):
+                return True
+            return False
+
+
+    def login_old_user(self):
+
+        try:
+            self.driver.find_element_by_xpath(mpe.AUTH_LINK).click()
+            self.wait_element_displayed_by_xpath(mpe.AUTH_FORM)
+            self.wait_element_displayed_by_xpath(mpe.AUTH_FORM)
+            self.driver.find_element_by_xpath(mpe.AUTH_EMAIL_INPUT).send_keys(conf.USER_EMAIL)
+            self.driver.find_element_by_xpath(mpe.AUTH_PASS_INPUT).send_keys(conf.USER_PASS)
+            self.driver.find_element_by_xpath(mpe.AUTH_BTN).click()
+            if self.wait_element_displayed_by_xpath(mpe.PROFILE_LINK):
+                return True
+            return False
+        except:
+            self.wait_element_displayed_by_xpath(mpe.AUTH_FORM)
+            self.driver.find_element_by_xpath(mpe.AUTH_EMAIL_INPUT).send_keys(conf.USER_EMAIL)
+            self.driver.find_element_by_xpath(mpe.AUTH_PASS_INPUT).send_keys(USER_PASS)
+            self.driver.find_element_by_xpath(mpe.AUTH_BTN).click()
+            if self.wait_element_displayed_by_xpath(mpe.PROFILE_LINK):
+                return True
+            return False
 
     def logout(self):
 
         self.wait_element_displayed_by_xpath(mpe.PROFILE_MENU)
         self.driver.find_element_by_xpath(mpe.PROFILE_MENU).click()
-        self.wait_element_displayed_by_xpath(mpe.LOGOUT_LINK)
+        # self.wait_element_displayed_by_xpath(mpe.LOGOUT_LINK)
+        sleep(1)
         self.driver.find_element_by_xpath(mpe.LOGOUT_LINK).click()
         if self.wait_element_displayed_by_xpath(mpe.AUTH_LINK):
             return True
         return False
 
+
     def refresh(self):
 
         self.driver.refresh()
+
 
     def elements_count(self, element):
 
         elements = self.driver.find_elements_by_xpath(element)
         return len(elements)
 
-    def switch_to_iframe(self, iframe):
 
-        inbox = self.driver.find_element_by_xpath(iframe)
+    def switch_to_frame(self, frame):
+
+        inbox = self.driver.find_element_by_xpath(frame)
         self.driver.switch_to.frame(inbox)
-
-
-
-
-
-

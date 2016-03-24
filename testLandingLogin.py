@@ -25,7 +25,8 @@ class Test(unittest.TestCase, BaseClass, Landing):
         chromeOptions.add_argument("--start-maximized")
         self.driver = webdriver.Chrome(chrome_options=chromeOptions)
         self.wait = WebDriverWait(self.driver, 10)
-        
+
+
     def testLandingLogin(self):
 
         self.assertTrue(self.open_url("https://modnakasta.ua/landing/nike", le.AUTH_FORM))
@@ -33,6 +34,7 @@ class Test(unittest.TestCase, BaseClass, Landing):
         self.assertTrue(self.logout())
         self.assertTrue(self.login(conf.USER_EMAIL))
         self.assertTrue(self.open_url("https://modnakasta.ua/landing/nike", conf.LIST_CAMPAIGN))
+
 
     def tearDown(self):
         self.driver.quit()

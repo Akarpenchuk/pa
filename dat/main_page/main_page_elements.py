@@ -5,20 +5,6 @@
 BANNER_CONTAINER_BLOCK = "//div[@class='banners-container']"
 LOGO = "//a[@class='header-top_logo']"
 PHONE = "//div[@class='header-top_telephone header-top_anon-tel']"
-PERSONAL_INFO_POPUP = "//span[@class='h2']"
-PERSONAL_INFO_POPUP_NAME = "//input[@id='first_name']"
-PERSONAL_INFO_POPUP_SURNAME = "//input[@id='last_name']"
-PERSONAL_INFO_POPUP_DATE = "//div[@id='id_birthday_day_chzn']/a"
-PERSONAL_INFO_POPUP_DATE_SELECT = "//li[@id='id_birthday_day_chzn_o_2']"
-PERSONAL_INFO_POPUP_MONTH = "//div[@id='id_birthday_month_chzn']/a"
-PERSONAL_INFO_POPUP_MONTH_SELECT = "//li[@id='id_birthday_month_chzn_o_2']"
-PERSONAL_INFO_POPUP_YEAR = "//div[@id='id_birthday_year_chzn']/a"
-PERSONAL_INFO_POPUP_YEAR_SELECT = "//li[@id='id_birthday_year_chzn_o_2']"
-PERSONAL_INFO_POPUP_GENDER = "//div[@id='id_gender_chzn']/a"
-PERSONAL_INFO_POPUP_GENDER_SELECT = "//ul/li[contains(text(),'1910')]"
-PERSONAL_INFO_POPUP_SUBMIT = "//input[@id='personal_info_submit']"
-
-
 
 
 NEW_EMAIL_INPUT = "//form[@id='password_reset_valid']//input[@id='id_new_password1']"
@@ -32,7 +18,6 @@ MENU_CATEGORIES = {
 "CATEGORY_KIDS": "//ul[@class='nav_content']/li[3]/a",
 "CATEGORY_HOME": "//ul[@class='nav_content']/li[4]/a",
 "CATEGORY_OUTLET": "//ul[@class='nav_content']/li[5]/a"
-# "CATEGORY_FOOD&WINE": "//ul[@class='menu_holder']/li[5]",
 }
 
 MENU_CAMPAIGN = "//a[@class='drop-content_item']"
@@ -56,10 +41,11 @@ HELP_DICT = {
 }
 
 # menu profile
-PROFILE_MENU = "//div[@class='header-top_user']"
+PROFILE_MENU = "//div[@class='header-top_user header-top_menu-trigger']"
 PROFILE_LINK = "//a[@href='/me/']"
-PROFILE_HEADER_NAME = "//a[@href='/me/']/span"
-LOGOUT_LINK = "//a[text()='Выход']"
+LOGOUT_LINK = "//a[contains(@onclick,'logout')]"
+
+
 
 #banners
 BANNER_PROMO = "//div[@id='PH_campaign_002']//img"

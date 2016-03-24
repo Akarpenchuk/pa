@@ -40,7 +40,6 @@ class Wait:
                 break
             except:
                 count += 1
-                self.wait
                 self.driver.refresh()
                 continue
 

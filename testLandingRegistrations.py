@@ -12,12 +12,15 @@ from selenium.webdriver.chrome.options import Options
 
 from base_methods.base import BaseClass
 from dat.landing_page.landing import Landing
+from dat.mail.mail import Mail
+from dat.cabinet.cabinet import Cabinet
 
 import dat.base_methods.config as conf
 import dat.landing_page.landing_elements as le
+import dat.mail.mail_elements as me
 
 
-class Test(unittest.TestCase, BaseClass, Landing):
+class Test(unittest.TestCase, BaseClass, Landing, Mail, Cabinet):
 
     def setUp(self):
 
@@ -26,18 +29,20 @@ class Test(unittest.TestCase, BaseClass, Landing):
         self.driver = webdriver.Chrome(chrome_options=chromeOptions)
         self.wait = WebDriverWait(self.driver, 10)
 
+
     def testLandingRegistration(self):
 
         self.assertTrue(self.open_url("https://modnakasta.ua/landing/nike", le.AUTH_FORM))
-        self.assertTrue(self.landing_registration())
-        self.assertTrue(self.open_url("https://modnakasta.ua/landing/nike", conf.LIST_CAMPAIGN))
-        self.assertTrue(self.logout())
-        self.assertTrue(self.login(conf.USER_EMAIL))
+        self.landing_registration()
+        self.assertTrue(self.check_registration_email())
+        self.assertTrue(self.create_new_password())
+        self.login_new_user()
+        self.logout()
 
 
-    # def tearDown(self):
+    def tearDown(self):
 
-    #     self.driver.quit()
+        self.driver.quit()
 
 if __name__ == "__main__":
     print 'running'

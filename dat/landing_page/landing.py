@@ -17,7 +17,6 @@ class Landing:
 
     def landing_login(self):
         self.driver.find_element_by_xpath(le.AUTH_LINK).click()
-        # self.wait_element_displayed_by_xpath(le.AUTH_EMAIL_INPUT)
         sleep(1)
         self.driver.find_element_by_xpath(le.AUTH_EMAIL_INPUT).clear()
         self.driver.find_element_by_xpath(le.AUTH_EMAIL_INPUT).send_keys(conf.USER_EMAIL)
@@ -27,6 +26,7 @@ class Landing:
         if self.wait_element_displayed_by_xpath(mpe.LIST_CAMPAIGN):
             return True
         return False
+
 
     def landing_registration(self):
         self.driver.find_element_by_xpath(le.REG_EMAIL_INPUT).send_keys(conf.RAND_EMAIL)
