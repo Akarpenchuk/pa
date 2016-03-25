@@ -3,6 +3,7 @@
 
 import sys, os
 sys.path.append('/home/ace/Documents/git/autotests/dat')
+from time import sleep
 
 import unittest
 from selenium import webdriver
@@ -95,7 +96,7 @@ class BaseClass(Wait):
             self.driver.find_element_by_xpath(mpe.AUTH_EMAIL_INPUT).send_keys(conf.USER_EMAIL)
             self.driver.find_element_by_xpath(mpe.AUTH_PASS_INPUT).send_keys(conf.USER_PASS)
             self.driver.find_element_by_xpath(mpe.AUTH_BTN).click()
-            if self.wait_element_displayed_by_xpath(mpe.PROFILE_LINK):
+            if self.wait_element_displayed_by_xpath(mpe.PROFILE_MENU):
                 return True
             return False
         except:
@@ -103,7 +104,7 @@ class BaseClass(Wait):
             self.driver.find_element_by_xpath(mpe.AUTH_EMAIL_INPUT).send_keys(conf.USER_EMAIL)
             self.driver.find_element_by_xpath(mpe.AUTH_PASS_INPUT).send_keys(USER_PASS)
             self.driver.find_element_by_xpath(mpe.AUTH_BTN).click()
-            if self.wait_element_displayed_by_xpath(mpe.PROFILE_LINK):
+            if self.wait_element_displayed_by_xpath(mpe.PROFILE_MENU):
                 return True
             return False
 

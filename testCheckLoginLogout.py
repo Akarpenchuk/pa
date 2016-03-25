@@ -28,10 +28,10 @@ class TestSuite(unittest.TestCase, BaseClass, Wait, MainPage):
         '''check login and logout'''
 
         self.assertTrue(self.open_base_url())
-        self.login(USER_EMAIL), 'login false'
-        self.assertTrue (self.check_main_page_elements())
-        self.assertTrue (self.logout(), 'logout false')
-        self.assertTrue (self.check_main_page_elements())
+        self.login_old_user()
+        self.check_main_page_elements()
+        self.logout()
+        self.check_main_page_elements()
 
     def tearDown(self):
 

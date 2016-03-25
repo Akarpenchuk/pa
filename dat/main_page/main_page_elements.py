@@ -41,9 +41,9 @@ HELP_DICT = {
 }
 
 # menu profile
-PROFILE_MENU = "//div[@class='header-top_user header-top_menu-trigger']"
+PROFILE_MENU = "//div[@class='header-top_user']"
 PROFILE_LINK = "//a[@href='/me/']"
-LOGOUT_LINK = "//a[contains(@onclick,'logout')]"
+LOGOUT_LINK = "//a[@href='/user/registration/logout/']"
 
 
 
