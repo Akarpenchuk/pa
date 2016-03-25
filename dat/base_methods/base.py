@@ -42,13 +42,11 @@ class BaseClass(Wait):
         self.driver.find_element_by_xpath(myinfo.NEW_PASSWORD_AGAIN).send_keys(conf.USER_PASS)
         self.driver.find_element_by_xpath(myinfo.SAVE).click()
         self.wait_element_displayed_by_xpath(mpe.AUTH_FORM)
-        self.driver.find_element_by_xpath(mpe.AUTH_LINK).click()
-        self.wait_element_displayed_by_xpath(mpe.AUTH_FORM)
 
         self.driver.find_element_by_xpath(mpe.AUTH_EMAIL_INPUT).send_keys(conf.RAND_EMAIL)
-        self.driver.find_element_by_xpath(mpe.AUTH_PASS_INPUT).send_keys(USER_PASS)
+        self.driver.find_element_by_xpath(mpe.AUTH_PASS_INPUT).send_keys(conf.USER_PASS)
         self.driver.find_element_by_xpath(mpe.AUTH_BTN).click()
-        if self.wait_element_displayed_by_xpath(mpe.PROFILE_LINK):
+        if self.wait_element_displayed_by_xpath(mpe.PROFILE_MENU):
             return True
         return False
 
@@ -62,7 +60,7 @@ class BaseClass(Wait):
         self.driver.find_element_by_xpath(myinfo.RECOVERY_AUTH_EMAIL).send_keys(conf.USER_EMAIL)
         self.driver.find_element_by_xpath(myinfo.RECOVERY_AUTH_PASS).send_keys(conf.USER_PASS)
         self.driver.find_element_by_xpath(myinfo.SAVE).click()
-        if self.wait_element_displayed_by_xpath(mpe.PROFILE_LINK):
+        if self.wait_element_displayed_by_xpath(mpe.PROFILE_MENU):
             return True
         return False
 
@@ -92,7 +90,6 @@ class BaseClass(Wait):
         try:
             self.driver.find_element_by_xpath(mpe.AUTH_LINK).click()
             self.wait_element_displayed_by_xpath(mpe.AUTH_FORM)
-            self.wait_element_displayed_by_xpath(mpe.AUTH_FORM)
             self.driver.find_element_by_xpath(mpe.AUTH_EMAIL_INPUT).send_keys(conf.USER_EMAIL)
             self.driver.find_element_by_xpath(mpe.AUTH_PASS_INPUT).send_keys(conf.USER_PASS)
             self.driver.find_element_by_xpath(mpe.AUTH_BTN).click()
@@ -108,14 +105,23 @@ class BaseClass(Wait):
                 return True
             return False
 
-
     def logout(self):
         self.driver.find_element_by_xpath(mpe.PROFILE_MENU).click()
-        sleep(1)
-        self.driver.find_element_by_xpath(mpe.LOGOUT_LINK).click()
+        self.wait_element_displayed_by_xpath(mpe.LOGOUT_LINK)
+        self.driver.find_element_by_xpath(mpe.LOGOUT_CABINET_LINK).click()
         if self.wait_element_displayed_by_xpath(mpe.AUTH_LINK):
             return True
         return False
+
+
+    def logout_cabinet(self):
+        self.driver.find_element_by_xpath(mpe.PROFILE_MENU).click()
+        self.wait_element_displayed_by_xpath(mpe.LOGOUT_CABINET_LINK)
+        self.driver.find_element_by_xpath(mpe.LOGOUT_CABINET_LINK).click()
+        if self.wait_element_displayed_by_xpath(mpe.AUTH_LINK):
+            return True
+        return False
+
 
 
     def refresh(self):
