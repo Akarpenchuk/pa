@@ -23,7 +23,7 @@ class TestSuite(unittest.TestCase, BaseClass, Wait, MainPage):
         chromeOptions.add_argument("--start-maximized")
         self.driver = webdriver.Chrome(chrome_options=chromeOptions)
         self.wait = WebDriverWait(self.driver, 10)
-
+        
     def testLoginLogout(self):
         '''check login and logout'''
 

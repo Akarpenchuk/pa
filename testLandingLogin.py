@@ -32,8 +32,6 @@ class Test(unittest.TestCase, BaseClass, Landing):
         self.assertTrue(self.open_url("https://modnakasta.ua/landing/nike", le.AUTH_FORM))
         self.assertTrue(self.landing_login())
         self.assertTrue(self.logout())
-        self.assertTrue(self.login(conf.USER_EMAIL))
-        self.assertTrue(self.open_url("https://modnakasta.ua/landing/nike", conf.LIST_CAMPAIGN))
 
 
     def tearDown(self):
