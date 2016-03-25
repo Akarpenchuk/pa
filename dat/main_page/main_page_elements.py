@@ -7,6 +7,23 @@ LOGO = "//a[@class='header-top_logo']"
 PHONE = "//div[@class='header-top_telephone header-top_anon-tel']"
 
 
+PERSONAL_INFO_POPUP = "//div[contains(text(),'Персональная информация')]"
+PERSONAL_INFO_POPUP_NAME = "//input[@id='first_name']"
+PERSONAL_INFO_POPUP_SURNAME = "//input[@id='last_name']"
+PERSONAL_INFO_POPUP_DAY = "//select[@id='birthday_day']"
+PERSONAL_INFO_POPUP_DAY_SELECT = "//select[@id='birthday_day']/option[2]"
+PERSONAL_INFO_POPUP_MONTH = "//select[@id='birthday_month']"
+PERSONAL_INFO_POPUP_MONTH_SELECT = "//select[@id='birthday_month']/option[2]"
+PERSONAL_INFO_POPUP_YEAR = "//select[@id='birthday_year']"
+PERSONAL_INFO_POPUP_YEAR_SELECT = "//select[@id='birthday_year']/option[2]"
+PERSONAL_INFO_POPUP_GENDER = "//select[@id='gender']"
+PERSONAL_INFO_POPUP_GENDER_SELECT = "//select[@id='gender']/option[@value='F']"
+PERSONAL_INFO_POPUP_BTN = "//div[@class='popup__profile-bottom']/input[@type='submit']"
+
+
+
+
+
 NEW_EMAIL_INPUT = "//form[@id='password_reset_valid']//input[@id='id_new_password1']"
 NEW_EMAIL_REPEAT_INPUT = "//form[@id='password_reset_valid']//input[@id='id_new_password2']"
 NEW_EMAIL_SAVE_BTN = "//form[@id='password_reset_valid']//input[@id='submit_password']"
@@ -46,8 +63,6 @@ PROFILE_MENU = "//div[@class='header-top_user']"
 PROFILE_LINK = "//a[@href='/me/']"
 LOGOUT_LINK = "//a[@href='/user/registration/logout/']"
 LOGOUT_CABINET_LINK = "//div[@class='header_drop-user header-top_drop-content header-top_drop']//a[@href='/user/registration/logout/']"
-
-
 
 #banners
 BANNER_PROMO = "//div[@id='PH_campaign_002']//img"

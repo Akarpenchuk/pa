@@ -35,12 +35,12 @@ class Cabinet:
         gender.encode('utf-8')
         assert gender in u'Женский'
 
-        day = self.driver.find_element_by_xpath(mpe.PERSONAL_INFO_POPUP_DATE).text
-        assert day in "3"
+        day = self.driver.find_element_by_xpath(myinfo.PERSONAL_INFO_POPUP_DAY).text
+        assert day in "2"
 
         month = self.driver.find_element_by_xpath(mpe.PERSONAL_INFO_POPUP_MONTH).text
         month.encode('utf-8')
-        assert month in u"Март"
+        assert month in u"Февраль"
 
         year = self.driver.find_element_by_xpath(mpe.PERSONAL_INFO_POPUP_YEAR).text
         assert year in u"1916"

@@ -50,8 +50,6 @@ SORT_UP_LABEL = u"//div[@class='sort__by']/span[contains(text(),'По возра
 SORT_DOWN_LABEL = u"//div[@class='sort__by']/span[contains(text(),'По убыванию цены')]"
 SORT_UP_BTN = "//span[@class='accordion__icon-up']"
 SORT_DOWN_BTN = "//span[@class='accordion__icon-down']"
-#HIDE_SOLD_BTN = u"//div[@class='sidebar__section'][last()]/div[@class='sidebar__filters']/div/label/div[contains(text(),'Скрыть проданные')]/preceding-sibling::input[@class='filters__checkbox']"
-# HIDE_SOLD = u"//div[@class='sidebar__section'][last()]/div[@class='sidebar__filters']/div/label/input"
 HIDE_SOLD = "//a[text()='Скрыть проданные']"
 PRODUCT_COUNTER = u"//div[@class='filters-selection__results-right']/span[2]"
 

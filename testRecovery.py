@@ -36,9 +36,9 @@ class TestSuite(unittest.TestCase, BaseClass, MainPage, Wait, Mail, Cabinet):
         self.recovery_set_pass_and_login()
         self.assertTrue(self.logout())
 
-    # def tearDown(self):
+    def tearDown(self):
 
-        # self.driver.quit()
+        self.driver.quit()
 
 
 if __name__ == "__main__":

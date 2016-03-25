@@ -32,7 +32,7 @@ class Mail():
         sleep(2)
         windows = self.driver.window_handles
         self.driver.switch_to.window(windows[-1])
-        self.wait_element_displayed_by_xpath(myinfo.RESET_POPUP)
+        self.wait_element_displayed_by_xpath(mpe.PERSONAL_INFO_POPUP)
         return True
 
 

@@ -153,14 +153,12 @@ class MainPage:
     def fill_personal_data_popup(self):
         self.driver.find_element_by_xpath(mpe.PERSONAL_INFO_POPUP)
 
-        self.driver.find_element_by_xpath(mpe.PERSONAL_INFO_POPUP_NAME).send_keys(u"тест")
+        name = self.driver.find_element_by_xpath(mpe.PERSONAL_INFO_POPUP_NAME).send_keys(u"тест")
         self.driver.find_element_by_xpath(mpe.PERSONAL_INFO_POPUP_SURNAME).send_keys(u"тест")
 
-        self.driver.find_element_by_xpath(mpe.PERSONAL_INFO_POPUP_DATE)
-        self.driver.find_element_by_xpath(mpe.PERSONAL_INFO_POPUP_DATE).click()
-
-        self.wait_element_displayed_by_xpath(mpe.PERSONAL_INFO_POPUP_DATE_SELECT)
-        self.driver.find_element_by_xpath(mpe.PERSONAL_INFO_POPUP_DATE_SELECT).click()
+        self.driver.find_element_by_xpath(mpe.PERSONAL_INFO_POPUP_DAY).click()
+        self.wait
+        self.driver.find_element_by_xpath(mpe.PERSONAL_INFO_POPUP_DAY_SELECT).click()
         
         self.wait
         self.driver.find_element_by_xpath(mpe.PERSONAL_INFO_POPUP_MONTH).click()
@@ -169,17 +167,18 @@ class MainPage:
 
         self.wait
         self.driver.find_element_by_xpath(mpe.PERSONAL_INFO_POPUP_YEAR).click()
-
         self.wait
         self.driver.find_element_by_xpath(mpe.PERSONAL_INFO_POPUP_YEAR_SELECT).click()
 
         self.wait
-        self.driver.find_element_by_xpath(mpe.PERSONAL_INFO_POPUP_SUBMIT).click()
+        self.driver.find_element_by_xpath(mpe.PERSONAL_INFO_POPUP_BTN).click()
 
-        self.wait_element_displayed_by_xpath(mpe.PROFILE_HEADER_NAME)
+        self.wait_element_displayed_by_xpath(mpe.PROFILE_MENU)
 
-        profile_name = self.driver.find_element_by_xpath(mpe.PROFILE_HEADER_NAME).text
-        # assert profile_name == name BUG https://jira.modnakasta.ua/browse/MK-1495
+        profile_name = self.driver.find_element_by_xpath(mpe.PROFILE_MENU).text
+        profile_name = profile_name.encode('utf-8')
+
+        assert profile_name in 'тест'
 
         return True
 
@@ -187,9 +186,9 @@ class MainPage:
     def open_personal_cabinet(self):      
         login = self.driver.find_element_by_xpath(mpe.PROFILE_LINK)
         if login:
-            self.hover(mpe.PROFILE_ICON)
-            self.wait_element_displayed_by_xpath(mpe.PROFILE_MENU)
             self.driver.find_element_by_xpath(mpe.PROFILE_MENU).click()
+            self.wait_element_displayed_by_xpath(mpe.PROFILE_MENU)
+            self.driver.find_element_by_xpath(mpe.PROFILE_LINK).click()
             self.wait_element_displayed_by_xpath(myinfo.NAME)
             return True
         return False
