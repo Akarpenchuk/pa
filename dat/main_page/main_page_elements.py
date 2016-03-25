@@ -41,7 +41,8 @@ HELP_DICT = {
 }
 
 # menu profile
-PROFILE_MENU = "//div[@class='header-top_user header-top_menu-trigger']"
+PROFILE_CABINET_MENU = "//div[@class='header-top_user header-top_menu-trigger']"
+PROFILE_MENU = "//div[@class='header-top_user']"
 PROFILE_LINK = "//a[@href='/me/']"
 LOGOUT_LINK = "//a[@href='/user/registration/logout/']"
 LOGOUT_CABINET_LINK = "//div[@class='header_drop-user header-top_drop-content header-top_drop']//a[@href='/user/registration/logout/']"
