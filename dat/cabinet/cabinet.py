@@ -4,6 +4,7 @@
 
 import sys, os
 sys.path.append('/home/ace/Documents/git/autotests/dat')
+from time import sleep
 
 from selenium import webdriver
 from selenium.webdriver.support.wait import WebDriverWait
@@ -35,19 +36,29 @@ class Cabinet:
         gender.encode('utf-8')
         assert gender in u'Женский'
 
-        day = self.driver.find_element_by_xpath(myinfo.PERSONAL_INFO_POPUP_DAY).text
+        day = self.driver.find_element_by_xpath(myinfo.PERSONAL_INFO_DAY).text
         assert day in "2"
 
-        month = self.driver.find_element_by_xpath(mpe.PERSONAL_INFO_POPUP_MONTH).text
+        month = self.driver.find_element_by_xpath(myinfo.PERSONAL_INFO_MONTH).text
         month.encode('utf-8')
         assert month in u"Февраль"
 
-        year = self.driver.find_element_by_xpath(mpe.PERSONAL_INFO_POPUP_YEAR).text
+        year = self.driver.find_element_by_xpath(myinfo.PERSONAL_INFO_YEAR).text
         assert year in u"1916"
 
         phone = self.driver.find_element_by_xpath(myinfo.PERSONAL_INFO_PHONE).text
         assert phone == ""
         return True
+
+
+    def logout_cabinet(self):
+        self.driver.find_element_by_xpath(myinfo.PROFILE_MENU).click()
+        # self.wait_element_displayed_by_xpath(myinfo.PROFILE_LOGOUT_LINK)
+        sleep(1)
+        self.driver.find_element_by_xpath(myinfo.PROFILE_LOGOUT_LINK).click()
+        if self.wait_element_displayed_by_xpath(mpe.AUTH_LINK):
+            return True
+        return False
 
 
     def verify_user_email(self):

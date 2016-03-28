@@ -1,6 +1,8 @@
 # !/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+import sys, os
+sys.path.append('/home/ace/Documents/git/autotests/dat')
 import unittest
 import logging
 logging.basicConfig(filename = '/home/ace/log_webdriver', level = logging.DEBUG)
@@ -9,11 +11,12 @@ from selenium.webdriver.chrome.options import Options
 from selenium import webdriver
 from selenium.webdriver.support.ui import WebDriverWait
 
-from dat.base_methods.base import BaseClass
-from dat.main_page.main_page import MainPage
-from dat.mail.mail import Mail
-from dat.base_methods.wait import Wait
-from dat.cabinet.cabinet import Cabinet
+from base_methods.base import BaseClass
+from main_page.main_page import MainPage
+from mail.mail import Mail
+from base_methods.wait import Wait
+from cabinet.cabinet import Cabinet
+import base_methods.config as conf
 
 class TestSuite(unittest.TestCase, BaseClass, MainPage, Wait, Mail, Cabinet):
 
@@ -29,15 +32,15 @@ class TestSuite(unittest.TestCase, BaseClass, MainPage, Wait, Mail, Cabinet):
         self.assertTrue(self.open_base_url())
         self.assertTrue(self.send_registration_email())
         self.assertTrue(self.check_registration_email())
-        self.assertTrue(self.fill_personal_data_popup())    
+        self.assertTrue(self.fill_personal_data_popup())
         self.assertTrue(self.open_personal_cabinet())
         self.assertTrue(self.check_personal_data())
-        self.assertTrue(self.logout())
-        self.assertTrue(self.login(conf.RAND_EMAIL))
+        self.assertTrue(self.logout_cabinet())
+        self.assertTrue(self.login_new_user())
 
-    # def tearDown(self):
+    def tearDown(self):
 
-    #     self.driver.quit()
+        self.driver.quit()
 
 
 if __name__ == "__main__":
