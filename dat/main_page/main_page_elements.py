@@ -98,11 +98,11 @@ RECOVERY_EMAIL_INPUT_ERROR = "//form[@class='popup__left-form']//div[@class='err
 
 # campaigns
 LIST_CAMPAIGN_CURRENT = "//*[@class='big-small big-small--normal']//a"
-LIST_CAMPAIGN = "//a[contains(@href,'/campaign/')]"
+CAMPAIGN = "//a[contains(@href,'/campaign/')]"
 
 LIST_CAMPAIGN_LINK = "//div[@class='column_item column_1']/a/@href"
 LIST_CAMPAIGN_BRAND = "//div[@class='column_item column_1']/div[@class='column_info']/div"
-LIST_CAMPAIGN_NAME = ""
+CAMPAIGN_NAME = "//div[@class='banners_title']"
 LIST_CAMPAIGN_BANNER = ""
 LIST_CAMPAIGN_TIMER = ""
 

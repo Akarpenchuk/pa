@@ -15,19 +15,19 @@ from base_methods.base import BaseClass
 from main_page.main_page import MainPage
 
 
-class Test(unittest.TestCase, BaseClass):
+class Test(unittest.TestCase, BaseClass, MainPage):
 
     def setUp(self):
         chromeOptions = Options()
         chromeOptions.add_argument("--start-maximized")
-        self.driver = webdriver.Chrome()
+        self.driver = webdriver.Chrome(chrome_options=chromeOptions)
         self.wait = WebDriverWait(self.driver, 5)
 
 
     def testBasket(self):
         self.open_base_url()
         self.login_old_user()
-        
+        self.open_campaign()
 
     def tearDown(self):
         self.driver.quit()

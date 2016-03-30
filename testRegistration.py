@@ -21,14 +21,13 @@ import base_methods.config as conf
 class TestSuite(unittest.TestCase, BaseClass, MainPage, Wait, Mail, Cabinet):
 
     def setUp(self):
-
         chromeOptions = Options()
         chromeOptions.add_argument("--start-maximized")
         self.driver = webdriver.Chrome(chrome_options=chromeOptions)
         self.wait = WebDriverWait(self.driver, 10)
 
-    def testRegistration(self):
 
+    def testRegistration(self):
         self.assertTrue(self.open_base_url())
         self.assertTrue(self.send_registration_email())
         self.assertTrue(self.check_registration_email())
@@ -38,8 +37,8 @@ class TestSuite(unittest.TestCase, BaseClass, MainPage, Wait, Mail, Cabinet):
         self.assertTrue(self.logout_cabinet())
         self.assertTrue(self.login_new_user())
 
-    def tearDown(self):
 
+    def tearDown(self):
         self.driver.quit()
 
 

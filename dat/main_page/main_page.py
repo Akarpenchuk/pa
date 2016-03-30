@@ -27,7 +27,7 @@ class MainPage:
             mpe.BANNER_TRAILER,
             mpe.BANNER_APPS,
             mpe.MENU_CATEGORIES.itervalues().next(),
-            mpe.LIST_CAMPAIGN,
+            mpe.CAMPAIGN,
             mpe.SOON_END_CAMPAIGNS,
             mpe.COMING_SOON_ITEMS[0]]
 
@@ -183,17 +183,6 @@ class MainPage:
         return True
 
 
-    def open_personal_cabinet(self):      
-        login = self.driver.find_element_by_xpath(mpe.PROFILE_LINK)
-        if login:
-            self.driver.find_element_by_xpath(mpe.PROFILE_MENU).click()
-            self.wait_element_displayed_by_xpath(mpe.PROFILE_MENU)
-            self.driver.find_element_by_xpath(mpe.PROFILE_LINK).click()
-            self.wait_element_displayed_by_xpath(myinfo.NAME)
-            return True
-        return False
-
-
     def send_recovery_email(self):
         self.driver.find_element_by_xpath(mpe.REG_LINK).click()
         self.wait_element_displayed_by_xpath(mpe.REG_FORM)
@@ -207,6 +196,28 @@ class MainPage:
             if self.wait_element_displayed_by_xpath(mpe.REG_FORM_SEND_LOGO):
                 return True
             return False
+
+
+    def open_cabinet(self):
+        login = self.driver.find_element_by_xpath(mpe.PROFILE_LINK)
+        if login:
+            self.driver.find_element_by_xpath(mpe.PROFILE_MENU).click()
+            self.wait_element_displayed_by_xpath(mpe.PROFILE_MENU)
+            self.driver.find_element_by_xpath(mpe.PROFILE_LINK).click()
+            self.wait_element_displayed_by_xpath(myinfo.NAME)
+            return True
+        return False
+
+
+    def open_campaign(self):
+        camp_name = self.driver.find_element_by_xpath(mpe.CAMPAIGN_NAME).text
+        self.driver.find_element_by_xpath(mpe.CAMPAIGN).click()
+        self.wait_element_displayed_by_xpath(ce.PRODUCT)
+        assert camp_name in self.driver.find_element_by_xpath(ce.CAMPAIGN_NAME).text
+
+        products = self.driver.find_elements_by_xpath(ce.PRODUCT)
+        for i in products:
+            if i
 
 
 
