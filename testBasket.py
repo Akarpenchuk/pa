@@ -13,9 +13,11 @@ from selenium.webdriver.support.ui import WebDriverWait
 
 from base_methods.base import BaseClass
 from main_page.main_page import MainPage
+from product.product import Product
+from campaign.campaign import Campaign
 
 
-class Test(unittest.TestCase, BaseClass, MainPage):
+class Test(unittest.TestCase, BaseClass, MainPage, Product, Campaign):
 
     def setUp(self):
         chromeOptions = Options()
@@ -27,10 +29,11 @@ class Test(unittest.TestCase, BaseClass, MainPage):
     def testBasket(self):
         self.open_base_url()
         self.login_old_user()
-        self.open_campaign()
+        self.add_product_less_99()
 
-    def tearDown(self):
-        self.driver.quit()
+
+    # def tearDown(self):
+    #     self.driver.quit()
 
 if __name__ == "__main__":
     print 'running'

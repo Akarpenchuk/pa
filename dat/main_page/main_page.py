@@ -214,10 +214,55 @@ class MainPage:
         self.driver.find_element_by_xpath(mpe.CAMPAIGN).click()
         self.wait_element_displayed_by_xpath(ce.PRODUCT)
         assert camp_name in self.driver.find_element_by_xpath(ce.CAMPAIGN_NAME).text
+        product_count = self.driver.find_elements_by_xpath(ce.PRODUCT)
+        assert product_count >= 1
 
-        products = self.driver.find_elements_by_xpath(ce.PRODUCT)
-        for i in products:
-            if i
+
+    def store_campaigns_count(self):
+        self.current_campaigns = self.store_elements_count(LIST_CAMPAIGN_CURRENT)
+        if self.current_campaigns < 50:
+            raise Exception, 'not enought current campaigns'
+        return True
+
+
+    def verify_affiliation_filter(self):
+        #verify button is displayed
+        affiliation_list = [AFF_WOMAN, AFF_MAN, AFF_CHILD, AFF_BOYS, AFF_GIRLS, AFF_HOME, AFF_UNI, AFF_ZOO]
+        product_count = len(self.driver.find_elements_by_xpath(LIST_PRODUCT))
+        assert product_count == LIST_PRODUCT_COUNT
+        print "product_count OK"
+
+        products_in_camp = self.driver.find_element_by_xpath(PRODUCT_COUNTER).text
+
+        #verify product count is changed after affiliation selecting
+        if self.driver.find_elements_by_xpath(AFF_WOMAN).is_displayed():
+
+            self.driver.find_elements_by_xpath(AFF_WOMAN).click()
+            self.wait.until(lambda self: self.find_element_by_xpath(SPINNER).is_displayed())
+            
+            new_products_counter = self.driver.find_element_by_xpath(PRODUCT_COUNTER)
+            
+            assert products_in_camp != new_products_counter
+            print "product_count is changed"
+
+        elif self.driver.find_elements_by_xpath(AFF_MAN).is_displayed():
+            self.driver.find_elements_by_xpath(AFF_MAN).click()
+        elif self.driver.find_elements_by_xpath(AFF_CHILD).is_displayed():
+            self.driver.find_elements_by_xpath(AFF_CHILD).click()
+        elif self.driver.find_elements_by_xpath(AFF_BOYS).is_displayed():
+            self.driver.find_elements_by_xpath(AFF_BOYS).click()
+        elif self.driver.find_elements_by_xpath(AFF_GIRLS).is_displayed():
+            self.driver.find_elements_by_xpath(AFF_GIRLS).click()
+        elif self.driver.find_elements_by_xpath(AFF_HOME).is_displayed():
+            self.driver.find_elements_by_xpath(AFF_HOME).click()
+        elif self.driver.find_elements_by_xpath(AFF_UNI).is_displayed():
+            self.driver.find_elements_by_xpath(AFF_UNI).click()
+        else:
+            self.driver.find_elements_by_xpath(AFF_ZOO).is_displayed()
+            self.driver.find_elements_by_xpath(AFF_ZOO).click()
+
+
+
 
 
 

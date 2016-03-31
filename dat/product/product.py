@@ -1,49 +1,23 @@
-# !/usr/bin/env python 
+# !/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-import unittest
+
+import sys, os
+sys.path.append('/home/ace/Documents/git/autotests/dat')
+import logging
+logging.basicConfig(filename = '/home/ace/log_webdriver', level = logging.DEBUG)
+
 from selenium import webdriver
 from selenium.webdriver.support.wait import WebDriverWait
-from selenium.webdriver.common.action_chains import ActionChains
-from selenium.webdriver.common.keys import Keys
-from ..config import *
+
+from dat.main_page.main_page import MainPage
+
+import main_page.main_page_elements as mpe
+import basket.basket_elements as be
+import campaign.campaign_elements as ce
+import base_methods.config as conf
 
 class Product:
-
-    def __init__(self, driver):
-        self.driver = driver
-        self.wait = WebDriverWait(driver, 15)
-        self.action = ActionChains(driver)
-
-    def select_product(self):
-        global LIST_PRODUCT
-        product_card_count = self.driver.find_elements_by_xpath(LIST_PRODUCT)
-        for i in xrange(len(product_card_count)):
-            print "1 product_card_count"
-            product_count = 1
-            while True:
-                print "2 while true"
-
-                if self.driver.find_element_by_xpath(LIST_PRODUCT + LIST_PRODUCT_PRICE_NEW) < 99 or self.driver.find_elements_by_xpath(LIST_PRODUCT + LIST_PRODUCT_RESERVED) or self.driver.find_elements_by_xpath(LIST_PRODUCT + LIST_PRODUCT_SOLD):
-                    print "3 if < 99"
-                    product_count += 1
-                    print "5 product_count", product_count
-                    LIST_PRODUCT = LIST_PRODUCT[:37] + str(product_count) + ']'
-                    print "NEXT LIST_PRODUCT", LIST_PRODUCT
-                    continue
-                else:
-                    list_product_brand = self.driver.find_element_by_xpath(LIST_PRODUCT + LIST_PRODUCT_BRAND).text
-                    list_product_name = self.driver.find_element_by_xpath(LIST_PRODUCT + LIST_PRODUCT_NAME).text
-
-                    print "list_product_brand", list_product_brand.encode("utf-8")
-                    print "list_product_name", list_product_name.encode("utf-8")
-
-                    self.driver.find_element_by_xpath(LIST_PRODUCT + LIST_PRODUCT_CARD).click()
-                    self.wait
-                    print "6 wait product brand"
-                    self.driver.find_element_by_xpath("//div[contains(text(),'%s')]" % list_product_brand.encode("utf-8"))
-                    print "6 chck brand in product"
-                return False
 
     def select_size(self):
         if self.driver.find_element_by_xpath(PRODUCT_SIZE_AVAILABLE):
@@ -54,5 +28,30 @@ class Product:
         self.wait.until(lambda self: self.find_element_by_xpath(POP_SKU_ADDED).is_displayed())
         print 'product added'
 
-    def open_basket_btn(self):
-        self.driver.find_element_by_xpath(POP_OPEN_BASKET_BTN).click()
+
+    def add_product_less_99(self):
+        self.open_campaign()
+        self.driver.find_element_by_xpath(ce.SORT_ASC).click()
+        self.wait_element_displayed_by_xpath(ce.PRODUCT)
+        self.driver.find_element_by_xpath(ce.HIDE_SOLD).click()
+        self.wait_element_displayed_by_xpath(ce.PRODUCT)
+
+        products = self.driver.find_elements_by_xpath(ce.PRODUCT)
+        products = len(products)
+
+        for i in xrange(products):
+            print i
+            product_price = self.driver.find_element_by_xpath(ce.PRODUCT + '[' + str(i) + ']' + '/span').text
+            print product_price
+            if product_price <= 98:
+                try:
+                    self.driver.find_element_by_xpath(ce.PRODUCT + '[' + str(i) + ']' + '/a').click()
+                    self.wait_element_displayed_by_xpath(pe.PRODUCT_BIG_IMG)
+                    self.driver.find_element_by_xpath(be.ADD_PRODUCT_BTN).click()
+                    self.wait_element_displayed_by_xpath()
+                except:
+                    print 'product not added'
+            else:
+                print '> 99'
+            continue
+

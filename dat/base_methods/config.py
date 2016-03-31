@@ -26,6 +26,9 @@ CARD_CVV2 = "010"
 
 
 
+#BASKET
+
+BASKET_ICO = "//a[@href='/basket/']"
 
 #CAMPAIGN ELEMENTS
 
@@ -106,32 +109,6 @@ LIST_PRODUCT_SOLD = u"/div[2]/div[@class='product-status product__sales']/h3[con
 LIST_PRODUCT_RESERVED = "/div[2]/div[@class='product-status product__reserved']/h3[contains(text(),'Зарезервировано')]" #.text
 SOLD_PRODUCT = u"//h3[contains(text(),'Продано')]"
 
-#PRODUCT DATA
-#product states
-PRODUCT_ID = ""
-PRODUCT_BRAND = "//h1/div[@class='product_author liked']"
-PRODUCT_NAME = "//h1/div/following-sibling::div[@class='product_name']"
-PRODUCT_NEW_PRICE = ""
-PRODUCT_OLD_PRICE = ""
-PRODUCT_SIZE_AVAILABLE = "//div[normalize-space(@class)='product_size_item sizes__button_on']"
-PRODUCT_SIZE_SELECTED = "//div[normalize-space(@class)='product_size_item sizes__button_on sizes__button_chosen']"
-PRODUCT_SIZE_ONE = "//div[normalize-space(@class)='product_size_item sizes__button_chosen sizes__button_on']"
-PRODUCT_NO_SIZE = ""
-PRODUCT_SIZE_TABLE = ""
-PRODUCT_SKU_COUNT = "//div[@product_sizes]/div/@data-stock"
-PRODUCT_SOLD = "//div[@class='product_sold']"
-PRODUCT_RESERVED = "//div[@class='product_reserved']"
-PRODUCT_ADD_ENABLED = "//a[@data-url='/basket/add/']"
-PRODUCT_ADD_DISABLED = "//a[@class='btn btn_red product_basket_btn  btn_size_disabled']"
-PRODUCT_DESCRIPTION_TAB = ""
-PRODUCT_DELIVERY_TAB = ""
-PRODUCT_BREADCRUMBS = ""
-PRODUCT_PHOTO_MAIN = ""
-PRODUCT_PHOTO_MINI = "//div[@class='product_thumb_overlay']/img[contains(@data-image,'http://media2.modnakasta.ua/imgw/')]"
-PRODUCT_ZOOMBOX = ""
-PRODUCT_ZOOMBOX_PHOTO_MAIN = ""
-PRODUCT_ZOOMBOX_PHOTO_MINI = ""
-
 #popups
 POP_STOCK_LIMIT = u"//div[contains(text(),'Ваш запрос превышает лимиты, установленные для заказа.')]"
 POP_RESERVATION = ""
@@ -139,9 +116,6 @@ POP_SELECT_SIZE = u"//div[contains(text(),'Выберите сначала ра�
 POP_SKU_ADDED = u"//div[contains(text(),'Ваш товар успешно добавлен в корзину')]"
 POP_OPEN_BASKET_BTN = u"//div[@class='popup_notify_bottom']/a[contains(text(),'Оформить заказ')]"
 POP_CONTINUE_SHOPING_BTN = u"//div[@class='popup_notify_bottom']/a[contains(text(),'Продолжить покупки')]"
-
-#basket elements
-
 
 #checkout delivery elements
 DELIVERY_COURIER_TYPE = ""

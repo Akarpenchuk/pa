@@ -23,7 +23,7 @@ CATEGORY_CHKBOX = "//label[@class='filters__category']/input"
 CATEGORY_NAME = "//label[@class='filters__category']/div/span"
 CATEGORY_QUANTITY = "//label[@class='filters__category']/div/span[2]"
 
-#price
+#CATALOGUE price
 PRICE_TITLE = u"//div[contains(text(),'Цена')]"
 PRICE_MIN = "//div[@class='horizontal-slider_min-max']/span"
 PRICE_MIN_BTN = "//div[@class='horizontal-slider_min-max']/span"
@@ -46,8 +46,8 @@ BRAND_BTN = u"/following-sibling::div[@class='sidebar__filters']/div/label/input
 BRAND_NAME = u"/following-sibling::div[@class='sidebar__filters']/div/label/div"
 
 #product sort
-SORT_UP_LABEL = u"//div[@class='sort__by']/span[contains(text(),'По возрастанию цены')]"
-SORT_DOWN_LABEL = u"//div[@class='sort__by']/span[contains(text(),'По убыванию цены')]"
+SORT_ASC = "//a[@class='shop_sort_btn shop_sort_asc']"
+SORT_DESC = "//a[@class='shop_sort_btn shop_sort_desc']"
 SORT_UP_BTN = "//span[@class='accordion__icon-up']"
 SORT_DOWN_BTN = "//span[@class='accordion__icon-down']"
 HIDE_SOLD = "//a[text()='Скрыть проданные']"
@@ -58,6 +58,9 @@ PRODUCT = "//div[@class='shop_item shop_item_adaptive']"
 PRODUCT_IMG = "//a[@class='shop_item_img ']"
 PRODUCT_RESERVED = "//div[@class='shop_reserved']"
 PRODUCT_SOLD = "//div[@class='shop_sold']"
+
+# PRODUCT_NEW_PRICE = "//div[@class='shop_new_cost']"
+# PRODUCT_OLD_PRICE = "//div[@class='shop_old_cost']"
 
 
 
