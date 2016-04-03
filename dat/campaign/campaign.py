@@ -1,12 +1,30 @@
-# !/usr/bin/env python 
+# !/usr/bin/env/ python
 # -*- coding: utf-8 -*-
+
+import sys, os
+sys.path.append('/home/ace/Documents/git/autotests/dat')
 
 from selenium import webdriver
 from selenium.webdriver.support.wait import WebDriverWait
+
+from base_methods.wait import Wait
+
+import campaign_elements as ce
 from base_methods.config import *
 from base_methods.base import BaseClass
 
 class Campaign:
+
+    def check_if_outlet(self):
+        #if outlet
+        try:
+            self.wait_element_displayed_by_xpath(ce.OUTLET_CATEGORY)
+            self.driver.find_element_by_xpath(ce.OUTLET_CATEGORY).click()
+            Wait().wait_element_displayed_by_xpath(ce.PRODUCT)
+        #if simple campaign
+        except:
+            Wait().wait_element_displayed_by_xpath(ce.PRODUCT)
+
 
     def category_filter(self):
         pass

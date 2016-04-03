@@ -10,6 +10,8 @@ import time
 from selenium import webdriver
 from selenium.webdriver.support.wait import WebDriverWait
 
+from campaign.campaign import Campaign
+
 import base_methods.hover
 import cabinet.cabinet_elements as myinfo
 import main_page_elements as mpe
@@ -19,7 +21,7 @@ import base_methods.config as conf
 
 
 
-class MainPage:
+class MainPage(Campaign):
 
     def check_main_page_elements(self):
         lst = [mpe.LOGO,
@@ -61,27 +63,11 @@ class MainPage:
             assert len(menu_campaign_count) >= 1, len(menu_campaign_count)
 
             self.driver.find_element_by_xpath(i).click()
-            self.wait_element_displayed_by_xpath(mpe.LIST_CAMPAIGN)
-
-            campaign_name = self.driver.find_element_by_xpath(i).text
-            print "campaign is ", campaign_name.encode('utf-8')
             
             self.driver.find_element_by_xpath(mpe.MENU_CAMPAIGN).click()
-
-            #if outlet
-            try:
-                self.wait_element_displayed_by_xpath(ce.OUTLET_CATEGORY)
-                self.driver.find_element_by_xpath(ce.OUTLET_CATEGORY).click()
-                self.wait_element_displayed_by_xpath(ce.LIST_PRODUCT)
-                self.driver.back()
-                self.driver.back()
-                self.driver.find_element_by_xpath(mpe.LIST_CAMPAIGN)
-            #if simple campaign
-            except:
-                self.wait_element_displayed_by_xpath(ce.LIST_PRODUCT)
-                self.driver.back()
-                self.check_main_page_elements()
-            # assert str(campaign_name) in self.driver.find_element_by_xpath(ce.CAMPAIGN_NAME).text # BUG https://jira.modnakasta.ua/browse/MK-1456
+            ce.check_if_outlet()
+            # self.driver.find_element_by_xpath(mpe.LOGO).click()
+            # self.driver.wait_element_displayed_by_xpath(mpe.LIST_CAMPAIGN_CURRENT)
             continue
         return True
 
@@ -123,7 +109,6 @@ class MainPage:
 
 
     def check_fast_access_buttons(self): #TODO !
-
         for i in mpe.FAST_ACCESS_BTNS:
             print self.driver.get_window_position(windowHandle='current')
             screen_position = ["u'y': 0, u'x': 1920"] ==  str(self.driver.get_window_position(windowHandle='current'))
@@ -212,6 +197,8 @@ class MainPage:
     def open_campaign(self):
         camp_name = self.driver.find_element_by_xpath(mpe.CAMPAIGN_NAME).text
         self.driver.find_element_by_xpath(mpe.CAMPAIGN).click()
+        Campaign().check_if_outlet()
+
         self.wait_element_displayed_by_xpath(ce.PRODUCT)
         assert camp_name in self.driver.find_element_by_xpath(ce.CAMPAIGN_NAME).text
         product_count = self.driver.find_elements_by_xpath(ce.PRODUCT)

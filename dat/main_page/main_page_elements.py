@@ -21,9 +21,6 @@ PERSONAL_INFO_POPUP_GENDER_SELECT = "//select[@id='gender']/option[@value='F']"
 PERSONAL_INFO_POPUP_BTN = "//div[@class='popup__profile-bottom']/input[@type='submit']"
 
 
-
-
-
 NEW_EMAIL_INPUT = "//form[@id='password_reset_valid']//input[@id='id_new_password1']"
 NEW_EMAIL_REPEAT_INPUT = "//form[@id='password_reset_valid']//input[@id='id_new_password2']"
 NEW_EMAIL_SAVE_BTN = "//form[@id='password_reset_valid']//input[@id='submit_password']"

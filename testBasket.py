@@ -23,7 +23,7 @@ class Test(unittest.TestCase, BaseClass, MainPage, Product, Campaign):
         chromeOptions = Options()
         chromeOptions.add_argument("--start-maximized")
         self.driver = webdriver.Chrome(chrome_options=chromeOptions)
-        self.wait = WebDriverWait(self.driver, 5)
+        self.wait = WebDriverWait(self.driver, 10)
 
 
     def testBasket(self):

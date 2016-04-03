@@ -59,7 +59,7 @@ PRODUCT_IMG = "//a[@class='shop_item_img ']"
 PRODUCT_RESERVED = "//div[@class='shop_reserved']"
 PRODUCT_SOLD = "//div[@class='shop_sold']"
 
-# PRODUCT_NEW_PRICE = "//div[@class='shop_new_cost']"
+# PRODUCT_NEW_PRICE = "//div[@class='shop_item shop_item_adaptive']//div[@class='shop_item_cost']//span"
 # PRODUCT_OLD_PRICE = "//div[@class='shop_old_cost']"
 
 

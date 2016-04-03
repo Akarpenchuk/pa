@@ -10,7 +10,7 @@ logging.basicConfig(filename = '/home/ace/log_webdriver', level = logging.DEBUG)
 from selenium import webdriver
 from selenium.webdriver.support.wait import WebDriverWait
 
-from dat.main_page.main_page import MainPage
+from main_page.main_page import MainPage
 
 import main_page.main_page_elements as mpe
 import basket.basket_elements as be
@@ -39,10 +39,12 @@ class Product:
         products = self.driver.find_elements_by_xpath(ce.PRODUCT)
         products = len(products)
 
-        for i in xrange(products):
-            print i
-            product_price = self.driver.find_element_by_xpath(ce.PRODUCT + '[' + str(i) + ']' + '/span').text
+        for i  in xrange(products):
+            i += 1
+            product_price = self.driver.find_element_by_xpath(ce.PRODUCT + '[' + str(i) + ']' + "//div[@class='shop_item_cost']//span").text
             print product_price
+            if product_price >= 99:
+                self.driver.back()
             if product_price <= 98:
                 try:
                     self.driver.find_element_by_xpath(ce.PRODUCT + '[' + str(i) + ']' + '/a').click()
