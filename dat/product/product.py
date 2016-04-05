@@ -17,7 +17,7 @@ import basket.basket_elements as be
 import campaign.campaign_elements as ce
 import base_methods.config as conf
 
-class Product:
+class Product():
 
     def select_size(self):
         if self.driver.find_element_by_xpath(PRODUCT_SIZE_AVAILABLE):
@@ -30,30 +30,41 @@ class Product:
 
 
     def add_product_less_99(self):
-        self.open_campaign()
-        self.driver.find_element_by_xpath(ce.SORT_ASC).click()
-        self.wait_element_displayed_by_xpath(ce.PRODUCT)
-        self.driver.find_element_by_xpath(ce.HIDE_SOLD).click()
-        self.wait_element_displayed_by_xpath(ce.PRODUCT)
-
-        products = self.driver.find_elements_by_xpath(ce.PRODUCT)
-        products = len(products)
-
-        for i  in xrange(products):
+        campaigns = self.driver.find_elements_by_xpath(mpe.CAMPAIGN)
+        for i in xrange(len(campaigns)):
             i += 1
-            product_price = self.driver.find_element_by_xpath(ce.PRODUCT + '[' + str(i) + ']' + "//div[@class='shop_item_cost']//span").text
+            
+            self.driver.find_element_by_xpath(mpe.CAMPAIGN_WRAPPER + '[' + str(i) + ']' + mpe.CAMPAIGN).click()
+            self.check_if_outlet()
+            
+            product_count = self.driver.find_elements_by_xpath(ce.PRODUCT)
+            assert product_count >= 1
+
+            self.driver.find_element_by_xpath(ce.SORT_ASC).click()
+            self.wait_element_displayed_by_xpath(ce.PRODUCT)
+            self.driver.find_element_by_xpath(ce.HIDE_SOLD).click()
+            self.wait_element_displayed_by_xpath(ce.PRODUCT)
+            
+            product_price = self.driver.find_element_by_xpath(ce.PRODUCT + '[' + str(i) + ']' + ce.PRODUCT_NEW_PRICE).text
             print product_price
             if product_price >= 99:
-                self.driver.back()
-            if product_price <= 98:
-                try:
-                    self.driver.find_element_by_xpath(ce.PRODUCT + '[' + str(i) + ']' + '/a').click()
-                    self.wait_element_displayed_by_xpath(pe.PRODUCT_BIG_IMG)
-                    self.driver.find_element_by_xpath(be.ADD_PRODUCT_BTN).click()
-                    self.wait_element_displayed_by_xpath()
-                except:
-                    print 'product not added'
-            else:
-                print '> 99'
-            continue
+                self.driver.find_element_by_xpath(mpe.LOGO).click()
+                self.wait_element_displayed_by_xpath(mpe.LOGO)
+                continue
+
+            products = self.driver.find_elements_by_xpath(ce.PRODUCT)
+
+            for i in xrange(len(products)):
+                i += 1
+                if product_price <= 98:
+                    try:
+                        self.driver.find_element_by_xpath(ce.PRODUCT + '[' + str(i) + ']' + '/a').click()
+                        self.wait_element_displayed_by_xpath(pe.PRODUCT_BIG_IMG)
+                        self.driver.find_element_by_xpath(be.ADD_PRODUCT_BTN).click()
+                        self.wait_element_displayed_by_xpath()
+                    except:
+                        print 'product not added'
+                else:
+                    print '> 99'
+                continue
 

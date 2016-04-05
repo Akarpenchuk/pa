@@ -10,8 +10,6 @@ import time
 from selenium import webdriver
 from selenium.webdriver.support.wait import WebDriverWait
 
-from campaign.campaign import Campaign
-
 import base_methods.hover
 import cabinet.cabinet_elements as myinfo
 import main_page_elements as mpe
@@ -21,7 +19,7 @@ import base_methods.config as conf
 
 
 
-class MainPage(Campaign):
+class MainPage():
 
     def check_main_page_elements(self):
         lst = [mpe.LOGO,
@@ -194,15 +192,15 @@ class MainPage(Campaign):
         return False
 
 
-    def open_campaign(self):
-        camp_name = self.driver.find_element_by_xpath(mpe.CAMPAIGN_NAME).text
-        self.driver.find_element_by_xpath(mpe.CAMPAIGN).click()
-        Campaign().check_if_outlet()
+    # def open_campaign(self):
+    #     camp_name = self.driver.find_element_by_xpath(mpe.CAMPAIGN_NAME).text
+    #     self.driver.find_element_by_xpath(mpe.CAMPAIGN).click()
+    #     Campaign().check_if_outlet()
 
-        self.wait_element_displayed_by_xpath(ce.PRODUCT)
-        assert camp_name in self.driver.find_element_by_xpath(ce.CAMPAIGN_NAME).text
-        product_count = self.driver.find_elements_by_xpath(ce.PRODUCT)
-        assert product_count >= 1
+    #     self.wait_element_displayed_by_xpath(ce.PRODUCT)
+    #     assert camp_name in self.driver.find_element_by_xpath(ce.CAMPAIGN_NAME).text
+    #     product_count = self.driver.find_elements_by_xpath(ce.PRODUCT)
+    #     assert product_count >= 1
 
 
     def store_campaigns_count(self):
