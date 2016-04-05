@@ -16,9 +16,6 @@ class Basket:
         self.driver.find_element_by_xpath(conf.BASKET_ICO).click()
         self.wait_element_displayed_by_xpath(product)
 
-    def check_basket_product_data(self, name, brand, old_price, new_price, count, photo):
-        pass
-
     def check_basket_less_99(self):
         #message "order must be >= 99"
         basket_sum = self.driver.find_element_by_xpath("//span[@id='basket_total_sum']").text

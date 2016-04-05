@@ -9,8 +9,6 @@ from selenium.webdriver.support.wait import WebDriverWait
 
 import main_page.main_page_elements as mpe
 import campaign_elements as ce
-from base_methods.config import *
-from base_methods.base import BaseClass
 
 class Campaign():
 

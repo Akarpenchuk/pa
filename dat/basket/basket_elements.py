@@ -3,3 +3,4 @@
 
 DELETE_BTN = "//div[@class='cart_product-delete']/img"
 EMPTY_BASKET_ICO = "//div[@class='empty-cart']/img"
+BASKET_ICO = "//a[@class='header-top_basket']"

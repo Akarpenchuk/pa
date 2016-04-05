@@ -10,10 +10,9 @@ logging.basicConfig(filename = '/home/ace/log_webdriver', level = logging.DEBUG)
 from selenium import webdriver
 from selenium.webdriver.support.wait import WebDriverWait
 
-from main_page.main_page import MainPage
-
 import main_page.main_page_elements as mpe
 import basket.basket_elements as be
+import product_page_elements as pe
 import campaign.campaign_elements as ce
 import base_methods.config as conf
 
@@ -47,24 +46,30 @@ class Product():
             
             product_price = self.driver.find_element_by_xpath(ce.PRODUCT + '[' + str(i) + ']' + ce.PRODUCT_NEW_PRICE).text
             print product_price
-            if product_price >= 99:
+            if int(product_price) >= 99:
                 self.driver.find_element_by_xpath(mpe.LOGO).click()
                 self.wait_element_displayed_by_xpath(mpe.LOGO)
                 continue
+            else:
+                print product_price
+                products = self.driver.find_elements_by_xpath(ce.PRODUCT)
 
-            products = self.driver.find_elements_by_xpath(ce.PRODUCT)
-
-            for i in xrange(len(products)):
-                i += 1
-                if product_price <= 98:
-                    try:
-                        self.driver.find_element_by_xpath(ce.PRODUCT + '[' + str(i) + ']' + '/a').click()
-                        self.wait_element_displayed_by_xpath(pe.PRODUCT_BIG_IMG)
-                        self.driver.find_element_by_xpath(be.ADD_PRODUCT_BTN).click()
-                        self.wait_element_displayed_by_xpath()
-                    except:
+                for i in xrange(len(products)):
+                    i += 1
+                    self.driver.find_element_by_xpath(ce.PRODUCT + '[' + str(i) + ']' + '/a').click()
+                    if self.wait_element_displayed_by_xpath(pe.PRODUCT_BIG_IMG):
+                        self.driver.find_element_by_xpath(pe.ADD_PRODUCT_BTN).click()
+                        self.wait_element_displayed_by_xpath(pe.PRODUCT_ADDED_MESSAGE)
+                        break
+                    else:
                         print 'product not added'
-                else:
-                    print '> 99'
-                continue
+                        self.driver.back()
+                        continue
+                break
+        self.driver.find_elements_by_xpath(be.BASKET_ICO).click()
+        self.wait_element_displayed_by_xpath(be.PRODUCT_NAME)
+        self.wait_element_displayed_by_xpath(be.PRODUCT_NEW_PRICE)
+        self.wait_element_displayed_by_xpath(be.PRODUCT_OLD_PRICE)
+        self.wait_element_displayed_by_xpath(be.PRODUCT_BRAND)
+        self.wait_element_displayed_by_xpath(be.CHECKOUT_BTN_DISABLED)
 
