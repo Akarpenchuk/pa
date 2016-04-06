@@ -30,7 +30,7 @@ MENU_CATEGORIES = {
 "CATEGORY_FEMALE": "//ul[@class='nav_content']/li[1]/a",
 "CATEGORY_MALE": "//ul[@class='nav_content']/li[2]/a",
 "CATEGORY_KIDS": "//ul[@class='nav_content']/li[3]/a",
-"CATEGORY_HOME": "//ul[@class='nav_content']/li[4]/a",
+"2": "//ul[@class='nav_content']/li[4]/a",
 "CATEGORY_OUTLET": "//ul[@class='nav_content']/li[5]/a"
 }
 

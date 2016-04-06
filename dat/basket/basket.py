@@ -16,18 +16,7 @@ class Basket:
         self.driver.find_element_by_xpath(conf.BASKET_ICO).click()
         self.wait_element_displayed_by_xpath(product)
 
-    def check_basket_less_99(self):
-        #message "order must be >= 99"
-        basket_sum = self.driver.find_element_by_xpath("//span[@id='basket_total_sum']").text
-        float(basket_sum)
-        # try:
-        while basket_sum <= 98:
-            self.driver.back()
-            print 'back'
-            # self.wait.until(lambda self: self.find_element_by_xpath(u"//a[contains(text(),'Скрыть проданные')]").is_displayed())
-            return False
-        else:
-            return True
+
 
     def delete_product(self):
         self.driver.find_element_by_xpath(be.DELETE_BTN).click()
@@ -35,11 +24,33 @@ class Basket:
 
 
     def add_sku_count(self):
-        pass
+        self.driver.find_elements_by_xpath(mpe.MENU_CATEGORIES.get("CATEGORY_HOME")).click()
+        self.wait_element_displayed_by_xpath(mpe.CAMPAIGN_WRAPPER + mpe.CAMPAIGN)
+        self.driver.find_elements_by_xpath(mpe.CAMPAIGN_WRAPPER + '[' + str(i) + ']' + mpe.CAMPAIGN)
 
 
-    def add_random_product(self):
-        pass
+    def add_product(self):
+        products = self.driver.find_elements_by_xpath(ce.PRODUCT)
+
+        for i in xrange(len(products)):
+            i += 1
+            self.driver.find_element_by_xpath(ce.PRODUCT + '[' + str(i) + ']' + '/a').click()
+            if self.wait_element_displayed_by_xpath(pe.ADD_PRODUCT_BTN):
+
+                #store product data
+                product_name = self.driver.find_element_by_xpath(pe.PRODUCT_NAME).text
+                product_brand = self.driver.find_elements_by_xpath(pe.PRODUCT_BRAND).text
+                product_old_price = self.driver.find_elements_by_xpath(pe.PRODUCT_OLD_PRICE).text
+                product_new_price = self.driver.find_elements_by_xpath(pe.PRODUCT_NEW_PRICE).text
+
+                self.driver.find_element_by_xpath(pe.ADD_PRODUCT_BTN).click()
+                self.wait_element_displayed_by_xpath(pe.PRODUCT_ADDED_MESSAGE)
+                return True
+                break
+            else:
+                print 'product not added'
+                self.driver.back()
+                continue
 
 
     def add_modnakarta(self):

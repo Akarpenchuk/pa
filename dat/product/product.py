@@ -43,33 +43,86 @@ class Product():
             self.wait_element_displayed_by_xpath(ce.PRODUCT)
             self.driver.find_element_by_xpath(ce.HIDE_SOLD).click()
             self.wait_element_displayed_by_xpath(ce.PRODUCT)
-            
-            product_price = self.driver.find_element_by_xpath(ce.PRODUCT + '[' + str(i) + ']' + ce.PRODUCT_NEW_PRICE).text
-            print product_price
-            if int(product_price) >= 99:
+
+            product_new_price = self.driver.find_element_by_xpath(ce.PRODUCT_NEW_PRICE).text
+            if int(product_new_price) >= 99:
                 self.driver.find_element_by_xpath(mpe.LOGO).click()
                 self.wait_element_displayed_by_xpath(mpe.LOGO)
                 continue
-            else:
-                print product_price
-                products = self.driver.find_elements_by_xpath(ce.PRODUCT)
+            print "first product price ", self.driver.find_element_by_xpath(ce.PRODUCT + '[' + str(i) + ']' + ce.PRODUCT_NEW_PRICE).text
+            
+            #TODO use add_product()
 
-                for i in xrange(len(products)):
-                    i += 1
-                    self.driver.find_element_by_xpath(ce.PRODUCT + '[' + str(i) + ']' + '/a').click()
-                    if self.wait_element_displayed_by_xpath(pe.PRODUCT_BIG_IMG):
-                        self.driver.find_element_by_xpath(pe.ADD_PRODUCT_BTN).click()
-                        self.wait_element_displayed_by_xpath(pe.PRODUCT_ADDED_MESSAGE)
-                        break
-                    else:
-                        print 'product not added'
-                        self.driver.back()
-                        continue
-                break
-        self.driver.find_elements_by_xpath(be.BASKET_ICO).click()
-        self.wait_element_displayed_by_xpath(be.PRODUCT_NAME)
-        self.wait_element_displayed_by_xpath(be.PRODUCT_NEW_PRICE)
-        self.wait_element_displayed_by_xpath(be.PRODUCT_OLD_PRICE)
-        self.wait_element_displayed_by_xpath(be.PRODUCT_BRAND)
-        self.wait_element_displayed_by_xpath(be.CHECKOUT_BTN_DISABLED)
+            products = self.driver.find_elements_by_xpath(ce.PRODUCT)
+
+            for i in xrange(len(products)):
+                i += 1
+                self.driver.find_element_by_xpath(ce.PRODUCT + '[' + str(i) + ']' + '/a').click()
+                #TODO add_product_from_product_page()
+                if self.wait_element_displayed_by_xpath(pe.PRODUCT_SIZE_AVAILABLE):
+                    self.driver.find_element_by_xpath(pe.PRODUCT_SIZE_AVAILABLE).click()
+
+                    self.wait_element_displayed_by_xpath(pe.PRODUCT_SIZE_SELECTED)
+
+                    #store product data
+                    product_name = self.driver.find_element_by_xpath(pe.PRODUCT_NAME).text
+                    product_brand = self.driver.find_element_by_xpath(pe.PRODUCT_BRAND).text
+                    product_old_price = self.driver.find_element_by_xpath(pe.PRODUCT_OLD_PRICE).text
+
+                    self.driver.find_element_by_xpath(pe.ADD_PRODUCT_BTN).click()
+                    self.wait_element_displayed_by_xpath(pe.PRODUCT_ADDED_MESSAGE)
+                    break
+
+                elif self.driver.find_element_by_xpath(pe.PRODUCT_SIZE_SELECTED):
+                    #TODO add_product_from_product_page()
+
+                    #store product data
+                    product_name = self.driver.find_element_by_xpath(pe.PRODUCT_NAME).text
+                    product_brand = self.driver.find_element_by_xpath(pe.PRODUCT_BRAND).text
+                    product_old_price = self.driver.find_element_by_xpath(pe.PRODUCT_OLD_PRICE).text
+
+                    self.driver.find_element_by_xpath(pe.ADD_PRODUCT_BTN).click()
+                    self.wait_element_displayed_by_xpath(pe.PRODUCT_ADDED_MESSAGE)
+                    break
+
+                elif self.driver.find_element_by_xpath(pe.PRODUCT_SIZE_ONE):
+                    #TODO add_product_from_product_page()
+
+                    #store product data
+                    product_name = self.driver.find_element_by_xpath(pe.PRODUCT_NAME).text
+                    product_brand = self.driver.find_element_by_xpath(pe.PRODUCT_BRAND).text
+                    product_old_price = self.driver.find_element_by_xpath(pe.PRODUCT_OLD_PRICE).text
+
+                    self.driver.find_element_by_xpath(pe.ADD_PRODUCT_BTN).click()
+                    self.wait_element_displayed_by_xpath(pe.PRODUCT_ADDED_MESSAGE)
+                    break
+
+                elif self.driver.find_element_by_xpath(pe.PRODUCT_NO_SIZE):
+                    #store product data
+                    product_name = self.driver.find_element_by_xpath(pe.PRODUCT_NAME).text
+                    product_brand = self.driver.find_element_by_xpath(pe.PRODUCT_BRAND).text
+                    product_old_price = self.driver.find_element_by_xpath(pe.PRODUCT_OLD_PRICE).text
+
+                    self.driver.find_element_by_xpath(pe.ADD_PRODUCT_BTN).click()
+                    self.wait_element_displayed_by_xpath(pe.PRODUCT_ADDED_MESSAGE)
+                    break
+
+                else:
+                    print 'serching another product'
+                    self.driver.back()
+                    continue
+            break
+
+        if self.wait_element_displayed_by_xpath(be.BASKET_ICO):
+            self.driver.find_element_by_xpath(be.BASKET_ICO).click()
+
+            self.wait_element_displayed_by_xpath(be.PRODUCT_NAME)
+            assert product_name in self.driver.find_element_by_xpath(be.PRODUCT_NAME).text
+            self.wait_element_displayed_by_xpath(be.PRODUCT_BRAND)
+            assert product_brand in self.driver.find_element_by_xpath(be.PRODUCT_BRAND)
+            self.wait_element_displayed_by_xpath(be.PRODUCT_NEW_PRICE)
+            assert product_new_price in self.driver.find_element_by_xpath(be.PRODUCT_NEW_PRICE).text
+            self.wait_element_displayed_by_xpath(be.PRODUCT_OLD_PRICE)
+            assert product_old_price in self.driver.find_element_by_xpath(be.PRODUCT_OLD_PRICE).text
+            self.wait_element_displayed_by_xpath(be.CHECKOUT_BTN_DISABLED)
 

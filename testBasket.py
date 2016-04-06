@@ -31,6 +31,10 @@ class Test(unittest.TestCase, BaseClass, MainPage, Product, Campaign):
         self.login_old_user()
         self.add_product_less_99()
 
+        self.driver.find_elements_by_xpath(mpe.LOGO).click()
+
+        # self.assertTrue(self.add_product())
+        
 
     # def tearDown(self):
     #     self.driver.quit()
