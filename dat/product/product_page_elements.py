@@ -7,7 +7,7 @@ SIZE_AVAILABLE = "//div[@class='product_sizes']/div[normalize-space(@class='size
 SIZE_AVAILABLE_CSS = "div[class*='sizes__button_on"                                                                         #CSS
 SIZE_SELECTED = "//div[@class='product_sizes']/div[normalize-space(@class='product_size_item sizes__button_on sizes__button_chose')]"
 WITHOUT_SIZE = "//div[@class='single_sku']"
-PRODUCT_ADDED_MESSAGE = "//div[@class='messages__message info-msg']"
+PRODUCT_ADDED_MSG = "//div[@class='messages__message info-msg']"
 
 
 #PRODUCT DATA

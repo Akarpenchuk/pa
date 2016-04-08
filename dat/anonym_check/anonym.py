@@ -235,3 +235,7 @@ class Anonym(Action, Wait, BaseClass):
                     self.driver.back()
                     continue
             return True
+
+    def anonym_open_basket(self):
+        self.driver.find_element_by_xpath(be.BASKET_ICO).click()
+        self.wait_element_displayed_by_xpath(be.EMPY)

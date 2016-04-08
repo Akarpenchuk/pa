@@ -11,14 +11,7 @@ from selenium.webdriver.chrome.options import Options
 from selenium import webdriver
 from selenium.webdriver.support.ui import WebDriverWait
 
-from base_methods.base import BaseClass
-from main_page.main_page import MainPage
-from product.product import Product
-from campaign.campaign import Campaign
-from basket.basket import Basket
-
-
-class Test(unittest.TestCase, BaseClass, MainPage, Product, Campaign, Basket):
+class Test(unittest.TestCase):
 
     def setUp(self):
         chromeOptions = Options()
@@ -26,19 +19,27 @@ class Test(unittest.TestCase, BaseClass, MainPage, Product, Campaign, Basket):
         self.driver = webdriver.Chrome(chrome_options=chromeOptions)
         self.wait = WebDriverWait(self.driver, 10)
 
-
-    def testBasket(self):
+    # @decorator
+    def preconditions(self):
         self.open_base_url()
-        #check basket by anonym
-        self.login_old_user()
-        self.open_empty_basket()
 
-        self.add_product_less_99()
+    def testCategory(self):
+        self.check_first_category()
+        self.check_last_category()
+        self.uncheck_first_category()
+    def testBrand(self):
+        pass
+    def testSize(self):
+        pass
+    def testPrice(self):
+        pass
+    def testColor(self):
+        pass
 
-        self.driver.find_elements_by_xpath(mpe.LOGO).click()
+    def tearDown(self):
+        self.driver.quit()
+     
 
-    # def tearDown(self):
-    #     self.driver.quit()
 
 if __name__ == "__main__":
     print 'running'
