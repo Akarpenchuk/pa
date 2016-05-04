@@ -8,6 +8,7 @@ from time import sleep
 import unittest
 from selenium import webdriver
 from base_methods.wait import Wait
+from main_page.main_page import MainPage
 
 import cabinet.cabinet_elements as myinfo
 import main_page.main_page_elements as mpe
@@ -15,12 +16,22 @@ import base_methods.config as conf
 
 
 class BaseClass(Wait):
+# class BaseClass():
+
+    def __init__(self, driver):
+        self.driver = driver
 
     def open_base_url(self):
         self.driver.get(conf.BASE_URL)
         if self.check_main_page_elements():
             return True
         return False
+
+
+    def close_app_banner(self):
+        self.wait_element_displayed_by_xpath(mpe.APP_BANNER)
+        self.driver.find_element_by_xpath(mpe.APP_BANNER_CLOSE)
+
 
 
     def open_url(self, url, element):
@@ -65,44 +76,16 @@ class BaseClass(Wait):
         return False
 
 
-    def login_new_user(self):
-        try:
-            self.driver.find_element_by_xpath(mpe.AUTH_LINK).click()
-            self.wait_element_displayed_by_xpath(mpe.AUTH_FORM)
-            self.driver.find_element_by_xpath(mpe.AUTH_EMAIL_INPUT).send_keys(conf.RAND_EMAIL)
-            self.driver.find_element_by_xpath(mpe.AUTH_PASS_INPUT).send_keys(conf.USER_PASS)
-            self.driver.find_element_by_xpath(mpe.AUTH_BTN).click()
-            if self.wait_element_displayed_by_xpath(mpe.PROFILE_MENU):
-                return True
-            return False
-        except:
-            self.wait_element_displayed_by_xpath(mpe.AUTH_FORM)
-            self.driver.find_element_by_xpath(mpe.AUTH_EMAIL_INPUT).send_keys(conf.RAND_EMAIL)
-            self.driver.find_element_by_xpath(mpe.AUTH_PASS_INPUT).send_keys(conf.USER_PASS)
-            self.driver.find_element_by_xpath(mpe.AUTH_BTN).click()
-            if self.wait_element_displayed_by_xpath(mpe.PROFILE_MENU):
-                return True
-            return False
+    def login(self, user=conf.USER_EMAIL, password=conf.USER_PASS):
+        self.driver.find_element_by_xpath(mpe.AUTH_LINK).click()
+        self.wait_element_displayed_by_xpath(mpe.AUTH_FORM)
+        self.driver.find_element_by_xpath(mpe.AUTH_EMAIL_INPUT).send_keys(user)
+        self.driver.find_element_by_xpath(mpe.AUTH_PASS_INPUT).send_keys(password)
+        self.driver.find_element_by_xpath(mpe.AUTH_BTN).click()
+        if self.wait_element_displayed_by_xpath(mpe.PROFILE_MENU):
+            return True
+        return False
 
-
-    def login_old_user(self):
-        try:
-            self.driver.find_element_by_xpath(mpe.AUTH_LINK).click()
-            self.wait_element_displayed_by_xpath(mpe.AUTH_FORM)
-            self.driver.find_element_by_xpath(mpe.AUTH_EMAIL_INPUT).send_keys(conf.USER_EMAIL)
-            self.driver.find_element_by_xpath(mpe.AUTH_PASS_INPUT).send_keys(conf.USER_PASS)
-            self.driver.find_element_by_xpath(mpe.AUTH_BTN).click()
-            if self.wait_element_displayed_by_xpath(mpe.PROFILE_MENU):
-                return True
-            return False
-        except:
-            self.wait_element_displayed_by_xpath(mpe.AUTH_FORM)
-            self.driver.find_element_by_xpath(mpe.AUTH_EMAIL_INPUT).send_keys(conf.USER_EMAIL)
-            self.driver.find_element_by_xpath(mpe.AUTH_PASS_INPUT).send_keys(conf.USER_PASS)
-            self.driver.find_element_by_xpath(mpe.AUTH_BTN).click()
-            if self.wait_element_displayed_by_xpath(mpe.PROFILE_MENU):
-                return True
-            return False
 
     def logout(self):
         self.driver.find_element_by_xpath(myinfo.PROFILE_MENU).click()
@@ -114,17 +97,18 @@ class BaseClass(Wait):
 
 
     def refresh(self):
-
         self.driver.refresh()
 
 
-    def elements_count(self, element):
+    def back(self):
+        self.driver.back()
 
+
+    def elements_count(self, element):
         elements = self.driver.find_elements_by_xpath(element)
         return len(elements)
 
 
     def switch_to_frame(self, frame):
-
         inbox = self.driver.find_element_by_xpath(frame)
         self.driver.switch_to.frame(inbox)

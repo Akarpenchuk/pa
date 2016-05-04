@@ -60,8 +60,9 @@ PRODUCT_RESERVED = "//div[@class='shop_reserved']"
 PRODUCT_SOLD = "//div[@class='shop_sold']"
 
 
-PRODUCT_NEW_PRICE = "//div[@class='shop_item_cost']//span"
+PRODUCT_NEW_PRICE = "//div[@class='shop_item_cost']/div[@class='shop_new_cost']/span"
 # PRODUCT_OLD_PRICE = "//div[@class='shop_old_cost']"
+LAST_PRODUCT = "//div[@class='shop_item shop_item_adaptive'][last()]"
 
 
 

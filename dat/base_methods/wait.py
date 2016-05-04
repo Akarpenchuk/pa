@@ -8,7 +8,7 @@ from selenium.common.exceptions import TimeoutException
 
 class Wait:
 
-    def __init(self):
+    def __init__(self):
         self.driver = driver
         self.wait = WebDriverWait(self.driver, 3)
 

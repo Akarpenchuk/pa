@@ -5,7 +5,8 @@
 BANNER_CONTAINER_BLOCK = "//div[@class='banners-container']"
 LOGO = "//a[@class='header-top_logo']"
 PHONE = "//div[@class='header-top_telephone header-top_anon-tel']"
-
+APP_BANNER = "//"
+APP_BANNER_CLOSE = "//"
 
 PERSONAL_INFO_POPUP = "//div[contains(text(),'Персональная информация')]"
 PERSONAL_INFO_POPUP_NAME = "//input[@id='first_name']"

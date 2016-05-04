@@ -21,6 +21,9 @@ import base_methods.config as conf
 
 class MainPage():
 
+    # def __init__(self, driver):
+    #     self.driver = driver
+
     def check_main_page_elements(self):
         lst = [mpe.LOGO,
             mpe.BANNER_PROMO,
