@@ -1,4 +1,4 @@
-# !/usr/bin/env python
+#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
 
@@ -8,13 +8,13 @@ from time import sleep
 import time
 
 from selenium import webdriver
-from selenium.webdriver.support.wait import WebDriverWait
 
 import base_methods.hover
+
 import cabinet.cabinet_elements as myinfo
 import main_page_elements as mpe
 import static_page.static_page_elements as stpe
-import campaign.campaign_elements as ce
+# import campaign.campaign_elements as ce
 import base_methods.config as conf
 
 
@@ -23,6 +23,11 @@ class MainPage():
 
     # def __init__(self, driver):
     #     self.driver = driver
+
+    def close_app_banner(self):
+        self.wait_element(mpe.APP_BANNER)
+        self.find(mpe.APP_BANNER_CLOSE)
+
 
     def check_main_page_elements(self):
         lst = [mpe.LOGO,

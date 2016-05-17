@@ -134,5 +134,7 @@ FAST_ACCESS_BTNS = [
 ]
 
 
+FOOTER = "//footer[@id='footer']"
+
 
 

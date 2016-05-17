@@ -12,7 +12,7 @@ class Wait:
         self.driver = driver
         self.wait = WebDriverWait(self.driver, 3)
 
-    def wait_element_displayed_by_xpath(self, element):
+    def wait_element(self, element):
         if self.wait.until(lambda self: self.find_element_by_xpath(element)):
             return True
         return False, TimeoutException

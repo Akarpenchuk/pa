@@ -40,6 +40,7 @@ class Product():
             self.driver.back()
             self.wait_element_displayed_by_xpath(ce.PRODUCT)
             return False
+        
         return True
 
 

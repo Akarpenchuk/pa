@@ -5,9 +5,10 @@ import sys, os
 sys.path.append('/home/ace/Documents/git/autotests/dat')
 
 from selenium import webdriver
-from selenium.webdriver.support.wait import WebDriverWait
 
+from base_methods.base import BaseClass
 from base_methods.wait import Wait
+from selenium.webdriver.common.keys import Keys
 
 import main_page.main_page_elements as mpe
 import campaign_elements as ce
@@ -15,108 +16,132 @@ import campaign_elements as ce
 class Campaign():
 
     def open_campaign_iter(self, n):
-        campaigns = self.driver.find_elements_by_xpath(mpe.CAMPAIGN)
+        campaigns = self.find_elements(mpe.CAMPAIGN)
         for i in xrange(len(campaigns)):
             i += n
-            self.driver.find_element_by_xpath(mpe.CAMPAIGN_WRAPPER + '[' + str(i) + ']' + mpe.CAMPAIGN).click()
-            if self.check_if_outlet():
-                self.driver.find_element_by_xpath(ce.OUTLET_CATEGORY).click()
-            product_count = self.driver.find_elements_by_xpath(ce.PRODUCT)
-            assert product_count >= 1
-            return True
-        return False
+            self.click(mpe.CAMPAIGN_WRAPPER + '[' + str(i) + ']' + mpe.CAMPAIGN)
+            if 'campaign' in self.driver.current_url:
+                catalogue = self.driver.current_url.replace('campaign', 'catalogue')
+                self.driver.get(catalogue)
 
+            self.wait_element(ce.PRODUCT)
+            return True
 
     def open_campaign_iter_with_affiliations (self):
-        campaigns = self.driver.find_elements_by_xpath(mpe.CAMPAIGN)
+        campaigns = self.find(mpe.CAMPAIGN)
         for i in xrange(len(campaigns)):
             i += n
 
-            if self.driver.find_element_by_xpath(mpe.CAMPAIGN_WRAPPER + '[' + str(i) + ']' + mpe.CAMPAIGN).!hover:
+            if self.find(mpe.CAMPAIGN_WRAPPER + '[' + str(i) + ']' + mpe.CAMPAIGN): #!hover
                 
-                self.driver.find_element_by_xpath(mpe.CAMPAIGN_WRAPPER + '[' + str(i) + ']' + mpe.CAMPAIGN).click()
+                self.find(mpe.CAMPAIGN_WRAPPER + '[' + str(i) + ']' + mpe.CAMPAIGN).click()
                 if self.check_if_outlet():
-                    self.driver.find_elements_by_xpath(ce.OUTLET_CATEGORY).click()
-                    print 'check_if_outlet'
+                    self.find(ce.OUTLET_CATEGORY).click()
                     break
-                product_count = self.driver.find_elements_by_xpath(ce.PRODUCT)
+                product_count = self.wait_element(ce.PRODUCT)
                 assert product_count >= 1
             return True
-        return False        
-
+        return False
 
     def open_product_iter(self):
         products = self.driver.find_elements_by_xpath(ce.PRODUCT)
         for i in xrange(1, len(products)):
             # i += 1
             try:
-                self.driver.find_element_by_xpath(ce.PRODUCT + '[' + str(i) + ']' + '/a').click()
-                self.wait_element_displayed_by_xpath(pe.PRODUCT_BIG_IMG)
+                self.find(ce.PRODUCT + '[' + str(i) + ']' + '/a').click()
+                self.wait_element(pe.PRODUCT_BIG_IMG)
                 return True
             except:
                 self.driver.back()
-                self.wait_element_displayed_by_xpath(ce.PRODUCT)
+                self.wait_element(ce.PRODUCT)
             continue
 
-
     def check_product_less_99(self, n):
-        product_new_price = self.driver.find_element_by_xpath(ce.PRODUCT + '[' + int(n) + ']' + ce.PRODUCT_NEW_PRICE).text
-        if int(product_new_price) >= 99:
+        count = n
+        product_new_price = self.find(ce.PRODUCT + '[' + int(count) + ']' + ce.PRODUCT_NEW_PRICE).text
+        print product_new_price
+        # product_new_price = int(product_new_price)
+        if product_new_price >= 99:
             return False
         print "first product price ", product_new_price
         return True
 
-
-
     def check_if_outlet(self):
         #if outlet
         try:
-            self.wait_element_displayed_by_xpath(ce.OUTLET_CATEGORY)
-            self.driver.find_element_by_xpath(ce.OUTLET_CATEGORY).click()
-            self.wait_element_displayed_by_xpath(ce.PRODUCT)
+            self.wait_element(ce.OUTLET_CATEGORY)
+            self.find(ce.OUTLET_CATEGORY).click()
+            self.wait_element(ce.PRODUCT)
             return True
         #if simple campaign
         except:
-            self.driver.find_elements_by_xpath_by_xpath(ce.PRODUCT)
+            self.driver.find_elements_by_xpath(ce.PRODUCT)
             return False
 
-
     def hide_sold(self):
-        self.driver.find_element_by_xpath(ce.HIDE_SOLD).click()
-        self.wait_element_displayed_by_xpath(ce.PRODUCT)
+        self.click(ce.HIDE_SOLD)
+        self.wait_element(ce.PRODUCT)
         return True
 
-
     def sort_asc(self):
-
-        self.driver.find_element_by_xpath(ce.SORT_ASC).click()
-        self.wait_element_displayed_by_xpath(ce.PRODUCT)   
+        self.click(ce.FILTER_SORT)
+        self.find(ce.SORT_ASC)
+        self.click(ce.SORT_ASC)
+        self.wait_element(ce.PRODUCT)   
         
-        first_price = self.driver.find_element_by_xpath(ce.PRODUCT_NEW_PRICE).text
+        first_price = self.find_text(ce.PRODUCT_NEW_PRICE)
+        first_price = first_price.encode("utf-8").replace('грн', '')
+        first_price = first_price.replace(' ', '')
+        print "first_price ", first_price
+        
+        first_price = int(first_price)
+
+        self.scroll_to_element()
+        # footer = self.find(mpe.FOOTER)
+        # self.driver.execute_script('arguments[0].scrollIntoView(true);', footer)
+
+        last_price = self.find_text(ce.LAST_PRODUCT + ce.PRODUCT_NEW_PRICE)
+        last_price = last_price.encode("utf-8").replace('грн', '')
+        last_price = last_price.replace(' ', '')
+        print "last_price ", last_price
+        
+        last_price = int(last_price)
+
+        assert first_price <= last_price
+
+    def sort_desc(self):
+        self.find(ce.FILTER_SORT).click()
+        self.find(ce.SORT_DESC).click()
+        self.wait_element(ce.PRODUCT)   
+        
+        first_price = self.find(ce.PRODUCT_NEW_PRICE).text
         first_price = int(first_price)
         print first_price
 
-        last_price = self.driver.find_element_by_xpath(ce.LAST_PRODUCT + ce.PRODUCT_NEW_PRICE).text
+        #get last product
+        self.driver.execute_script("return arguments[0].scrollIntoView();", element)
+
+        last_price = self.find(ce.LAST_PRODUCT + ce.PRODUCT_NEW_PRICE).text
         last_price = int(last_price)
         print last_price
 
-        assert first_price < last_price
+        assert first_price > last_price
 
     def catalogue_details(self):
-        camp_name = self.wait_element_displayed_by_xpath(ce.CAMPAIGN_NAME).text
-        camp_time = self.driver.find_element_by_xpath(ce.TIME).text
-        camp_promo_banner = self.driver.find_element_by_xpath(ce.BANNER)
-        camp_app_banner = self.driver.find_element_by_xpath(ce.app_banner)
+        camp_name = self.wait_element(ce.CAMPAIGN_NAME).text
+        camp_time = self.find(ce.TIME).text
+        camp_promo_banner = self.find(ce.BANNER)
+        camp_app_banner = self.find(ce.app_banner)
 
-        !scroll
-        !save_position
-        camp_up_btn = self.driver.find_elements_by_xpath(ce.UP_BTN).click()
-        !save_position2
-        !assert positions
-        !assert camp_name is MainPage().camp_name
-        !assert camp_time is MainPage().camp_time
-        !assert camp_promo_banner
-        !assert camp_app_banner
+        # !scroll
+        # !save_position
+        # camp_up_btn = self.driver.find_elements_by_xpath(ce.UP_BTN).click()
+        # !save_position2
+        # !assert positions
+        # !assert camp_name is MainPage().camp_name
+        # !assert camp_time is MainPage().camp_time
+        # !assert camp_promo_banner
+        # !assert camp_app_banner
 
     def catalogue_affiliation(self):
         pass

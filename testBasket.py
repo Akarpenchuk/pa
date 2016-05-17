@@ -9,9 +9,11 @@ logging.basicConfig(filename = '/home/ace/log_webdriver', level = logging.DEBUG)
 
 from selenium.webdriver.chrome.options import Options
 from selenium import webdriver
-from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support.wait import WebDriverWait
 
 from base_methods.base import BaseClass
+from base_methods.common import Common
+from base_methods.wait import Wait
 from main_page.main_page import MainPage
 from product.product import Product
 from campaign.campaign import Campaign
@@ -20,15 +22,13 @@ from basket.basket import Basket
 import main_page.main_page_elements as mpe
 
 
-class Test(unittest.TestCase, BaseClass, MainPage, Product, Campaign, Basket):
+class Test(unittest.TestCase, BaseClass, Wait, Common, MainPage, Product, Campaign, Basket):
 
     def setUp(self):
         chromeOptions = Options()
         chromeOptions.add_argument("--start-maximized")
         self.driver = webdriver.Chrome(chrome_options=chromeOptions)
         self.wait = WebDriverWait(self.driver, 10)
-        self.open_base_url()
-
 
     def testBasketLess99(self):
         # self.open_base_url()
@@ -46,7 +46,7 @@ class Test(unittest.TestCase, BaseClass, MainPage, Product, Campaign, Basket):
         while self.open_campaign_iter(n):
             self.sort_asc()
             self.hide_sold()
-            if self.check_product_less_99(1):
+            if self.check_product_less_99(n):
                 self.open_product_iter()
                 self.add_product()
                 break
@@ -66,8 +66,8 @@ class Test(unittest.TestCase, BaseClass, MainPage, Product, Campaign, Basket):
     #     while self.open_campaign_iter(i):
     #         self.hide_sold()
     #         if self.open_product_iter():
-    #             if self.add_product():
-    #                 Basket().open_basket_product()
+    #             if self.add_product(quit):
+    #                 Basket().open_basket_product(name, brand, new_price, count)
     #         return i += 1
     #     continue
     #     i += 1
