@@ -55,16 +55,18 @@ HIDE_SOLD = "//div[text()='Скрыть проданные']"
 PRODUCT_COUNTER = u"//div[@class='filters-selection__results-right']/span[2]"
 
 #products
-PRODUCT = "//div[@class='product_item product_item_full']"
+PRODUCT = "//div[@class='product_item_wrap']"
 PRODUCT_IMG = "//a[@class='shop_item_img ']"
 PRODUCT_RESERVED = "//div[@class='shop_reserved']"
 PRODUCT_SOLD = "//div[@class='shop_sold']"
-
-
 PRODUCT_NEW_PRICE = "//span[@class='product_item__new-cost']"
+PRODUCT_NAME = "//span[@class='product_item__category']"
+
+
 # PRODUCT_OLD_PRICE = "//div[@class='shop_old_cost']"
-LAST_PRODUCT = "(//div[@class='product_item product_item_full'])[last()]"
-PRODUCT_LIST = "//html"
+LAST_PRODUCT = "(//div[@class='product_item_wrap'])[last()]"
+PRODUCT_LIST = "//div[@class='container']"
+PAGE_HEIGHT_ELEMENT = "//div[@class='products']/div"
 
 
 

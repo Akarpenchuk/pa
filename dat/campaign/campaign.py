@@ -3,12 +3,14 @@
 
 import sys, os
 sys.path.append('/home/ace/Documents/git/autotests/dat')
+from time import sleep
 
 from selenium import webdriver
 
 from base_methods.base import BaseClass
 from base_methods.wait import Wait
 from selenium.webdriver.common.keys import Keys
+import unittest
 
 import main_page.main_page_elements as mpe
 import campaign_elements as ce
@@ -56,15 +58,16 @@ class Campaign():
                 self.wait_element(ce.PRODUCT)
             continue
 
-    def check_product_less_99(self, n):
-        count = n
-        product_new_price = self.find(ce.PRODUCT + '[' + int(count) + ']' + ce.PRODUCT_NEW_PRICE).text
-        print product_new_price
-        # product_new_price = int(product_new_price)
-        if product_new_price >= 99:
+    def check_product_less_99(self):
+        count = 1
+        first_product_price = self.find_text(ce.PRODUCT + '[' + str(count) + ']' + ce.PRODUCT_NEW_PRICE)
+        first_product_price = first_product_price.replace(u' грн', '')
+        print 'first_product_price ', first_product_price
+        first_product_price = int(first_product_price)
+        if first_product_price > 99:
             return False
-        print "first product price ", product_new_price
         return True
+        print "first_product_price ", first_product_price
 
     def check_if_outlet(self):
         #if outlet
@@ -80,34 +83,45 @@ class Campaign():
 
     def hide_sold(self):
         self.click(ce.HIDE_SOLD)
-        self.wait_element(ce.PRODUCT)
+        self.wait_element(ce.PRODUCT_NEW_PRICE)
         return True
 
     def sort_asc(self):
         self.click(ce.FILTER_SORT)
-        self.find(ce.SORT_ASC)
+        self.wait_element(ce.SORT_ASC)
         self.click(ce.SORT_ASC)
-        self.wait_element(ce.PRODUCT)   
-        
+        self.wait_element(ce.PRODUCT_NEW_PRICE)
+        sleep(2)
+
         first_price = self.find_text(ce.PRODUCT_NEW_PRICE)
         first_price = first_price.encode("utf-8").replace('грн', '')
         first_price = first_price.replace(' ', '')
+        first_price = int(first_price)
         print "first_price ", first_price
         
-        first_price = int(first_price)
+        self.scroll_bottom_product_list()
 
-        self.scroll_to_element()
-        # footer = self.find(mpe.FOOTER)
-        # self.driver.execute_script('arguments[0].scrollIntoView(true);', footer)
 
-        last_price = self.find_text(ce.LAST_PRODUCT + ce.PRODUCT_NEW_PRICE)
+        #!scroll to the bottom
+        # while current_height != product_list_height
+        # scroll
+
+        self.wait_element(ce.LAST_PRODUCT + ce.PRODUCT_NEW_PRICE)
+
+        last_product_name = self.find_text(ce.LAST_PRODUCT + ce.PRODUCT_NAME)
+        print 'last_product_name ', last_product_name
+
+        last_price = self.find_text_few_elements(ce.LAST_PRODUCT, ce.PRODUCT_NEW_PRICE)
+        print 'last_price ', last_price
         last_price = last_price.encode("utf-8").replace('грн', '')
         last_price = last_price.replace(' ', '')
-        print "last_price ", last_price
-        
         last_price = int(last_price)
+        print "last_price ", last_price
 
-        assert first_price <= last_price
+        self.assertTrue(first_price <= last_price)
+        return True
+            # print 'first_price <= last_price'
+        # print 'first_price > last_price!'
 
     def sort_desc(self):
         self.find(ce.FILTER_SORT).click()

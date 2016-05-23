@@ -24,6 +24,10 @@ class MainPage():
     # def __init__(self, driver):
     #     self.driver = driver
 
+    def open_base_url(self):
+        self.driver.get(conf.BASE_URL)
+        self.check_main_page_elements()
+
     def close_app_banner(self):
         self.wait_element(mpe.APP_BANNER)
         self.find(mpe.APP_BANNER_CLOSE)

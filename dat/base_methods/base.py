@@ -23,10 +23,15 @@ import base_methods.config as conf
 class BaseClass():
 
     def find(self, item):
-        self.driver.find_element_by_xpath(item)
+        element = self.driver.find_element_by_xpath(item)
+        return element
 
-    def find_text(self, items):
-        element_text = self.driver.find_element_by_xpath(items).text
+    def find_text(self, item):
+        element_text = self.driver.find_element_by_xpath(item).text
+        return element_text
+
+    def find_text_few_elements(self, item, new_item):
+        element_text = self.driver.find_element_by_xpath(item + new_item).text
         return element_text
 
     def find_elements(self, items):
@@ -54,9 +59,47 @@ class BaseClass():
         self.driver.switch_to.frame(inbox)
 
     def scroll_down(self, element):
-        self.driver.find_element_by_xpath(element).send_keys(Keys.PAGE_DOWN)
+        self.driver.find_element_by_xpath(element).send_keys(Keys.COMMAND, Keys.END)
 
-    def scroll_to_element(self):
-        while not self.find(ce.LAST_PRODUCT):
-            self.driver.execute_script("window.scrollTo(0,document.body.scrollHeight);");
-            self.wait_element(ce.PRODUCT)
+    def scroll_to_element(self, element):
+        while not self.find(element):
+            self.driver.execute_script("window.scrollTo(0, 100000);")
+
+    def scroll_bottom_product_list(self):
+        #check current position
+        item = self.find(ce.LAST_PRODUCT)
+        item = item.location
+        last_product_position = item.get('y')
+        last_product_position = int(last_product_position)
+        print 'last_product_position ', last_product_position
+
+        #check height
+        height = self.driver.execute_script("return document.querySelector('.products > div:last-child').style.height");
+        height = height.replace('px', '')
+        print 'height ', height
+
+        while last_product_position >= height:
+            self.driver.execute_script("document.querySelector('.products > div:last-child').scrollIntoView(true)");
+
+            #check current position again
+            item = self.find(ce.LAST_PRODUCT)
+            item = item.location
+            last_product_position = item.get('y')
+            last_product_position = int(last_product_position)
+            print 'last_product_position ', last_product_position
+
+        # while current position != screen position:
+        #   scroll this shit!
+        #   or
+        #   window.scrollTo(?, ?)
+
+        # while pos.get('y') != page_height:
+        #     print 'while'
+        #     self.driver.execute_script("document.querySelector('div.products > div').style.height");
+
+        # self.action = ActionChains(self.driver)
+        # self.driver.execute_script('document.documentElement.scrollIntoView(0, 1);')
+        # self.find(element)
+        # self.driver.execute_script("document.querySelector('div.products > div > div > div').scrollIntoView(true)");
+        # self.driver.execute_script("document.querySelector('div.products > div').style.height");
+        # if self.driver.execute_script("document.querySelector('div .product_item_wrap:last-child').scrollIntoView(true)") == False

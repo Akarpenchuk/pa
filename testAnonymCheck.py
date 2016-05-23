@@ -1,6 +1,10 @@
 # !/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+import sys, os
+sys.path.append('/home/ace/Documents/git/autotests/dat')
+import unittest
+
 from time import sleep
 import unittest
 
@@ -14,8 +18,8 @@ from dat.main_page.main_page import MainPage
 from dat.anonym_check.anonym import Anonym
 from dat.base_methods.wait import Wait
 
-from dat.main_page.main_page_elements import *
-from dat.base_methods.config import *
+import dat.main_page.main_page_elements as mpe
+import dat.base_methods.config as conf
 
 
 

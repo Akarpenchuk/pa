@@ -12,7 +12,6 @@ from selenium import webdriver
 from selenium.webdriver.support.wait import WebDriverWait
 
 from base_methods.base import BaseClass
-from base_methods.common import Common
 from base_methods.wait import Wait
 from main_page.main_page import MainPage
 from product.product import Product
@@ -22,7 +21,7 @@ from basket.basket import Basket
 import main_page.main_page_elements as mpe
 
 
-class Test(unittest.TestCase, BaseClass, Wait, Common, MainPage, Product, Campaign, Basket):
+class Test(unittest.TestCase, BaseClass, Wait, MainPage, Product, Campaign, Basket):
 
     def setUp(self):
         chromeOptions = Options()
@@ -41,24 +40,28 @@ class Test(unittest.TestCase, BaseClass, Wait, Common, MainPage, Product, Campai
 
         #TODO t.txt
         self.open_base_url()
-        self.login()
+        # self.login()
         n = 1
         while self.open_campaign_iter(n):
-            self.sort_asc()
             self.hide_sold()
-            if self.check_product_less_99(n):
+            self.sort_asc()
+            self.scroll_bottom_product_list()
+            if self.check_product_less_99():
                 self.open_product_iter()
                 self.add_product()
-                break
+            break
             n += 1
             self.open_base_url()
             continue
 
-        print 2
+        print 'step 2'
         self.open_basket_with_product()
-        print 3
+        print 'step 3'
         self.check_product_data()
         self.check_basket_less_99()
+
+        #! DELETE PRODUCT
+        #! OPEN MAIN PAGE
 
 
     # def testBasketDeleteOneProduct(self):
@@ -66,9 +69,9 @@ class Test(unittest.TestCase, BaseClass, Wait, Common, MainPage, Product, Campai
     #     while self.open_campaign_iter(i):
     #         self.hide_sold()
     #         if self.open_product_iter():
-    #             if self.add_product(quit):
-    #                 Basket().open_basket_product(name, brand, new_price, count)
-    #         return i += 1
+    #             if self.add_product():
+    #                self.open_basket_product(name, brand, new_price, count)
+        #         return i += 1
     #     continue
     #     i += 1
     #     continue

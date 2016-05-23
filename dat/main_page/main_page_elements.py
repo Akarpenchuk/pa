@@ -1,5 +1,6 @@
 # !/usr/bin/env python
 # -*- coding: utf-8 -*-
+TEST_CAMP = u"//h1[contains(text(),'Скоро заканчиваются')]"
 
 # HEADER
 BANNER_CONTAINER_BLOCK = "//div[@class='banners-container']"
@@ -108,7 +109,7 @@ LIST_CAMPAIGN_TIMER = ""
 
 
 LAST_MINUTES_BTN = "//a[@href='#last-minutes']"
-SOON_END_TITLE = "//div[text()='Скоро заканчиваются']"
+SOON_END_TITLE = u"//h1[text()='Скоро заканчиваются']"
 SOON_END_CAMPAIGNS = "//div[@id='soon_end']/following-sibling::div[@class='row']/div"
 SOON_END_CAMPAIGN = "//div[@class='column_item column_2']/a"
 SOON_END_CAMPAIGN_TIME = "//div[@id='soon_end']/following-sibling::div[@class='row']//div[@class='timer_time']"
