@@ -22,6 +22,10 @@ import base_methods.config as conf
 
 class BaseClass():
 
+    def open_url(self, url):
+        self.driver.get(url)
+        self.check_main_page_elements()
+
     def find(self, item):
         element = self.driver.find_element_by_xpath(item)
         return element
@@ -54,6 +58,12 @@ class BaseClass():
         elements = self.driver.find_elements_by_xpath(element)
         return len(elements)
 
+    def hover(self, element):
+        action = ActionChains(self.driver)
+        el = self.find(element)
+        action.move_to_element(el)
+        action.perform()
+
     def switch_to_frame(self, frame):
         inbox = self.find(frame)
         self.driver.switch_to.frame(inbox)
@@ -78,7 +88,7 @@ class BaseClass():
         height = height.replace('px', '')
         print 'height ', height
 
-        while last_product_position >= height:
+        while last_product_position < height:
             self.driver.execute_script("document.querySelector('.products > div:last-child').scrollIntoView(true)");
 
             #check current position again
@@ -87,6 +97,8 @@ class BaseClass():
             last_product_position = item.get('y')
             last_product_position = int(last_product_position)
             print 'last_product_position ', last_product_position
+        else:
+            return True
 
         # while current position != screen position:
         #   scroll this shit!

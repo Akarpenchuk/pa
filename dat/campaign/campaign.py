@@ -22,12 +22,14 @@ class Campaign():
         for i in xrange(len(campaigns)):
             i += n
             self.click(mpe.CAMPAIGN_WRAPPER + '[' + str(i) + ']' + mpe.CAMPAIGN)
-            if 'campaign' in self.driver.current_url:
+            self.change_to_catalogue()
+            
+    def change_to_catalogue(self):
+        if 'campaign' in self.driver.current_url:
                 catalogue = self.driver.current_url.replace('campaign', 'catalogue')
                 self.driver.get(catalogue)
-
-            self.wait_element(ce.PRODUCT)
-            return True
+                self.wait_element(ce.PRODUCT)
+                return True
 
     def open_campaign_iter_with_affiliations (self):
         campaigns = self.find(mpe.CAMPAIGN)
@@ -101,18 +103,12 @@ class Campaign():
         
         self.scroll_bottom_product_list()
 
-
-        #!scroll to the bottom
-        # while current_height != product_list_height
-        # scroll
-
         self.wait_element(ce.LAST_PRODUCT + ce.PRODUCT_NEW_PRICE)
 
-        last_product_name = self.find_text(ce.LAST_PRODUCT + ce.PRODUCT_NAME)
-        print 'last_product_name ', last_product_name
+        # last_product_name = self.find_text(ce.LAST_PRODUCT + ce.PRODUCT_NAME)
+        # print 'last_product_name ', last_product_name
 
         last_price = self.find_text_few_elements(ce.LAST_PRODUCT, ce.PRODUCT_NEW_PRICE)
-        print 'last_price ', last_price
         last_price = last_price.encode("utf-8").replace('грн', '')
         last_price = last_price.replace(' ', '')
         last_price = int(last_price)

@@ -29,23 +29,24 @@ NEW_EMAIL_SAVE_BTN = "//form[@id='password_reset_valid']//input[@id='submit_pass
 
 # menu catories
 MENU_CATEGORIES = {
-"CATEGORY_FEMALE": "//ul[@class='nav_content']/li[1]/a",
-"CATEGORY_MALE": "//ul[@class='nav_content']/li[2]/a",
-"CATEGORY_KIDS": "//ul[@class='nav_content']/li[3]/a",
-"2": "//ul[@class='nav_content']/li[4]/a",
-"CATEGORY_OUTLET": "//ul[@class='nav_content']/li[5]/a"
+"CATEGORY_FEMALE": "//ul[contains(@class,'nav_content')]/li[1]/a",
+"CATEGORY_MALE": "//ul[contains(@class,'nav_content')]/li[2]/a",
+"CATEGORY_KIDS": "//ul[contains(@class,'nav_content')]/li[3]/a",
+"CATEGORY_HOME": "//ul[contains(@class,'nav_content')]/li[4]/a",
+"CATEGORY_OUTLET": "//ul[contains(@class,'nav_content')]/li[5]/a"
 }
 
 MENU_CAMPAIGN = "//a[@class='drop-content_item']"
 
 #modnakarta
 MODNAKARTA_HEADER_LINK = "//div[@class='header-top_anon-right']//a[@href='/modnakarta/']"
-MODNAKARTA_MENU_HELP = "//li[@class='header-top_item']//a[@href='/a/about/ModnaKarta/']"
+# MODNAKARTA_MENU_HELP = "//li[@class='header-top_item']//a[@href='/a/about/ModnaKarta/']"
+MODNAKARTA_MENU_HELP = "//a[@href='/a/about/ModnaKarta/']"
 MODNAKARTA_CAMPAIGN = "//a[@href='/campaign/modnakarta/']"
 
 # menu help
-HELP_DICT = {
-"MENU_HELP": "//div[contains(text(),'Помощь')]",
+HELP_MENU = {
+"MENU_HELP": "//div[text()='Помощь']",
 "MENU_HELP_PAYMENT": "//div[@class='header-top_help']//a[contains(text(),'Оплата')]",
 "MENU_HELP_DELIVERY": "//div[@class='header-top_help']//a[contains(text(),'Доставка')]",
 "MENU_HELP_REFOUND": "//div[@class='header-top_help']//a[contains(text(),'Возврат')]",

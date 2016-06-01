@@ -14,7 +14,7 @@ import base_methods.hover
 import cabinet.cabinet_elements as myinfo
 import main_page_elements as mpe
 import static_page.static_page_elements as stpe
-# import campaign.campaign_elements as ce
+import campaign.campaign_elements as ce
 import base_methods.config as conf
 
 
@@ -23,10 +23,6 @@ class MainPage():
 
     # def __init__(self, driver):
     #     self.driver = driver
-
-    def open_base_url(self):
-        self.driver.get(conf.BASE_URL)
-        self.check_main_page_elements()
 
     def close_app_banner(self):
         self.wait_element(mpe.APP_BANNER)
@@ -44,22 +40,21 @@ class MainPage():
             mpe.COMING_SOON_ITEMS[0]]
 
         for i in lst:
-            if self.driver.find_element_by_xpath(i):
+            if self.find(i):
                 return True
             return False
 
 
     def check_help_menu_items(self):
-        self.driver.refresh()
-
-        self.driver.find_element_by_xpath(mpe.HELP_DICT.get("MENU_HELP")).click()
-        for i in mpe.HELP_DICT.values():
+        self.find(mpe.HELP_MENU.get("MENU_HELP"))
+        for i in mpe.HELP_MENU.values():
             return True
         return False
         
-        self.driver.find_element_by_xpath(mpe.PHONE).click()
+        self.click(mpe.PHONE)
 
-        if self.driver.find_element_by_xpath(mpe.HELP_DICT.values()[1]):
+        # check is it closed
+        if self.find(mpe.HELP_MENU.values()[1]):
             return False
         return True
 
@@ -68,25 +63,32 @@ class MainPage():
         for i in sorted(mpe.MENU_CATEGORIES.itervalues()):
 
             self.hover(i)
-            self.wait_element_displayed_by_xpath(mpe.MENU_CAMPAIGN)
-            menu_campaign_count = self.driver.find_elements_by_xpath(mpe.MENU_CAMPAIGN)
-            assert len(menu_campaign_count) >= 1, len(menu_campaign_count)
+            self.wait_element(mpe.MENU_CAMPAIGN)
+            menu_campaign_count = self.count_elements(mpe.MENU_CAMPAIGN)
+            assert menu_campaign_count >= 1
+            print 'menu_campaign_count', menu_campaign_count
 
-            self.driver.find_element_by_xpath(i).click()
-            
-            self.driver.find_element_by_xpath(mpe.MENU_CAMPAIGN).click()
-            ce.check_if_outlet()
-            # self.driver.find_element_by_xpath(mpe.LOGO).click()
-            # self.driver.wait_element_displayed_by_xpath(mpe.LIST_CAMPAIGN_CURRENT)
+            self.click(i)
+            self.wait_element(mpe.LIST_CAMPAIGN_CURRENT)
+            campaign_count = self.count_elements(mpe.CAMPAIGN)
+            assert campaign_count >= 1
+            print 'campaign_count', campaign_count
+
+            self.hover(i)
+            self.wait_element(mpe.MENU_CAMPAIGN)
+            self.click(mpe.MENU_CAMPAIGN)
+            self.wait_element(ce.PRODUCT)
+            self.click(i)
+
+            # ce.check_if_outlet()
             continue
         return True
 
 
     def check_coming_soon_campaigns(self):
-        '''check dates'''
         date = time.strftime("%d")
         for i in mpe.COMING_SOON_DATES:
-            if date in self.driver.find_element_by_xpath(i).text:
+            if date in self.find(i):
                 date = int(date) + 1
                 date = str(date)
                 continue
@@ -99,19 +101,19 @@ class MainPage():
 
 
     def check_soon_end_campaigns(self):
-        self.open_base_url()
-        assert self.driver.find_elements_by_xpath(mpe.SOON_END_CAMPAIGNS) >= 3
+        self.open_url(conf.BASE_URL)
+        assert self.count_elements(mpe.SOON_END_CAMPAIGNS) >= 3
 
-        soon_end_camps = self.driver.find_elements_by_xpath(mpe.SOON_END_CAMPAIGNS)
+        soon_end_camps = self.count_elements(mpe.SOON_END_CAMPAIGNS)
         campaigns_time = self.driver.find_elements_by_xpath(mpe.SOON_END_CAMPAIGN_TIME)
         count = 1
 
-        for i in xrange(len(soon_end_camps)):
+        for i in xrange(soon_end_camps):
             print count
 
             self.hover(mpe.SOON_END_CAMPAIGNS + '[%d]' % count)
-            time = self.driver.find_element_by_xpath(mpe.SOON_END_CAMPAIGNS + '[%d]' % count + "//div[@class='timer_time']").text
-            # time = time.encode('utf-8')
+            time = self.find_text(mpe.SOON_END_CAMPAIGNS + '[%d]' % count + "//div[@class='timer_time']")
+
             count += 1
             if '0' in time.encode('utf-8'):
                 continue
@@ -124,7 +126,7 @@ class MainPage():
             screen_position = ["u'y': 0, u'x': 1920"] ==  str(self.driver.get_window_position(windowHandle='current'))
             
         #     for i in screen_position:
-        #     self.driver.find_element_by_xpath(i).click()
+        #     self.find(i).click()
 
         #     sleep(1)
             
@@ -135,42 +137,42 @@ class MainPage():
 
 
     def send_registration_email(self):
-        self.driver.find_element_by_xpath(mpe.REG_LINK).click()
+        self.find(mpe.REG_LINK).click()
         self.wait_element_displayed_by_xpath(mpe.REG_FORM)
-        self.driver.find_element_by_xpath(mpe.REG_EMAIL_INPUT).send_keys(conf.RAND_EMAIL)
-        self.driver.find_element_by_xpath(mpe.REG_PASS_INPUT).send_keys(conf.USER_PASS)
-        self.driver.find_element_by_xpath(mpe.REG_BTN).click()
+        self.find(mpe.REG_EMAIL_INPUT).send_keys(conf.RAND_EMAIL)
+        self.find(mpe.REG_PASS_INPUT).send_keys(conf.USER_PASS)
+        self.find(mpe.REG_BTN).click()
         if self.wait_element_displayed_by_xpath(mpe.REG_FORM_SEND_LOGO):
             return True
         return False
 
 
     def fill_personal_data_popup(self):
-        self.driver.find_element_by_xpath(mpe.PERSONAL_INFO_POPUP)
+        self.find(mpe.PERSONAL_INFO_POPUP)
 
-        name = self.driver.find_element_by_xpath(mpe.PERSONAL_INFO_POPUP_NAME).send_keys(u"тест")
-        self.driver.find_element_by_xpath(mpe.PERSONAL_INFO_POPUP_SURNAME).send_keys(u"тест")
+        name = self.find(mpe.PERSONAL_INFO_POPUP_NAME).send_keys(u"тест")
+        self.find(mpe.PERSONAL_INFO_POPUP_SURNAME).send_keys(u"тест")
 
-        self.driver.find_element_by_xpath(mpe.PERSONAL_INFO_POPUP_DAY).click()
+        self.find(mpe.PERSONAL_INFO_POPUP_DAY).click()
         self.wait
-        self.driver.find_element_by_xpath(mpe.PERSONAL_INFO_POPUP_DAY_SELECT).click()
+        self.find(mpe.PERSONAL_INFO_POPUP_DAY_SELECT).click()
         
         self.wait
-        self.driver.find_element_by_xpath(mpe.PERSONAL_INFO_POPUP_MONTH).click()
+        self.find(mpe.PERSONAL_INFO_POPUP_MONTH).click()
         self.wait
-        self.driver.find_element_by_xpath(mpe.PERSONAL_INFO_POPUP_MONTH_SELECT).click()
+        self.find(mpe.PERSONAL_INFO_POPUP_MONTH_SELECT).click()
 
         self.wait
-        self.driver.find_element_by_xpath(mpe.PERSONAL_INFO_POPUP_YEAR).click()
+        self.find(mpe.PERSONAL_INFO_POPUP_YEAR).click()
         self.wait
-        self.driver.find_element_by_xpath(mpe.PERSONAL_INFO_POPUP_YEAR_SELECT).click()
+        self.find(mpe.PERSONAL_INFO_POPUP_YEAR_SELECT).click()
 
         self.wait
-        self.driver.find_element_by_xpath(mpe.PERSONAL_INFO_POPUP_BTN).click()
+        self.find(mpe.PERSONAL_INFO_POPUP_BTN).click()
 
         self.wait_element_displayed_by_xpath(mpe.PROFILE_MENU)
 
-        profile_name = self.driver.find_element_by_xpath(mpe.PROFILE_MENU).text
+        profile_name = self.find(mpe.PROFILE_MENU).text
         profile_name = profile_name.encode('utf-8')
 
         assert profile_name in 'тест'
@@ -179,14 +181,14 @@ class MainPage():
 
 
     def send_recovery_email(self):
-        self.driver.find_element_by_xpath(mpe.REG_LINK).click()
+        self.find(mpe.REG_LINK).click()
         self.wait_element_displayed_by_xpath(mpe.REG_FORM)
-        self.driver.find_element_by_xpath(mpe.RECOVERY_EMAIL_LINK).click()
+        self.find(mpe.RECOVERY_EMAIL_LINK).click()
 
         if self.wait_element_displayed_by_xpath(mpe.RECOVERY_EMAIL_FORM):
             sleep(1)
-            self.driver.find_element_by_xpath(mpe.RECOVERY_EMAIL_INPUT).send_keys(conf.USER_EMAIL)
-            self.driver.find_element_by_xpath(mpe.RECOVERY_EMAIL_BTN).click()
+            self.find(mpe.RECOVERY_EMAIL_INPUT).send_keys(conf.USER_EMAIL)
+            self.find(mpe.RECOVERY_EMAIL_BTN).click()
             self.wait
             if self.wait_element_displayed_by_xpath(mpe.REG_FORM_SEND_LOGO):
                 return True
@@ -194,23 +196,23 @@ class MainPage():
 
 
     def open_cabinet(self):
-        login = self.driver.find_element_by_xpath(mpe.PROFILE_LINK)
+        login = self.find(mpe.PROFILE_LINK)
         if login:
-            self.driver.find_element_by_xpath(mpe.PROFILE_MENU).click()
+            self.find(mpe.PROFILE_MENU).click()
             self.wait_element_displayed_by_xpath(mpe.PROFILE_MENU)
-            self.driver.find_element_by_xpath(mpe.PROFILE_LINK).click()
+            self.find(mpe.PROFILE_LINK).click()
             self.wait_element_displayed_by_xpath(myinfo.NAME)
             return True
         return False
 
 
     # def open_campaign(self):
-    #     camp_name = self.driver.find_element_by_xpath(mpe.CAMPAIGN_NAME).text
-    #     self.driver.find_element_by_xpath(mpe.CAMPAIGN).click()
+    #     camp_name = self.find(mpe.CAMPAIGN_NAME).text
+    #     self.find(mpe.CAMPAIGN).click()
     #     Campaign().check_if_outlet()
 
     #     self.wait_element_displayed_by_xpath(ce.PRODUCT)
-    #     assert camp_name in self.driver.find_element_by_xpath(ce.CAMPAIGN_NAME).text
+    #     assert camp_name in self.find(ce.CAMPAIGN_NAME).text
     #     product_count = self.driver.find_elements_by_xpath(ce.PRODUCT)
     #     assert product_count >= 1
 
@@ -229,7 +231,7 @@ class MainPage():
         assert product_count == LIST_PRODUCT_COUNT
         print "product_count OK"
 
-        products_in_camp = self.driver.find_element_by_xpath(PRODUCT_COUNTER).text
+        products_in_camp = self.find(PRODUCT_COUNTER).text
 
         #verify product count is changed after affiliation selecting
         if self.driver.find_elements_by_xpath(AFF_WOMAN).is_displayed():
@@ -237,7 +239,7 @@ class MainPage():
             self.driver.find_elements_by_xpath(AFF_WOMAN).click()
             self.wait.until(lambda self: self.find_element_by_xpath(SPINNER).is_displayed())
             
-            new_products_counter = self.driver.find_element_by_xpath(PRODUCT_COUNTER)
+            new_products_counter = self.find(PRODUCT_COUNTER)
             
             assert products_in_camp != new_products_counter
             print "product_count is changed"

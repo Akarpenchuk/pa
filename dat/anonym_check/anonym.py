@@ -10,30 +10,31 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.action_chains import ActionChains
 
 from base_methods.base import BaseClass
-from base_methods.hover import Action
 from base_methods.wait import Wait
+from campaign.campaign import Campaign
 from base_methods.config import *
 
 import main_page.main_page_elements as mpe
 import modnakarta_page.modnakarta_page_elements as mkpe
 import campaign.campaign_elements as ce
 import product.product_page_elements as ppe
+import base_methods.config as conf
 
 from selenium.common.exceptions import NoSuchElementException
 
 
 
 
-class Anonym(Action, Wait, BaseClass):
+class Anonym(Campaign, Wait, BaseClass):
 
     def check_validation_reg(self):
-        self.driver.find_element_by_xpath(mpe.REG_LINK).click()
+        self.find(mpe.REG_LINK).click()
 
-        if self.wait_element_displayed_by_xpath(mpe.REG_FORM):
+        if self.wait_element(mpe.REG_FORM):
 
-            email_field = self.driver.find_element_by_xpath(mpe.REG_EMAIL_INPUT)
-            pass_field = self.driver.find_element_by_xpath(mpe.REG_PASS_INPUT)
-            reg_btn = self.driver.find_element_by_xpath(mpe.REG_BTN)
+            email_field = self.find(mpe.REG_EMAIL_INPUT)
+            pass_field = self.find(mpe.REG_PASS_INPUT)
+            reg_btn = self.find(mpe.REG_BTN)
 
             valid_email = ["mktestuser3@yopmail.com"]
             invalid_email = ["mktestuser333333@yo pmail.com", "slekslienseoi231@@i.ua", ""]
@@ -48,7 +49,7 @@ class Anonym(Action, Wait, BaseClass):
                 pass_field.send_keys(valid_pass)
                 reg_btn.click()
 
-                self.wait_element_displayed_by_xpath(mpe.REG_EMAIL_INPUT_ERROR)
+                self.wait_element(mpe.REG_EMAIL_INPUT_ERROR)
 
             for i in xrange(len(invalid_email)):
                 email_field.clear()
@@ -57,7 +58,7 @@ class Anonym(Action, Wait, BaseClass):
                 pass_field.send_keys(valid_pass)
                 reg_btn.click()
 
-                self.wait_element_displayed_by_xpath(mpe.REG_EMAIL_INPUT_ERROR)
+                self.wait_element(mpe.REG_EMAIL_INPUT_ERROR)
 
             for i in xrange(len(invalid_pass)):
                 email_field.clear()
@@ -66,18 +67,18 @@ class Anonym(Action, Wait, BaseClass):
                 pass_field.send_keys(invalid_pass[i])
                 reg_btn.click()
 
-                self.wait_element_displayed_by_xpath(mpe.REG_EMAIL_INPUT_ERROR)
+                self.wait_element(mpe.REG_EMAIL_INPUT_ERROR)
 
             return True
         return False
 
 
     def check_validation_auth(self):
-        if self.wait_element_displayed_by_xpath(mpe.AUTH_FORM):
+        if self.wait_element(mpe.AUTH_FORM):
 
-            email_field = self.driver.find_element_by_xpath(mpe.AUTH_EMAIL_INPUT)
-            pass_field = self.driver.find_element_by_xpath(mpe.AUTH_PASS_INPUT)
-            auth_btn = self.driver.find_element_by_xpath(mpe.AUTH_BTN)
+            email_field = self.find(mpe.AUTH_EMAIL_INPUT)
+            pass_field = self.find(mpe.AUTH_PASS_INPUT)
+            auth_btn = self.find(mpe.AUTH_BTN)
 
             valid_email = ["absolutelynewtestemail@gmail.com"]
             invalid_email = ["   @yopmail.com", "!@#$%^&()_+~@i.ua", ""]
@@ -92,7 +93,7 @@ class Anonym(Action, Wait, BaseClass):
                 pass_field.send_keys(valid_pass)
                 auth_btn.click()
 
-                self.wait_element_displayed_by_xpath(mpe.AUTH_EMAIL_INPUT_ERROR)
+                self.wait_element(mpe.AUTH_EMAIL_INPUT_ERROR)
 
             for i in xrange(len(invalid_email)):
                 email_field.clear()
@@ -101,7 +102,7 @@ class Anonym(Action, Wait, BaseClass):
                 pass_field.send_keys(valid_pass)
                 auth_btn.click()
 
-                self.wait_element_displayed_by_xpath(mpe.AUTH_EMAIL_INPUT_ERROR)
+                self.wait_element(mpe.AUTH_EMAIL_INPUT_ERROR)
 
             for i in xrange(len(invalid_pass)):
                 email_field.clear()
@@ -110,25 +111,25 @@ class Anonym(Action, Wait, BaseClass):
                 pass_field.send_keys(invalid_pass[i])
                 auth_btn.click()
 
-                self.wait_element_displayed_by_xpath(mpe.AUTH_EMAIL_INPUT_ERROR)
+                self.wait_element(mpe.AUTH_EMAIL_INPUT_ERROR)
 
                 return True
             return False
 
 
     def check_validation_recovery(self):
-        if self.driver.find_element_by_xpath(mpe.RECOVERY_EMAIL_LINK).is_displayed():
-            self.driver.find_element_by_xpath(mpe.RECOVERY_EMAIL_LINK).click()
+        if self.find(mpe.RECOVERY_EMAIL_LINK):
+            self.click(mpe.RECOVERY_EMAIL_LINK)
         else:
             self.open_url(BASE_URL, mpe.AUTH_LINK)
-            self.driver.find_element_by_xpath(mpe.AUTH_LINK).click()
-            self.wait_element_displayed_by_xpath(mpe.AUTH_FORM)
-            self.driver.find_element_by_xpath(mpe.RECOVERY_EMAIL_LINK).click()
+            self.click(mpe.AUTH_LINK)
+            self.wait_element(mpe.AUTH_FORM)
+            self.click(mpe.RECOVERY_EMAIL_LINK)
 
-        if self.wait_element_displayed_by_xpath(mpe.RECOVERY_EMAIL_FORM):
+        if self.wait_element(mpe.RECOVERY_EMAIL_FORM):
 
-            email_field = self.driver.find_element_by_xpath(mpe.RECOVERY_EMAIL_INPUT)
-            rec_btn = self.driver.find_element_by_xpath(mpe.RECOVERY_EMAIL_BTN)
+            email_field = self.find(mpe.RECOVERY_EMAIL_INPUT)
+            rec_btn = self.find(mpe.RECOVERY_EMAIL_BTN)
 
             valid_email = ["absolutelynewtestemail@gmail.com"]
             invalid_email = [" 2 @yopmail.com", "!@#$%^&()_+~@i.ua", ""]
@@ -139,15 +140,15 @@ class Anonym(Action, Wait, BaseClass):
                 email_field.send_keys(valid_email)
                 rec_btn.click()
 
-                self.wait_element_displayed_by_xpath(mpe.RECOVERY_EMAIL_INPUT_ERROR)
-                self.driver.find_element_by_xpath(mpe.RECOVERY_EMAIL_INPUT_ERROR)
+                self.wait_element(mpe.RECOVERY_EMAIL_INPUT_ERROR)
+                self.find(mpe.RECOVERY_EMAIL_INPUT_ERROR)
 
             for i in xrange(len(invalid_email)):
                 email_field.clear()
                 email_field.send_keys(invalid_email[i])
                 rec_btn.click()
 
-                self.wait_element_displayed_by_xpath(mpe.RECOVERY_EMAIL_INPUT_ERROR)
+                self.wait_element(mpe.RECOVERY_EMAIL_INPUT_ERROR)
 
             return True
         return False
@@ -155,63 +156,61 @@ class Anonym(Action, Wait, BaseClass):
 
     def anonym_buy_modnakarta(self):
         #buy via modnakarta btn
-        self.wait_element_displayed_by_xpath(mpe.MODNAKARTA_HEADER_LINK)
-        self.driver.find_element_by_xpath(mpe.MODNAKARTA_HEADER_LINK).click()
+        self.wait_element(mpe.MODNAKARTA_HEADER_LINK)
+        self.find(mpe.MODNAKARTA_HEADER_LINK).click()
 
         self.driver.close()
         windows = self.driver.window_handles
         self.driver.switch_to.window(windows[0])
 
-        self.driver.find_element_by_xpath(mkpe.MODNAKARTA_BASKET_ADD).click()
+        self.click(mkpe.MODNAKARTA_BASKET_ADD)
 
-        if self.wait_element_displayed_by_xpath(mpe.AUTH_FORM):
-            self.open_base_url()
+        if self.wait_element(mpe.AUTH_FORM):
+            self.open_url(conf.BASE_URL)
         else:
             raise NoSuchElementException
 
         #buy via campaign
-        self.driver.find_element_by_xpath(mpe.MODNAKARTA_CAMPAIGN).click()
-        self.wait_element_displayed_by_xpath(mkpe.MODNAKARTA_BASKET_ADD)
-        self.driver.find_element_by_xpath(mkpe.MODNAKARTA_BASKET_ADD).click()
+        self.find(mpe.MODNAKARTA_CAMPAIGN).click()
+        self.wait_element(mkpe.MODNAKARTA_BASKET_ADD)
+        self.find(mkpe.MODNAKARTA_BASKET_ADD).click()
 
-        if self.wait_element_displayed_by_xpath(mpe.AUTH_FORM):
-            self.open_base_url()
+        if self.wait_element(mpe.AUTH_FORM):
+            self.open_url(conf.BASE_URL)
         else:
             raise NoSuchElementException
 
         #buy via help menu
-        self.driver.find_element_by_xpath(mpe.HELP_DICT.itervalues().next()).click()
-        self.wait_element_displayed_by_xpath(mpe.MODNAKARTA_MENU_HELP)
-        self.driver.find_element_by_xpath(mpe.MODNAKARTA_MENU_HELP).click()
+        self.click(mpe.HELP_MENU.itervalues().next())
+        self.find(mpe.MODNAKARTA_MENU_HELP)
+        self.click(mpe.MODNAKARTA_MENU_HELP)
 
-        if self.wait_element_displayed_by_xpath(mkpe.ABOUT_MODNAKARTA):
-            self.open_base_url()
+        if self.wait_element(mkpe.ABOUT_MODNAKARTA):
+            self.open_url(conf.BASE_URL)
             return True
         else:
             raise NoSuchElementException
 
     def anonym_buy_product(self):
-        self.driver.find_element_by_xpath(mpe.LIST_CAMPAIGN_CURRENT).click()
-        count_product = 0
+        self.click(mpe.LIST_CAMPAIGN_CURRENT)
+        self.change_to_catalogue()
 
         #outlet
         try:
-            self.wait_element_displayed_by_xpath(ce.OUTLET_CATEGORY)
-            self.driver.find_element_by_xpath(ce.OUTLET_CATEGORY).click()
-            wait_product_list = self.wait_element_displayed_by_xpath(ce.LIST_PRODUCT)
-            hide_sold = self.driver.find_element_by_xpath(ce.HIDE_SOLD).click()
-            wait_product_list
+            self.wait_element(ce.OUTLET_CATEGORY)
+            self.click(ce.OUTLET_CATEGORY)
+            self.wait_element(ce.LIST_PRODUCT)
+            self.click(ce.HIDE_SOLD)
 
-            product_added = False
-            while product_added != True:
+            is_auth_form = False
+            while is_auth_form != True:
                 try:
                     count_product += 1
-                    self.wait_element_displayed_by_xpath(ce.LIST_PRODUCT)
-                    open_product = self.driver.find_element_by_xpath(ce.LIST_PRODUCT + '[' + str(count_product) + ']' + '/a').click()
-                    wait_product_page = self.wait_element_displayed_by_xpath(ppe.PRODUCT_BASKET_ADD)
-                    add_product = self.driver.find_element_by_xpath(ppe.PRODUCT_BASKET_ADD).click()
-                    wait_product_added = self.wait_element_displayed_by_xpath(mpe.AUTH_FORM)
-                    product_added = True
+                    self.wait_element(ce.LIST_PRODUCT)
+                    open_product = self.click(ce.LIST_PRODUCT + '[' + str(count_product) + ']' + '/a')
+                    wait_product_page = self.wait_element(ppe.PRODUCT_BASKET_ADD)
+                    add_product = self.click(ppe.PRODUCT_BASKET_ADD)
+                    wait_auth_form = self.wait_element(mpe.AUTH_FORM)
                 except:
                     self.driver.back()
                     continue
@@ -219,23 +218,22 @@ class Anonym(Action, Wait, BaseClass):
 
         #campaign
         except:
-            hide_sold = self.driver.find_element_by_xpath(ce.HIDE_SOLD).click()
-            wait_product_list = self.wait_element_displayed_by_xpath(ce.LIST_PRODUCT)
+            self.wait_element(ce.LIST_PRODUCT)
+            self.click(ce.HIDE_SOLD)
 
-            product_added = False
-            while product_added != True:
+            is_auth_form = False
+            while is_auth_form != True:
                 try:
                     count_product += 1
-                    open_product = self.driver.find_element_by_xpath(ce.LIST_PRODUCT + '[' + str(count_product) + ']' + '/a').click()
-                    wait_product_page = self.wait_element_displayed_by_xpath(ppe.PRODUCT_BASKET_ADD)
-                    add_product = self.driver.find_element_by_xpath(ppe.PRODUCT_BASKET_ADD).click()
-                    wait_product_added = self.wait_element_displayed_by_xpath(mpe.AUTH_FORM)
-                    product_added = True
+                    open_product = self.find(ce.LIST_PRODUCT + '[' + str(count_product) + ']' + '/a').click()
+                    wait_product_page = self.wait_element(ppe.PRODUCT_BASKET_ADD)
+                    add_product = self.click(ppe.PRODUCT_BASKET_ADD)
+                    wait_auth_form = self.wait_element(mpe.AUTH_FORM)
                 except:
                     self.driver.back()
                     continue
             return True
 
-    def anonym_open_basket(self):
-        self.driver.find_element_by_xpath(be.BASKET_ICO).click()
-        self.wait_element_displayed_by_xpath(be.EMPY)
+    def open_empty_basket(self):
+        self.find(be.BASKET_ICO).click()
+        self.wait_element(be.EMPTY_BASKET_MSG)
