@@ -55,7 +55,7 @@ HIDE_SOLD = "//div[text()='Скрыть проданные']"
 PRODUCT_COUNTER = u"//div[@class='filters-selection__results-right']/span[2]"
 
 #products
-PRODUCT = "//div[@class='shop_item shop_item_adaptive']"
+PRODUCT = "//div[@class='product_item_wrap']/div[@class='product_item product_item_full']"
 PRODUCT_IMG = "//a[@class='shop_item_img ']"
 PRODUCT_RESERVED = "//div[@class='shop_reserved']"
 PRODUCT_SOLD = "//div[@class='shop_sold']"

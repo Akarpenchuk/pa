@@ -7,7 +7,7 @@ from time import sleep
 
 from selenium import webdriver
 
-from base_methods.base import BaseClass
+# from base_methods.base import BaseClass
 from base_methods.wait import Wait
 from selenium.webdriver.common.keys import Keys
 import unittest
@@ -26,10 +26,10 @@ class Campaign():
             
     def change_to_catalogue(self):
         if 'campaign' in self.driver.current_url:
-                catalogue = self.driver.current_url.replace('campaign', 'catalogue')
-                self.driver.get(catalogue)
-                self.wait_element(ce.PRODUCT)
-                return True
+            catalogue = self.driver.current_url.replace('campaign', 'catalogue')
+            self.driver.get(catalogue)
+            self.wait_element(ce.PRODUCT)
+            return True
 
     def open_campaign_iter_with_affiliations (self):
         campaigns = self.find(mpe.CAMPAIGN)

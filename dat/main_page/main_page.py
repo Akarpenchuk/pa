@@ -8,8 +8,9 @@ from time import sleep
 import time
 
 from selenium import webdriver
+import psycopg2
 
-import base_methods.hover
+from campaign.campaign import Campaign
 
 import cabinet.cabinet_elements as myinfo
 import main_page_elements as mpe
@@ -21,8 +22,21 @@ import base_methods.config as conf
 
 class MainPage():
 
-    # def __init__(self, driver):
-    #     self.driver = driver
+    def login(self):
+
+        if mpe.AUTH_FORM:
+
+            email_field = self.find(mpe.AUTH_EMAIL_INPUT)
+            pass_field = self.find(mpe.AUTH_PASS_INPUT)
+            auth_btn = self.find(mpe.AUTH_BTN)
+
+            email_field.clear()
+            email_field.send_keys(conf.USER_EMAIL)
+            pass_field.clear()
+            pass_field.send_keys(conf.USER_EMAIL)
+            auth_btn.click()
+            self.wait(mpe.LOGGED_IN)
+
 
     def close_app_banner(self):
         self.wait_element(mpe.APP_BANNER)
@@ -46,7 +60,7 @@ class MainPage():
 
 
     def check_help_menu_items(self):
-        self.find(mpe.HELP_MENU.get("MENU_HELP"))
+        # self.find(mpe.HELP_MENU.get("MENU_HELP"))
         for i in mpe.HELP_MENU.values():
             return True
         return False
@@ -77,53 +91,35 @@ class MainPage():
             self.hover(i)
             self.wait_element(mpe.MENU_CAMPAIGN)
             self.click(mpe.MENU_CAMPAIGN)
+            self.change_to_catalogue()
             self.wait_element(ce.PRODUCT)
-            self.click(i)
 
-            # ce.check_if_outlet()
-            continue
-        return True
-
-
-    def check_coming_soon_campaigns(self):
-        date = time.strftime("%d")
-        for i in mpe.COMING_SOON_DATES:
-            if date in self.find(i):
-                date = int(date) + 1
-                date = str(date)
-                continue
-
-        '''check campaign count'''
-        for i in mpe.COMING_SOON_ITEMS:
-            assert len(self.driver.find_elements_by_xpath(i)) >= 1
             continue
         return True
 
 
     def check_soon_end_campaigns(self):
-        self.open_url(conf.BASE_URL)
-        assert self.count_elements(mpe.SOON_END_CAMPAIGNS) >= 3
+        current_url = str(self.driver.current_url)
+        if self.driver.current_url != conf.BASE_URL:
+            self.open_url(conf.BASE_URL)
 
+        query = "select count(*) from campaign_campaign where starts_at < now() and finishes_at < now() + interval '1 days';"
+        if self.db_select(query):
+            return True
+        return False
+        
         soon_end_camps = self.count_elements(mpe.SOON_END_CAMPAIGNS)
-        campaigns_time = self.driver.find_elements_by_xpath(mpe.SOON_END_CAMPAIGN_TIME)
-        count = 1
+        print 'soon_end_camps', soon_end_camps
+        print 'record', record
 
-        for i in xrange(soon_end_camps):
-            print count
-
-            self.hover(mpe.SOON_END_CAMPAIGNS + '[%d]' % count)
-            time = self.find_text(mpe.SOON_END_CAMPAIGNS + '[%d]' % count + "//div[@class='timer_time']")
-
-            count += 1
-            if '0' in time.encode('utf-8'):
-                continue
+        assert soon_end_camps >= int(self.record)
         return True
 
 
     def check_fast_access_buttons(self): #TODO !
         for i in mpe.FAST_ACCESS_BTNS:
             print self.driver.get_window_position(windowHandle='current')
-            screen_position = ["u'y': 0, u'x': 1920"] ==  str(self.driver.get_window_position(windowHandle='current'))
+            screen_position = ["u'y': 0, u'x': 1920"] == str(self.driver.get_window_position(windowHandle='current'))
             
         #     for i in screen_position:
         #     self.find(i).click()
@@ -196,8 +192,8 @@ class MainPage():
 
 
     def open_cabinet(self):
-        login = self.find(mpe.PROFILE_LINK)
-        if login:
+        logged_in = self.find(mpe.PROFILE_LINK)
+        if logged_in:
             self.find(mpe.PROFILE_MENU).click()
             self.wait_element_displayed_by_xpath(mpe.PROFILE_MENU)
             self.find(mpe.PROFILE_LINK).click()

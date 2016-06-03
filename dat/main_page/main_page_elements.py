@@ -96,6 +96,8 @@ RECOVERY_EMAIL_INPUT = "//form[@class='popup__left-form']//input[@id='email']"
 RECOVERY_EMAIL_BTN = "//form[@class='popup__left-form']//input[@value='Отправить на почту']"
 RECOVERY_EMAIL_INPUT_ERROR = "//form[@class='popup__left-form']//div[@class='error']"
 
+CLOSE_POPUP = "//div[@id='content']"
+
 # campaigns
 LIST_CAMPAIGN_CURRENT = "//*[@class='big-small big-small--normal']//a"
 CAMPAIGN_WRAPPER = "//div[@class='banners-container']//div"
@@ -106,12 +108,12 @@ LIST_CAMPAIGN_LINK = "//div[@class='column_item column_1']/a/@href"
 LIST_CAMPAIGN_BRAND = "//div[@class='column_item column_1']/div[@class='column_info']/div"
 CAMPAIGN_NAME = "//div[@class='banners_title']"
 LIST_CAMPAIGN_BANNER = ""
-LIST_CAMPAIGN_TIMER = ""
+CAMPAIGN_TIMER = "//div[@class='banners_timer-val']/span"
 
 
 LAST_MINUTES_BTN = "//a[@href='#last-minutes']"
 SOON_END_TITLE = u"//h1[text()='Скоро заканчиваются']"
-SOON_END_CAMPAIGNS = "//div[@id='soon_end']/following-sibling::div[@class='row']/div"
+SOON_END_CAMPAIGNS = "//div[@id='last-minutes']//div[@class='banner_item banners--small']"
 SOON_END_CAMPAIGN = "//div[@class='column_item column_2']/a"
 SOON_END_CAMPAIGN_TIME = "//div[@id='soon_end']/following-sibling::div[@class='row']//div[@class='timer_time']"
 

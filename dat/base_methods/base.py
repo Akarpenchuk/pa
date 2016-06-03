@@ -4,6 +4,7 @@
 import sys, os
 sys.path.append('/home/ace/Documents/git/autotests/dat')
 from time import sleep
+import psycopg2
 
 import unittest
 from selenium import webdriver
@@ -99,6 +100,15 @@ class BaseClass():
             print 'last_product_position ', last_product_position
         else:
             return True
+
+    def db_select(self, query):
+        conn_string = "host='10.38.0.122' dbname='modnakasta' user='modnakastauser' password='fai4Sag/inoo' port='5433'"
+        conn = psycopg2.connect(conn_string)
+        cursor = conn.cursor()
+        print  'Connnected from config to -> %s' % (conn_string)
+        cursor.execute(query)
+        records = cursor.fetchall()
+        return records
 
         # while current position != screen position:
         #   scroll this shit!

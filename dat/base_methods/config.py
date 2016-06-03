@@ -155,7 +155,3 @@ TOTAL_SUM = "//div[@class='make_order_total_cost']/span"
 
 # NEW_BOT_COUNT = len(RECORDS) + 2
 # NEW_BOT_NAME = 'user'+str(NEW_BOT_COUNT)
-
-
-
-

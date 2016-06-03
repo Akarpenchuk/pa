@@ -9,9 +9,9 @@ from time import sleep
 import unittest
 
 from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.common.action_chains import ActionChains
-from selenium.webdriver.chrome.options import Options
 
 from dat.base_methods.base import BaseClass
 from dat.main_page.main_page import MainPage
@@ -31,30 +31,27 @@ class TestSuite(unittest.TestCase, BaseClass, MainPage, Anonym, Wait):
         chromeOptions.add_argument("--start-maximized")
         self.driver = webdriver.Chrome(chrome_options=chromeOptions)
         self.wait = WebDriverWait(self.driver, 10)
-        self.action = ActionChains(self.driver)
 
 
     def testAnonymChecking(self):
 
         self.open_url(conf.BASE_URL)
 
-        # self.check_main_page_elements()
+        self.check_main_page_elements()
 
-        # self.check_validation_reg()
-        # self.check_validation_auth()
+        self.check_validation_reg()
+        self.check_validation_auth()
 
-        # self.check_validation_recovery()
+        self.check_validation_recovery()
 
-        # self.wait
-        # self.check_help_menu_items()
-        # self.check_main_menu_items()
+        self.check_help_menu_items()
+        self.check_main_menu_items()
 
-        # self.anonym_buy_modnakarta()
+        self.anonym_buy_modnakarta()
 
         self.anonym_buy_product()
 
         self.check_soon_end_campaigns()
-        self.check_coming_soon_campaigns()
 
     def tearDown(self):
 

@@ -141,7 +141,7 @@ class Anonym(Campaign, Wait, BaseClass):
                 rec_btn.click()
 
                 self.wait_element(mpe.RECOVERY_EMAIL_INPUT_ERROR)
-                self.find(mpe.RECOVERY_EMAIL_INPUT_ERROR)
+                print 'valid email length', len(valid_email)
 
             for i in xrange(len(invalid_email)):
                 email_field.clear()
@@ -149,9 +149,9 @@ class Anonym(Campaign, Wait, BaseClass):
                 rec_btn.click()
 
                 self.wait_element(mpe.RECOVERY_EMAIL_INPUT_ERROR)
-
-            return True
-        return False
+                print 'invalid email length', len(invalid_email)
+        
+        self.refresh()
 
 
     def anonym_buy_modnakarta(self):
@@ -218,21 +218,27 @@ class Anonym(Campaign, Wait, BaseClass):
 
         #campaign
         except:
-            self.wait_element(ce.LIST_PRODUCT)
+            self.wait_element(ce.PRODUCT)
             self.click(ce.HIDE_SOLD)
+            self.wait_element(ce.PRODUCT)
 
+
+
+            count_product = 0
             is_auth_form = False
             while is_auth_form != True:
-                try:
-                    count_product += 1
-                    open_product = self.find(ce.LIST_PRODUCT + '[' + str(count_product) + ']' + '/a').click()
-                    wait_product_page = self.wait_element(ppe.PRODUCT_BASKET_ADD)
-                    add_product = self.click(ppe.PRODUCT_BASKET_ADD)
-                    wait_auth_form = self.wait_element(mpe.AUTH_FORM)
-                except:
-                    self.driver.back()
-                    continue
-            return True
+                count_product += 1
+                self.wait_element(ce.PRODUCT)
+                self.click(ce.PRODUCT + '[' + str(count_product) + ']' + '/a')
+                # sleep(1)
+                self.wait_element(ppe.BASKET_ADD_ENABLED)
+                self.click(ppe.BASKET_ADD_ENABLED)
+                self.wait_element(mpe.AUTH_FORM)
+                break
+            else:
+                self.driver.back()
+                # continue
+            # return True
 
     def open_empty_basket(self):
         self.find(be.BASKET_ICO).click()

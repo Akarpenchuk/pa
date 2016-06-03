@@ -7,18 +7,20 @@ import unittest
 import logging
 logging.basicConfig(filename = '/home/ace/log_webdriver', level = logging.DEBUG)
 
-from selenium.webdriver.chrome.options import Options
 from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.support.wait import WebDriverWait
 
-from base_methods.base import BaseClass
-from base_methods.wait import Wait
 from main_page.main_page import MainPage
+from base_methods.wait import Wait
 from product.product import Product
 from campaign.campaign import Campaign
 from basket.basket import Basket
 
 import main_page.main_page_elements as mpe
+import product.product_page_elements as ppe
+import campaign.campaign_elements as ce
+import basket.basket_elements as be
 
 
 class Test(unittest.TestCase, BaseClass, Wait, MainPage, Product, Campaign, Basket):
@@ -27,20 +29,16 @@ class Test(unittest.TestCase, BaseClass, Wait, MainPage, Product, Campaign, Bask
         chromeOptions = Options()
         chromeOptions.add_argument("--start-maximized")
         self.driver = webdriver.Chrome(chrome_options=chromeOptions)
-        self.wait = WebDriverWait(self.driver, 10)
+        # self.wait = WebDriverWait(self.driver, 10)
 
     def testBasketLess99(self):
-        # self.open_base_url()
-        
-        # #check basket by anonym
-        # self.login_old_user()
-        # self.open_empty_basket()
-
-        # self.add_product_less_99()
-
-        #TODO t.txt
         self.open_base_url()
-        # self.login()
+        
+        self.login_old_user()
+        self.open_empty_basket()
+
+        self.add_product_less_99()
+        self.login()
         n = 1
         while self.open_campaign_iter(n):
             self.hide_sold()
