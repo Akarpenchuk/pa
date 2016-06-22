@@ -65,7 +65,7 @@ PRODUCT_NAME = "//span[@class='product_item__category']"
 
 # PRODUCT_OLD_PRICE = "//div[@class='shop_old_cost']"
 LAST_PRODUCT = "(//div[@class='product_item_wrap'])[last()]"
-PRODUCT_LIST = "//div[@class='container']"
+PRODUCT_LIST = "//div[@id='content']"
 PAGE_HEIGHT_ELEMENT = "//div[@class='products']/div"
 
 

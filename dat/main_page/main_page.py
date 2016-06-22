@@ -8,6 +8,7 @@ from time import sleep
 import time
 
 from selenium import webdriver
+from selenium.webdriver.support.wait import WebDriverWait
 import psycopg2
 
 from campaign.campaign import Campaign
@@ -23,19 +24,21 @@ import base_methods.config as conf
 class MainPage():
 
     def login(self):
+        self.find(mpe.AUTH_LINK)
+        self.click(mpe.AUTH_LINK)
+        self.wait_element(mpe.AUTH_FORM)
 
-        if mpe.AUTH_FORM:
+        email_field = self.find(mpe.AUTH_EMAIL_INPUT)
+        pass_field = self.find(mpe.AUTH_PASS_INPUT)
+        auth_btn = self.find(mpe.AUTH_BTN)
 
-            email_field = self.find(mpe.AUTH_EMAIL_INPUT)
-            pass_field = self.find(mpe.AUTH_PASS_INPUT)
-            auth_btn = self.find(mpe.AUTH_BTN)
-
-            email_field.clear()
-            email_field.send_keys(conf.USER_EMAIL)
-            pass_field.clear()
-            pass_field.send_keys(conf.USER_EMAIL)
-            auth_btn.click()
-            self.wait(mpe.LOGGED_IN)
+        email_field.clear()
+        email_field.send_keys(conf.USER_EMAIL)
+        pass_field.clear()
+        pass_field.send_keys(conf.USER_PASS)
+        auth_btn.click()
+        self.wait_element(mpe.LOGGED_IN)
+        return True
 
 
     def close_app_banner(self):

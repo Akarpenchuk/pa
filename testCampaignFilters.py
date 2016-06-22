@@ -20,10 +20,10 @@ class Test(unittest.TestCase):
         self.wait = WebDriverWait(self.driver, 10)
 
     # @decorator
-    def preconditions(self):
-        self.open_base_url()
 
     def testCategory(self):
+        self.open_main_page()
+        self.open_campaign_iter()
         self.check_first_category()
         self.check_last_category()
         self.uncheck_first_category()

@@ -20,19 +20,15 @@ import dat.landing_page.landing_elements as le
 class Test(unittest.TestCase, BaseClass, Landing):
 
     def setUp(self):
-
         chromeOptions = Options()
         chromeOptions.add_argument("--start-maximized")
         self.driver = webdriver.Chrome(chrome_options=chromeOptions)
         self.wait = WebDriverWait(self.driver, 10)
 
-
     def testLandingLogin(self):
-
-        self.assertTrue(self.open_url("https://modnakasta.ua/landing/nike", le.AUTH_FORM))
+        self.assertTrue(self.open_url(conf.LANDING_URL, le.AUTH_FORM))
         self.assertTrue(self.landing_login())
         self.assertTrue(self.logout())
-
 
     def tearDown(self):
         self.driver.quit()

@@ -16,28 +16,26 @@ import base_methods.config as conf
 class Landing:
 
     def landing_login(self):
-        self.driver.find_element_by_xpath(le.AUTH_LINK).click()
+        self.click(le.AUTH_LINK)
         sleep(1)
-        self.driver.find_element_by_xpath(le.AUTH_EMAIL_INPUT).clear()
-        self.driver.find_element_by_xpath(le.AUTH_EMAIL_INPUT).send_keys(conf.USER_EMAIL)
-        self.driver.find_element_by_xpath(le.AUTH_PASS_INPUT).clear()
-        self.driver.find_element_by_xpath(le.AUTH_PASS_INPUT).send_keys(conf.USER_PASS)
-        self.driver.find_element_by_xpath(le.AUTH_BTN).click()
-        if self.wait_element_displayed_by_xpath(mpe.LIST_CAMPAIGN):
+        self.clear(le.AUTH_EMAIL_INPUT)
+        self.send_keys(le.AUTH_EMAIL_INPUT, conf.USER_EMAIL)
+        self.clear(le.AUTH_PASS_INPUT)
+        self.send_keys(le.AUTH_PASS_INPUT, conf.USER_PASS)
+        self.click(le.AUTH_BTN)
+        if self.wait_element(mpe.LIST_CAMPAIGN):
             return True
         return False
 
-
     def landing_registration(self):
-        self.driver.find_element_by_xpath(le.REG_EMAIL_INPUT).send_keys(conf.RAND_EMAIL)
-        self.driver.find_element_by_xpath(le.REG_BTN).click()
-        self.wait_element_displayed_by_xpath(le.REG_SENT)
-        email = self.driver.find_element_by_xpath(le.REG_SENT).text
+        self.send_keys(le.REG_EMAIL_INPUT, conf.RAND_EMAIL)
+        self.click(le.REG_BTN)
+        self.wait_element(le.REG_SENT)
+        email = self.find_text(le.REG_SENT)
         assert email in conf.RAND_EMAIL
         sleep(1)
-        self.driver.find_element_by_xpath(le.CHECK_EMAIL_BTN).click()
+        self.click(le.CHECK_EMAIL_BTN)
         sleep(1)
-        windows = self.driver.window_handles
-        self.driver.switch_to.window(windows[1])
-        self.driver.find_element_by_xpath(me.EMAIL_INPUT)
+        self.switch_to_new_window()
+        self.find(me.EMAIL_INPUT)
         return True

@@ -23,7 +23,8 @@ class Campaign():
             i += n
             self.click(mpe.CAMPAIGN_WRAPPER + '[' + str(i) + ']' + mpe.CAMPAIGN)
             self.change_to_catalogue()
-            
+            return True
+
     def change_to_catalogue(self):
         if 'campaign' in self.driver.current_url:
             catalogue = self.driver.current_url.replace('campaign', 'catalogue')
@@ -85,6 +86,7 @@ class Campaign():
 
     def hide_sold(self):
         self.click(ce.HIDE_SOLD)
+        sleep(1)
         self.wait_element(ce.PRODUCT_NEW_PRICE)
         return True
 
@@ -101,7 +103,7 @@ class Campaign():
         first_price = int(first_price)
         print "first_price ", first_price
         
-        self.scroll_bottom_product_list()
+        self.scroll_down(ce.LAST_PRODUCT)
 
         self.wait_element(ce.LAST_PRODUCT + ce.PRODUCT_NEW_PRICE)
 

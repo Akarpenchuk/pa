@@ -26,7 +26,7 @@ CARD_NAME = "dmytro malovanyi"
 CARD_CVV2 = "010"
 
 
-
+LANDING_URL = "https://modnakasta.ua/landing/nike"
 
 #BASKET
 

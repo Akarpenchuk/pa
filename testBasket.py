@@ -3,6 +3,7 @@
 
 import sys, os
 sys.path.append('/home/ace/Documents/git/autotests/dat')
+from time import sleep
 import unittest
 import logging
 logging.basicConfig(filename = '/home/ace/log_webdriver', level = logging.DEBUG)
@@ -11,6 +12,7 @@ from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.support.wait import WebDriverWait
 
+from base_methods.base import BaseClass
 from main_page.main_page import MainPage
 from base_methods.wait import Wait
 from product.product import Product
@@ -21,6 +23,7 @@ import main_page.main_page_elements as mpe
 import product.product_page_elements as ppe
 import campaign.campaign_elements as ce
 import basket.basket_elements as be
+import base_methods.config as conf
 
 
 class Test(unittest.TestCase, BaseClass, Wait, MainPage, Product, Campaign, Basket):
@@ -29,34 +32,35 @@ class Test(unittest.TestCase, BaseClass, Wait, MainPage, Product, Campaign, Bask
         chromeOptions = Options()
         chromeOptions.add_argument("--start-maximized")
         self.driver = webdriver.Chrome(chrome_options=chromeOptions)
-        # self.wait = WebDriverWait(self.driver, 10)
+        self.wait = WebDriverWait(self.driver, 10)
 
     def testBasketLess99(self):
-        self.open_base_url()
-        
-        self.login_old_user()
-        self.open_empty_basket()
-
-        self.add_product_less_99()
+        self.open_url(conf.BASE_URL)
         self.login()
+
+        # self.open_empty_basket()
         n = 1
         while self.open_campaign_iter(n):
+            print 1
             self.hide_sold()
+            print 2
             self.sort_asc()
-            self.scroll_bottom_product_list()
-            if self.check_product_less_99():
-                self.open_product_iter()
-                self.add_product()
-            break
-            n += 1
-            self.open_base_url()
+            # print 3
+            # self.scroll_bottom_product_list()
+            # print 4
+            # if self.check_product_less_99():
+            #     self.open_product_iter()
+            #     self.add_product()
+            # break
+            # n += 1
+            # self.open_url(conf.BASE_URL)
             continue
 
-        print 'step 2'
-        self.open_basket_with_product()
-        print 'step 3'
-        self.check_product_data()
-        self.check_basket_less_99()
+        # print 'step 2'
+        # self.open_basket_with_product()
+        # print 'step 3'
+        # self.check_product_data()
+        # self.check_basket_less_99()
 
         #! DELETE PRODUCT
         #! OPEN MAIN PAGE

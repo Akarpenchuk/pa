@@ -23,7 +23,32 @@ import base_methods.config as conf
 
 class BaseClass():
 
-    def open_url(self, url):
+    def login(self, user_email, user_pass):
+        self.click(mpe.AUTH_MENU?)
+        if self.wait_element(mpe.AUTH_FORM):
+
+            self.clear(mpe.AUTH_EMAIL_INPUT)
+            self.send_keys(mpe.AUTH_EMAIL_INPUT, user_email)
+            self.clear(mpe.AUTH_PASS_INPUT)
+            self.send_keys(mpe.AUTH_PASS_INPUT, user_pass)
+            self.click(mpe.AUTH_BTN)
+            self.wait_element(mpe.LOGGED_IN)
+        return False
+        print 'auth from is not display'
+
+    def logout(self):
+        if self.wait_element(mpe.LOGGED_IN):
+            self.click(mpe.LOGGED_IN)
+            self.wait_element(mpe.PROFILE_CABINET_MENU)
+            self.click(mpe.LOGOUT_LINK)
+        return False
+        print 'user is anonym'
+
+    def open_url(self, url, **elements):
+        self.driver.get(url)
+        self.wait_elem(elements)
+
+    def open_main_page(self, url, elem):
         self.driver.get(url)
         self.check_main_page_elements()
 
@@ -33,15 +58,14 @@ class BaseClass():
 
     def find_text(self, item):
         element_text = self.driver.find_element_by_xpath(item).text
-        return element_text
-
-    def find_text_few_elements(self, item, new_item):
-        element_text = self.driver.find_element_by_xpath(item + new_item).text
-        return element_text
+        return element_text.encode('utf-8')
 
     def find_elements(self, items):
         elements = self.driver.find_elements_by_xpath(items)
         return elements
+
+    def clear(self, item):
+        self.driver.find_element_by_xpath(item).clear()
 
     def click(self, item):
         self.driver.find_element_by_xpath(item).click()
@@ -69,37 +93,55 @@ class BaseClass():
         inbox = self.find(frame)
         self.driver.switch_to.frame(inbox)
 
+    def switch_to_new_window(self):
+        windows = self.driver.window_handles
+        self.driver.switch_to.window(windows[1])
+
     def scroll_down(self, element):
-        self.driver.find_element_by_xpath(element).send_keys(Keys.COMMAND, Keys.END)
+        # self.driver.find_element_by_xpath(element).send_keys(Keys.END)
+        item = self.find(element)
+        item = int(item.location.get('y'))
+        print 'item ', item
+
+        while not True:
+            self.driver.execute_script("document.querySelector('.products > div:last-child').scrollIntoView(true)");
+
+            current_position = self.driver.find(element)
+            current_position = int(item.location.get('y'))
+            print 'current_position ', current_position
+
+            if current_position == item:
+                continue
+            return True
+
+        # self.driver.find_element_by_xpath(element).send_keys(Keys.COMMAND, Keys.END)
 
     def scroll_to_element(self, element):
         while not self.find(element):
             self.driver.execute_script("window.scrollTo(0, 100000);")
 
-    def scroll_bottom_product_list(self):
-        #check current position
-        item = self.find(ce.LAST_PRODUCT)
-        item = item.location
-        last_product_position = item.get('y')
-        last_product_position = int(last_product_position)
-        print 'last_product_position ', last_product_position
+    # def scroll_bottom_product_list(self):
+    #     #check current position
+    #     item = self.find(ce.LAST_PRODUCT)
+    #     last_product_position = int(item.location.get('y'))
+    #     print 'last_product_position ', last_product_position
 
-        #check height
-        height = self.driver.execute_script("return document.querySelector('.products > div:last-child').style.height");
-        height = height.replace('px', '')
-        print 'height ', height
+    #     #check height
+    #     height = self.driver.execute_script("return document.querySelector('.products > div:last-child').style.height");
+    #     height = height.replace('px', '')
+    #     print 'height ', height
 
-        while last_product_position < height:
-            self.driver.execute_script("document.querySelector('.products > div:last-child').scrollIntoView(true)");
-
-            #check current position again
-            item = self.find(ce.LAST_PRODUCT)
-            item = item.location
-            last_product_position = item.get('y')
-            last_product_position = int(last_product_position)
-            print 'last_product_position ', last_product_position
-        else:
-            return True
+    #     while not True:
+    #         if last_product_position < height:
+    #             self.driver.execute_script("document.querySelector('.products > div:last-child').scrollIntoView(true)");
+    #             continue
+    #         #check current position again
+    #         # item = self.find(ce.LAST_PRODUCT)
+    #         # print 'item while', item
+    #         # last_product_position = int(item.location.get('y'))
+    #         # print 'last_product_position ', last_product_position
+    #     else:
+    #         return True
 
     def db_select(self, query):
         conn_string = "host='10.38.0.122' dbname='modnakasta' user='modnakastauser' password='fai4Sag/inoo' port='5433'"

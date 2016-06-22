@@ -6,21 +6,19 @@ sys.path.append('/home/ace/Documents/git/autotests/dat')
 from time import sleep
 from selenium import webdriver
 from selenium.webdriver.support.wait import WebDriverWait
-from selenium.webdriver.common.keys import Keys
+# from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.action_chains import ActionChains
 
 from base_methods.base import BaseClass
 from base_methods.wait import Wait
 from campaign.campaign import Campaign
-from base_methods.config import *
+# from base_methods.config import *
 
 import main_page.main_page_elements as mpe
 import modnakarta_page.modnakarta_page_elements as mkpe
 import campaign.campaign_elements as ce
 import product.product_page_elements as ppe
 import base_methods.config as conf
-
-from selenium.common.exceptions import NoSuchElementException
 
 
 
@@ -237,8 +235,6 @@ class Anonym(Campaign, Wait, BaseClass):
                 break
             else:
                 self.driver.back()
-                # continue
-            # return True
 
     def open_empty_basket(self):
         self.find(be.BASKET_ICO).click()

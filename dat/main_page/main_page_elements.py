@@ -9,6 +9,8 @@ PHONE = "//div[@class='header-top_telephone header-top_anon-tel']"
 APP_BANNER = "//"
 APP_BANNER_CLOSE = "//"
 
+LOGGED_IN = "//div[@class='header-top_user']"
+
 PERSONAL_INFO_POPUP = "//div[contains(text(),'Персональная информация')]"
 PERSONAL_INFO_POPUP_NAME = "//input[@id='first_name']"
 PERSONAL_INFO_POPUP_SURNAME = "//input[@id='last_name']"
@@ -59,7 +61,7 @@ HELP_MENU = {
 
 # menu profile
 PROFILE_CABINET_MENU = "//div[@class='header-top_user header-top_menu-trigger']"
-PROFILE_MENU = "//div[@class='header-top_user']"
+# PROFILE_MENU = "//div[@class='header-top_user']"
 PROFILE_LINK = "//a[@href='/me/']"
 LOGOUT_LINK = "//a[@href='/user/registration/logout/']"
 LOGOUT_CABINET_LINK = "//div[@class='header_drop-user header-top_drop-content header-top_drop']//a[@href='/user/registration/logout/']"

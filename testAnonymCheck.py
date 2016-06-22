@@ -26,7 +26,6 @@ import dat.base_methods.config as conf
 class TestSuite(unittest.TestCase, BaseClass, MainPage, Anonym, Wait):
 
     def setUp(self):
-
         chromeOptions = Options()
         chromeOptions.add_argument("--start-maximized")
         self.driver = webdriver.Chrome(chrome_options=chromeOptions)
@@ -34,27 +33,18 @@ class TestSuite(unittest.TestCase, BaseClass, MainPage, Anonym, Wait):
 
 
     def testAnonymChecking(self):
-
         self.open_url(conf.BASE_URL)
-
         self.check_main_page_elements()
-
         self.check_validation_reg()
         self.check_validation_auth()
-
         self.check_validation_recovery()
-
         self.check_help_menu_items()
         self.check_main_menu_items()
-
         self.anonym_buy_modnakarta()
-
         self.anonym_buy_product()
-
         self.check_soon_end_campaigns()
 
     def tearDown(self):
-
         self.driver.quit()
 
 
