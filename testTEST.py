@@ -14,12 +14,13 @@ from selenium.webdriver.support.ui import WebDriverWait
 from base_methods.base import BaseClass
 from main_page.main_page import MainPage
 from base_methods.wait import Wait
+from campaign.campaign import Campaign
 
 import campaign.campaign_elements as ce
 import main_page.main_page_elements as mpe
 
 
-class Test(unittest.TestCase, BaseClass, MainPage, Wait):
+class Test(unittest.TestCase, BaseClass, MainPage, Wait, Campaign):
 
     def setUp(self):
         chromeOptions = Options()
@@ -28,10 +29,13 @@ class Test(unittest.TestCase, BaseClass, MainPage, Wait):
         self.driver = webdriver.Chrome()
         self.wait = WebDriverWait(self.driver, 5)
 
-    def testBasket(self):
-        self.open_base_url()
-        self.scroll_to_element(mpe.SOON_END_TITLE)
-        self.wait_element(mpe.SOON_END_TITLE)
+    def testCampName(self):
+        self.text = 'IKEA'
+        return self.text
+
+    def testBasket(self, text):
+        self.open_main_page()
+        self.find_text(mpe.CAMPAIGN_NAME, text)
 
     # def tearDown(self):
         # self.driver.quit()

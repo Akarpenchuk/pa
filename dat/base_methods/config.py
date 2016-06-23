@@ -139,10 +139,12 @@ COST_SUM = "//span[@class='mol_cost_sum']"
 DELIVERY_SUM = "//span[@class='mol_cost_sum']"
 TOTAL_SUM = "//div[@class='make_order_total_cost']/span"
 
-# #run db
-# conn_string = "host='10.38.0.122' dbname='modnakasta' user='modnakastauser' port='5433'"
-# conn = psycopg2.connect(conn_string)
-# cursor = conn.cursor()
+def connect_db(self):
+    CONN_STING = "host='10.38.0.122' dbname='modnakasta' user='modnakastauser' port='5433'"
+    CONN = psycopg2.connect(conn_string)
+    CURSOR = conn.cursor()
+    print "Connected!\n"
+
 # print  'Connnected from config to -> %s' % (conn_string)
 
 # #select all existed bots

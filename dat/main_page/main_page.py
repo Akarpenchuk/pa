@@ -45,7 +45,6 @@ class MainPage():
         self.wait_element(mpe.APP_BANNER)
         self.find(mpe.APP_BANNER_CLOSE)
 
-
     def check_main_page_elements(self):
         lst = [mpe.LOGO,
             mpe.BANNER_PROMO,
@@ -54,7 +53,11 @@ class MainPage():
             mpe.MENU_CATEGORIES.itervalues().next(),
             mpe.CAMPAIGN,
             mpe.SOON_END_CAMPAIGNS,
-            mpe.COMING_SOON_ITEMS[0]]
+            mpe.COMING_SOON_ITEMS[0],
+            mpe.COMING_SOON_ITEMS[1],
+            mpe.COMING_SOON_ITEMS[2]]
+
+            #FOOTER ITEMS
 
         for i in lst:
             if self.find(i):

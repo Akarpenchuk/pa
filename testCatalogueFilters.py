@@ -11,16 +11,12 @@ from selenium.webdriver.chrome.options import Options
 from selenium import webdriver
 from selenium.webdriver.support.ui import WebDriverWait
 
+from base_methods.wait import Wait
 from base_methods.base import BaseClass
 from main_page.main_page import MainPage
-from product.product import Product
 from campaign.campaign import Campaign
 
-import main_page.main_page_elements as mpe
-import main_page.campaign_elements as ce
-
-
-class Test(unittest.TestCase, BaseClass, MainPage, Product, Campaign):
+class Test(unittest.TestCase, BaseClass, MainPage, Campaign, Wait):
 
     def setUp(self):
         chromeOptions = Options()
@@ -28,15 +24,15 @@ class Test(unittest.TestCase, BaseClass, MainPage, Product, Campaign):
         self.driver = webdriver.Chrome(chrome_options=chromeOptions)
         self.wait = WebDriverWait(self.driver, 10)
 
+    def testCatalogueDetails(self):
+        self.open_main_page()
+        self.open_rand_campaign()
+        self.affiliation_apply()
 
-    def testBasket(self):
-        self.check_main_page_elements()
-        self.open_campaign_iter_with_affiliations()
-        self.catalogue_affiliation()
+    def tearDown(self):
+        self.driver.quit()
+     
 
-
-    # def tearDown(self):
-    #     self.driver.quit()
 
 if __name__ == "__main__":
     print 'running'

@@ -24,7 +24,7 @@ import base_methods.config as conf
 class BaseClass():
 
     def login(self, user_email, user_pass):
-        self.click(mpe.AUTH_MENU?)
+        self.click(mpe.AUTH_MENU)
         if self.wait_element(mpe.AUTH_FORM):
 
             self.clear(mpe.AUTH_EMAIL_INPUT)
@@ -48,21 +48,42 @@ class BaseClass():
         self.driver.get(url)
         self.wait_elem(elements)
 
-    def open_main_page(self, url, elem):
-        self.driver.get(url)
+    def open_main_page(self):
+        self.driver.get(conf.BASE_URL)
         self.check_main_page_elements()
 
     def find(self, item):
         element = self.driver.find_element_by_xpath(item)
         return element
 
-    def find_text(self, item):
+    def get_text(self, item):
         element_text = self.driver.find_element_by_xpath(item).text
         return element_text.encode('utf-8')
 
-    def find_elements(self, items):
+    def get_items_list(self, item):
+        elem_text = self.driver.find_elements_by_xpath(item).text
+        return elem_text.encode('utf-8')
+
+    def find_text(self, item, text):
+        elem = self.driver.find_element_by_xpath(item).text
+        elem.encode('utf-8')
+        if text in elem:
+            return True
+        return False
+
+    def get_elements(self, items):
         elements = self.driver.find_elements_by_xpath(items)
         return elements
+
+    def find_elements(self, items):
+        elements = self.driver.find_elements_by_xpath(items)
+        return True
+
+    def find_list_elements(self, *items):
+        for i in items:
+            self.driver.find_element_by_xpath(i)
+            return True
+        return False
 
     def clear(self, item):
         self.driver.find_element_by_xpath(item).clear()

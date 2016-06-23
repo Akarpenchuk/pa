@@ -38,8 +38,6 @@ MENU_CATEGORIES = {
 "CATEGORY_OUTLET": "//ul[contains(@class,'nav_content')]/li[5]/a"
 }
 
-MENU_CAMPAIGN = "//a[@class='drop-content_item']"
-
 #modnakarta
 MODNAKARTA_HEADER_LINK = "//div[@class='header-top_anon-right']//a[@href='/modnakarta/']"
 # MODNAKARTA_MENU_HELP = "//li[@class='header-top_item']//a[@href='/a/about/ModnaKarta/']"
@@ -101,13 +99,13 @@ RECOVERY_EMAIL_INPUT_ERROR = "//form[@class='popup__left-form']//div[@class='err
 CLOSE_POPUP = "//div[@id='content']"
 
 # campaigns
+CAMPAIGN = "//a[contains(@href,'/campaign/')]"
 LIST_CAMPAIGN_CURRENT = "//*[@class='big-small big-small--normal']//a"
 CAMPAIGN_WRAPPER = "//div[@class='banners-container']//div"
-CAMPAIGN = "//a[contains(@href,'/campaign/')]"
+MENU_CAMPAIGN = "//a[@class='drop-content_item']"
 
 
-LIST_CAMPAIGN_LINK = "//div[@class='column_item column_1']/a/@href"
-LIST_CAMPAIGN_BRAND = "//div[@class='column_item column_1']/div[@class='column_info']/div"
+
 CAMPAIGN_NAME = "//div[@class='banners_title']"
 LIST_CAMPAIGN_BANNER = ""
 CAMPAIGN_TIMER = "//div[@class='banners_timer-val']/span"
@@ -116,7 +114,7 @@ CAMPAIGN_TIMER = "//div[@class='banners_timer-val']/span"
 LAST_MINUTES_BTN = "//a[@href='#last-minutes']"
 SOON_END_TITLE = u"//h1[text()='Скоро заканчиваются']"
 SOON_END_CAMPAIGNS = "//div[@id='last-minutes']//div[@class='banner_item banners--small']"
-SOON_END_CAMPAIGN = "//div[@class='column_item column_2']/a"
+
 SOON_END_CAMPAIGN_TIME = "//div[@id='soon_end']/following-sibling::div[@class='row']//div[@class='timer_time']"
 
 
@@ -141,6 +139,7 @@ FAST_ACCESS_BTNS = [
 
 
 FOOTER = "//footer[@id='footer']"
-
+FOOTER_MOB_APPS = "//div[@class='footer-apps__container']/a:following-sibling/a"
+FOOTER_STATIC_PAGES = ["//",]
 
 

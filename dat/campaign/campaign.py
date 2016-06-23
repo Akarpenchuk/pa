@@ -4,6 +4,7 @@
 import sys, os
 sys.path.append('/home/ace/Documents/git/autotests/dat')
 from time import sleep
+import random
 
 from selenium import webdriver
 
@@ -17,18 +18,42 @@ import campaign_elements as ce
 
 class Campaign():
 
-    def open_campaign_iter(self, n):
-        campaigns = self.find_elements(mpe.CAMPAIGN)
-        for i in xrange(len(campaigns)):
-            i += n
-            self.click(mpe.CAMPAIGN_WRAPPER + '[' + str(i) + ']' + mpe.CAMPAIGN)
-            self.change_to_catalogue()
-            return True
+    # def open_campaign_iter(self):
+    #     campaigns = self.find_elements(mpe.CAMPAIGN)
+    #     for i in xrange(len(campaigns)):
+    #         i += 1
+    #         self.click(mpe.CAMPAIGN_WRAPPER + '[' + str(i) + ']' + mpe.CAMPAIGN)
+    #         self.change_to_catalogue()
+    #     return True    
+
+    def open_rand_campaign(self):
+        camp_count = self.count_elements(mpe.CAMPAIGN)
+        rand_count = random.randint(1, camp_count)
+        camp_name = self.get_text(mpe.CAMPAIGN_NAME)
+        print 'camp_count', camp_count
+        print 'camp_name', camp_name
+
+        while 'modnakarta' in self.driver.current_url:
+            rand_count = randint(1, camp_count)
+            self.click('(' + mpe.CAMPAIGN + ')' + '[' + str(rand_count) + ']')
+
+        self.click('(' + mpe.CAMPAIGN + ')' + '[' + str(rand_count) + ']')
+        self.change_to_catalogue()
+        self.wait_element(ce.PRODUCT)
+        return camp_name.encode('utf-8')
+
+        #check campaign details
+        self.find_text(ce.BREADCRUMBS, camp_name)
+        self.find_text(ce.CAMPAIGN_NAME, camp_name)
+        self.find_list_elements(ce.FILTER_ITEMS)
+        self.find(ce.HIDE_SOLD)
+        self.find(ce.PRODUCT)
 
     def change_to_catalogue(self):
         if 'campaign' in self.driver.current_url:
             catalogue = self.driver.current_url.replace('campaign', 'catalogue')
             self.driver.get(catalogue)
+            # sleep(2)
             self.wait_element(ce.PRODUCT)
             return True
 
@@ -71,18 +96,6 @@ class Campaign():
             return False
         return True
         print "first_product_price ", first_product_price
-
-    def check_if_outlet(self):
-        #if outlet
-        try:
-            self.wait_element(ce.OUTLET_CATEGORY)
-            self.find(ce.OUTLET_CATEGORY).click()
-            self.wait_element(ce.PRODUCT)
-            return True
-        #if simple campaign
-        except:
-            self.driver.find_elements_by_xpath(ce.PRODUCT)
-            return False
 
     def hide_sold(self):
         self.click(ce.HIDE_SOLD)
@@ -155,20 +168,36 @@ class Campaign():
         # !assert camp_promo_banner
         # !assert camp_app_banner
 
-    def catalogue_affiliation(self):
+    def affiliation_apply(self):
+        self.click(ce.FILTER_ITEMS[0])
+        self.wait_element(ce.FIRST_AFF_ITEM)
+        self.get_items_list(ce.AFF_NAME)
+
+        for i in xrange(ce.AFF_LIST.items()):
+
+            self.click(i)
+            self.wait_element(ce.PRODUCT)
+            
+            #check product aff in db
+            link = self.get_attr(ce.FIRST_PRODUCT_LINK)
+            link = str(link)[9:20]
+            self.connect_db()
+
+
+
+        
+
+    def check_categories(self):
         pass
 
-    def catalogue_categories(self):
+    def check_brand(self):
         pass
 
-    def catalogue_brand(self):
+    def check_size(self):
         pass
 
-    def catalogue_size(self):
+    def check_sorting(self):
         pass
 
-    def catalogue_sorting(self):
-        pass
-
-    def catalogue_hide_sold(self):
+    def check_hide_sold(self):
         pass

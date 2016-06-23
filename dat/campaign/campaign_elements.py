@@ -3,19 +3,29 @@
 
 #CAMPAIGN ELEMENTS
 CAMPAIGN_NAME = "//div[@class='shop_title']/h1"
-SPINNER = "//div[@class='products']/div[@class='spinner']"
+SPINNER = "//div[@class='spinner']"
 OUTLET_CATEGORY = "//div[@class='column_item column_2 column_outlet'][1]/a"
+BREADCRUMBS = "//div[@class='bread_crumbs']//span"
 
 #--filters
+FILTER_ITEMS = ["//div[text()='Принадлежность']", "//div[text()='Категория']", "//div[text()='Цвет']", "//div[text()='Размер']", "//div[text()='Бренд']", "//div[text()='Сортировка']"]
+
+
 #affiliation
-AFF_WOMAN = u"//div[contains(text(),'Женщинам')]"
-AFF_MAN = u"//div[contains(text(),'Мужчинам')]"
-AFF_CHILD = u"//div[contains(text(),'Детям')]"
-AFF_BOYS = u"//div[contains(text(),'Мальчикам')]"
-AFF_GIRLS = u"//div[contains(text(),'Девочкам')]"
-AFF_HOME = u"//div[contains(text(),'Дом')]"
-AFF_UNI = u"//div[contains(text(),'Унисекс')]"
-AFF_ZOO = u"//div[contains(text(),'Животным')]"
+FIRST_AFF_ITEM = "//label[@class='filters__item']/input"
+AFF_NAME = "//div[@class='filters_list affiliation']/label/div"
+AFF_LIST = {
+
+"AFF_WOMAN": u"//div[contains(text(),'Женщинам')]",
+"AFF_MAN": u"//div[contains(text(),'Мужчинам')]",
+"AFF_CHILD": u"//div[contains(text(),'Детям')]",
+"AFF_BOYS": u"//div[contains(text(),'Мальчикам')]",
+"AFF_GIRLS": u"//div[contains(text(),'Девочкам')]",
+"AFF_HOME": u"//div[contains(text(),'Дом')]",
+"AFF_UNI": u"//div[contains(text(),'Унисекс')]",
+"AFF_ZOO": u"//div[contains(text(),'Животным')]"
+
+}
 
 #category
 CATEGORY_TITLE = u"//div[contains(text(),'Категория')]"
@@ -55,12 +65,14 @@ HIDE_SOLD = "//div[text()='Скрыть проданные']"
 PRODUCT_COUNTER = u"//div[@class='filters-selection__results-right']/span[2]"
 
 #products
-PRODUCT = "//div[@class='product_item_wrap']/div[@class='product_item product_item_full']"
+PRODUCT = "//div[@class='product_item product_item_full']"
 PRODUCT_IMG = "//a[@class='shop_item_img ']"
 PRODUCT_RESERVED = "//div[@class='shop_reserved']"
 PRODUCT_SOLD = "//div[@class='shop_sold']"
 PRODUCT_NEW_PRICE = "//span[@class='product_item__new-cost']"
 PRODUCT_NAME = "//span[@class='product_item__category']"
+FIRST_PRODUCT_LINK = "//div[@class='product_item product_item_full']/a/@href"
+LAST_PRODUCT_LINK = "(//div[@class='product_item product_item_full']/a/@href)[last()]"
 
 
 # PRODUCT_OLD_PRICE = "//div[@class='shop_old_cost']"

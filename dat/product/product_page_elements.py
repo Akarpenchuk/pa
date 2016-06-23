@@ -11,6 +11,7 @@ PRODUCT_ADDED_MSG = "//div[@class='messages__message info-msg']"
 
 
 #PRODUCT DATA
+
 #product states
 PRODUCT_ID = ""
 PRODUCT_BRAND = "//div[@class='manufucturer']"
