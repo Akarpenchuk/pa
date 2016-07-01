@@ -9,8 +9,6 @@ PHONE = "//div[@class='header-top_telephone header-top_anon-tel']"
 APP_BANNER = "//"
 APP_BANNER_CLOSE = "//"
 
-LOGGED_IN = "//div[@class='header-top_user']"
-
 PERSONAL_INFO_POPUP = "//div[contains(text(),'Персональная информация')]"
 PERSONAL_INFO_POPUP_NAME = "//input[@id='first_name']"
 PERSONAL_INFO_POPUP_SURNAME = "//input[@id='last_name']"
@@ -39,6 +37,7 @@ MENU_CATEGORIES = {
 }
 
 #modnakarta
+
 MODNAKARTA_HEADER_LINK = "//div[@class='header-top_anon-right']//a[@href='/modnakarta/']"
 # MODNAKARTA_MENU_HELP = "//li[@class='header-top_item']//a[@href='/a/about/ModnaKarta/']"
 MODNAKARTA_MENU_HELP = "//a[@href='/a/about/ModnaKarta/']"
@@ -60,9 +59,10 @@ HELP_MENU = {
 # menu profile
 PROFILE_CABINET_MENU = "//div[@class='header-top_user header-top_menu-trigger']"
 # PROFILE_MENU = "//div[@class='header-top_user']"
+HEADER_USER_NAME = "//div[@class='header-top_user']"
 PROFILE_LINK = "//a[@href='/me/']"
 LOGOUT_LINK = "//a[@href='/user/registration/logout/']"
-LOGOUT_CABINET_LINK = "//div[@class='header_drop-user header-top_drop-content header-top_drop']//a[@href='/user/registration/logout/']"
+LOGOUT_MENU_LINK = "//a[@href='/user/registration/logout/']"
 
 #banners
 BANNER_PROMO = "//div[@id='PH_campaign_002']//img"

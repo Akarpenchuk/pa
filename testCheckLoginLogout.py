@@ -11,8 +11,9 @@ from dat.base_methods.base import BaseClass
 from dat.main_page.main_page import MainPage
 from dat.base_methods.wait import Wait
 
-from dat.main_page.main_page_elements import *
-from dat.base_methods.config import *
+
+import dat.main_page.main_page_elements as mpe
+import dat.base_methods.config as conf
 
 
 class TestSuite(unittest.TestCase, BaseClass, Wait, MainPage):
@@ -27,8 +28,8 @@ class TestSuite(unittest.TestCase, BaseClass, Wait, MainPage):
     def testLoginLogout(self):
         '''check login and logout'''
 
-        self.assertTrue(self.open_base_url())
-        self.login_old_user()
+        self.open_main_page()
+        self.login(conf.USER_EMAIL, conf.USER_PASS)
         self.check_main_page_elements()
         self.logout()
         self.check_main_page_elements()

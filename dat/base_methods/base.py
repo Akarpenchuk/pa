@@ -24,7 +24,7 @@ import base_methods.config as conf
 class BaseClass():
 
     def login(self, user_email, user_pass):
-        self.click(mpe.AUTH_MENU)
+        self.click(mpe.AUTH_LINK)
         if self.wait_element(mpe.AUTH_FORM):
 
             self.clear(mpe.AUTH_EMAIL_INPUT)
@@ -32,15 +32,15 @@ class BaseClass():
             self.clear(mpe.AUTH_PASS_INPUT)
             self.send_keys(mpe.AUTH_PASS_INPUT, user_pass)
             self.click(mpe.AUTH_BTN)
-            self.wait_element(mpe.LOGGED_IN)
+            self.wait_element(mpe.HEADER_USER_NAME)
         return False
         print 'auth from is not display'
 
     def logout(self):
-        if self.wait_element(mpe.LOGGED_IN):
-            self.click(mpe.LOGGED_IN)
-            self.wait_element(mpe.PROFILE_CABINET_MENU)
-            self.click(mpe.LOGOUT_LINK)
+        if self.wait_element(mpe.PROFILE_LINK):
+            self.click(mpe.HEADER_USER_NAME)
+            self.wait_element(mpe.LOGOUT_MENU_LINK)
+            self.click(mpe.LOGOUT_MENU_LINK)
         return False
         print 'user is anonym'
 
@@ -60,9 +60,19 @@ class BaseClass():
         element_text = self.driver.find_element_by_xpath(item).text
         return element_text.encode('utf-8')
 
-    def get_items_list(self, item):
-        elem_text = self.driver.find_elements_by_xpath(item).text
-        return elem_text.encode('utf-8')
+    def get_items_name_list(self, count_item, items_text):
+        lst = []
+        items = self.count_elements(count_item)
+        for i in xrange(items):
+            name = self.driver.find_element_by_xpath(items_text).text
+            # name = name.decode("utf-8")
+            lst.append(name)
+        print 'lst ', lst
+        return lst
+        # .encode("utf-8")
+
+
+        # return elem_text.encode('utf-8')
 
     def find_text(self, item, text):
         elem = self.driver.find_element_by_xpath(item).text

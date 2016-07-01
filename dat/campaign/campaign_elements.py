@@ -12,6 +12,7 @@ FILTER_ITEMS = ["//div[text()='Принадлежность']", "//div[text()='�
 
 
 #affiliation
+AFF_ITEM = "//div[@class='filters_list affiliation']/label"
 FIRST_AFF_ITEM = "//label[@class='filters__item']/input"
 AFF_NAME = "//div[@class='filters_list affiliation']/label/div"
 AFF_LIST = {

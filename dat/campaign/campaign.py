@@ -5,6 +5,7 @@ import sys, os
 sys.path.append('/home/ace/Documents/git/autotests/dat')
 from time import sleep
 import random
+import re
 
 from selenium import webdriver
 
@@ -42,7 +43,7 @@ class Campaign():
         self.wait_element(ce.PRODUCT)
         return camp_name.encode('utf-8')
 
-        #check campaign details
+        #check catalogue details
         self.find_text(ce.BREADCRUMBS, camp_name)
         self.find_text(ce.CAMPAIGN_NAME, camp_name)
         self.find_list_elements(ce.FILTER_ITEMS)
@@ -152,40 +153,71 @@ class Campaign():
 
         assert first_price > last_price
 
-    def catalogue_details(self):
-        camp_name = self.wait_element(ce.CAMPAIGN_NAME).text
-        camp_time = self.find(ce.TIME).text
-        camp_promo_banner = self.find(ce.BANNER)
-        camp_app_banner = self.find(ce.app_banner)
-
-        # !scroll
-        # !save_position
-        # camp_up_btn = self.driver.find_elements_by_xpath(ce.UP_BTN).click()
-        # !save_position2
-        # !assert positions
-        # !assert camp_name is MainPage().camp_name
-        # !assert camp_time is MainPage().camp_time
-        # !assert camp_promo_banner
-        # !assert camp_app_banner
-
     def affiliation_apply(self):
         self.click(ce.FILTER_ITEMS[0])
         self.wait_element(ce.FIRST_AFF_ITEM)
-        self.get_items_list(ce.AFF_NAME)
+        aff_list = self.get_items_name_list(ce.AFF_ITEM, ce.AFF_NAME)
 
-        for i in xrange(ce.AFF_LIST.items()):
+        count = 0
+        for i in xrange(len(aff_list)):
 
-            self.click(i)
+            count += 1
+            print 'i ', i
+            self.click(ce.AFF_ITEM + '/div[text()=' + aff_list[count] + ']')
             self.wait_element(ce.PRODUCT)
+            pp_id = self.get_product_pp_id(ce.FIRST_PRODUCT_LINK)
+            pp_id = pp_id.get_attribute("href")
+            print 'pp_id ', pp_id
+            color_id = self.get_color_id(ce.FIRST_PRODUCT_LINK)
+            print 'color_id ', color_id
+
+            code_name = self.get_campaign_code_name(ce.FIRST_PRODUCT_LINK)
+
+            # link = self.find(item)
+            # code_name = link.search(r'\w-.*')
+            # print 'code_name', code_name
+            # code_name = _.group(0)
+            # print 'code_name _.group(0)', code_name
+            # return 'code_name', code_name
             
+            #check total count is changed
+
+            #check url is changed
+
+            #check css
+
             #check product aff in db
-            link = self.get_attr(ce.FIRST_PRODUCT_LINK)
-            link = str(link)[9:20]
             self.connect_db()
+            select = """select pp.affiliation from product_product pp
+                            join product_sku ps on ps.product_id=pp.id
+                            join campaign_campaign cc on ps.campaign_id=cc.id
+                            where pp.pp_id=%d and pp.color_id=%d and cc.id=%s;""" % (pp_id, color_id, code_name)
+            self.query()
 
+            #check aff_list is hidden
+            self.find
+            
+    # 2574307:702
+    def get_product_pp_id(self, *item):
+        link = self.find(item)
+        link = link.get_attribute("href")
+        pp_id = str(link)[9:16]
+        print 'pp_id', pp_id
+        return pp_id
 
+    def get_color_id(self, item):
+        link = self.find(item)
+        color_id = str(link)[17:20]
+        print 'color_id', color_id
+        return color_id
 
-        
+    def get_campaign_code_name(self, item):
+        link = self.find(item)
+        code_name = link.search(r'\w-.*')
+        print 'code_name', code_name
+        code_name = _.group(0)
+        print 'code_name _.group(0)', code_name
+        return 'code_name', code_name
 
     def check_categories(self):
         pass

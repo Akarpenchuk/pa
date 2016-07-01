@@ -1,6 +1,6 @@
 # !/usr/bin/env/ python
 # -*- coding: utf-8 -*-
-
+# fai4Sag/inoo
 import random
 import string
 import psycopg2
@@ -145,7 +145,11 @@ def connect_db(self):
     CURSOR = conn.cursor()
     print "Connected!\n"
 
-# print  'Connnected from config to -> %s' % (conn_string)
+
+def query(self, query_sting):
+    cursor.execute(query_sting)
+    result = cursor.fetchall()
+    return result
 
 # #select all existed bots
 # cursor.execute("select email from auth_user where email like 'user%' and email like '%\@mailinator.com';")
