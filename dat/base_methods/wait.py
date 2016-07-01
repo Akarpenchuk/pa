@@ -4,7 +4,7 @@
 from selenium import webdriver
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.common.exceptions import TimeoutException
-
+from time import sleep
 
 class Wait:
 
@@ -34,9 +34,11 @@ class Wait:
 
     def wait_with_check(self, element):
         count = 0
-        while count <= 10:
+        sleep(2)
+        while count < 20:
+            print 'check for email ', count
             try:
-                self.wait_element_displayed_by_xpath(element)
+                self.wait_element(element)
                 break
             except:
                 count += 1

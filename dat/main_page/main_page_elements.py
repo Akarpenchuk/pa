@@ -57,7 +57,7 @@ HELP_MENU = {
 }
 
 # menu profile
-PROFILE_CABINET_MENU = "//div[@class='header-top_user header-top_menu-trigger']"
+CABINET_HEADER_USER_NAME = "//div[@class='header-top_user header-top_menu-trigger']"
 # PROFILE_MENU = "//div[@class='header-top_user']"
 HEADER_USER_NAME = "//div[@class='header-top_user']"
 PROFILE_LINK = "//a[@href='/me/']"

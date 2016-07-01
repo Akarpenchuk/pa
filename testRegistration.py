@@ -26,17 +26,15 @@ class TestSuite(unittest.TestCase, BaseClass, MainPage, Wait, Mail, Cabinet):
         self.driver = webdriver.Chrome(chrome_options=chromeOptions)
         self.wait = WebDriverWait(self.driver, 10)
 
-
     def testRegistration(self):
-        self.assertTrue(self.open_base_url())
-        self.assertTrue(self.send_registration_email())
-        self.assertTrue(self.check_registration_email())
-        self.assertTrue(self.fill_personal_data_popup())
-        self.assertTrue(self.open_personal_cabinet())
-        self.assertTrue(self.check_personal_data())
-        self.assertTrue(self.logout_cabinet())
-        self.assertTrue(self.login_new_user())
-
+        self.open_main_page()
+        self.send_registration_email()
+        self.check_registration_email()
+        self.fill_personal_data_popup()
+        self.open_cabinet()
+        self.check_personal_data()
+        self.logout_cabinet()
+        self.login()
 
     def tearDown(self):
         self.driver.quit()

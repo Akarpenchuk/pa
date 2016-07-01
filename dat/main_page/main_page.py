@@ -139,12 +139,15 @@ class MainPage():
 
 
     def send_registration_email(self):
-        self.find(mpe.REG_LINK).click()
-        self.wait_element_displayed_by_xpath(mpe.REG_FORM)
-        self.find(mpe.REG_EMAIL_INPUT).send_keys(conf.RAND_EMAIL)
-        self.find(mpe.REG_PASS_INPUT).send_keys(conf.USER_PASS)
-        self.find(mpe.REG_BTN).click()
-        if self.wait_element_displayed_by_xpath(mpe.REG_FORM_SEND_LOGO):
+        rand_email = self.get_rand_email()
+        print 'rand_email ', rand_email
+
+        self.click(mpe.REG_LINK)
+        self.wait_element(mpe.REG_FORM)
+        self.send_keys(mpe.REG_EMAIL_INPUT, rand_email)
+        self.send_keys(mpe.REG_PASS_INPUT, myinfo.USER_PASS)
+        self.click(mpe.REG_BTN)
+        if self.wait_element(mpe.REG_FORM_SEND_LOGO):
             return True
         return False
 
@@ -172,9 +175,10 @@ class MainPage():
         self.wait
         self.find(mpe.PERSONAL_INFO_POPUP_BTN).click()
 
-        self.wait_element_displayed_by_xpath(mpe.PROFILE_MENU)
+        sleep(2)
+        self.wait_element(mpe.HEADER_USER_NAME)
 
-        profile_name = self.find(mpe.PROFILE_MENU).text
+        profile_name = self.find(mpe.HEADER_USER_NAME).text
         profile_name = profile_name.encode('utf-8')
 
         assert profile_name in 'тест'
@@ -184,28 +188,17 @@ class MainPage():
 
     def send_recovery_email(self):
         self.find(mpe.REG_LINK).click()
-        self.wait_element_displayed_by_xpath(mpe.REG_FORM)
+        self.wait_element(mpe.REG_FORM)
         self.find(mpe.RECOVERY_EMAIL_LINK).click()
 
-        if self.wait_element_displayed_by_xpath(mpe.RECOVERY_EMAIL_FORM):
+        if self.wait_element(mpe.RECOVERY_EMAIL_FORM):
             sleep(1)
             self.find(mpe.RECOVERY_EMAIL_INPUT).send_keys(conf.USER_EMAIL)
             self.find(mpe.RECOVERY_EMAIL_BTN).click()
             self.wait
-            if self.wait_element_displayed_by_xpath(mpe.REG_FORM_SEND_LOGO):
+            if self.wait_element(mpe.REG_FORM_SEND_LOGO):
                 return True
             return False
-
-
-    def open_cabinet(self):
-        logged_in = self.find(mpe.PROFILE_LINK)
-        if logged_in:
-            self.find(mpe.PROFILE_MENU).click()
-            self.wait_element_displayed_by_xpath(mpe.PROFILE_MENU)
-            self.find(mpe.PROFILE_LINK).click()
-            self.wait_element_displayed_by_xpath(myinfo.NAME)
-            return True
-        return False
 
 
     # def open_campaign(self):
@@ -213,7 +206,7 @@ class MainPage():
     #     self.find(mpe.CAMPAIGN).click()
     #     Campaign().check_if_outlet()
 
-    #     self.wait_element_displayed_by_xpath(ce.PRODUCT)
+    #     self.wait_element(ce.PRODUCT)
     #     assert camp_name in self.find(ce.CAMPAIGN_NAME).text
     #     product_count = self.driver.find_elements_by_xpath(ce.PRODUCT)
     #     assert product_count >= 1

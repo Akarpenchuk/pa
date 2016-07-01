@@ -5,6 +5,8 @@ import sys, os
 sys.path.append('/home/ace/Documents/git/autotests/dat')
 from time import sleep
 import psycopg2
+import random
+import string
 
 import unittest
 from selenium import webdriver
@@ -17,6 +19,7 @@ from selenium.webdriver.common.keys import Keys
 import campaign.campaign_elements as ce
 import cabinet.cabinet_elements as myinfo
 import main_page.main_page_elements as mpe
+import mail.mail_elements as me
 import base_methods.config as conf
 
 
@@ -44,9 +47,9 @@ class BaseClass():
         return False
         print 'user is anonym'
 
-    def open_url(self, url, **elements):
+    def open_url(self, url, element):
         self.driver.get(url)
-        self.wait_elem(elements)
+        self.wait_element(element)
 
     def open_main_page(self):
         self.driver.get(conf.BASE_URL)
@@ -128,6 +131,11 @@ class BaseClass():
         windows = self.driver.window_handles
         self.driver.switch_to.window(windows[1])
 
+    def get_rand_email(self):
+        RAND_EMAIL_NAME = ''.join(random.choice(string.ascii_lowercase + string.digits) for _ in range(8))
+        RAND_EMAIL = RAND_EMAIL_NAME + me.EMAIL_DOMAIN
+        return RAND_EMAIL
+
     def scroll_down(self, element):
         # self.driver.find_element_by_xpath(element).send_keys(Keys.END)
         item = self.find(element)
@@ -150,6 +158,31 @@ class BaseClass():
     def scroll_to_element(self, element):
         while not self.find(element):
             self.driver.execute_script("window.scrollTo(0, 100000);")
+
+    def get_tooltip_product_name(self):
+        if self.wait_element(ce.TOOLTIP_PRODUCT_NAME):
+            name = self.find_text(ce.TOOLTIP_PRODUCT_NAME)
+            return name.encode('utf-8')
+        return False
+
+    def get_tooltip_product_brand(self):
+        if self.wait_element(ce.TOOLTIP_PRODUCT_BRAND):
+            name = self.find_text(ce.TOOLTIP_PRODUCT_BRAND)
+            return name.encode('utf-8')
+        return False
+
+    def get_tooltip_product_price(self):
+        if self.wait_element(ce.TOOLTIP_PRODUCT_PRICE):
+            name = self.find_text(ce.TOOLTIP_PRODUCT_PRICE)
+            return name.encode('utf-8')
+        return False
+
+    def get_tooltip_product_size(self):
+        if self.wait_element(ce.TOOLTIP_PRODUCT_SIZE):
+            name = self.find_text(ce.TOOLTIP_PRODUCT_SIZE)
+            return name.encode('utf-8')
+        return False
+
 
     # def scroll_bottom_product_list(self):
     #     #check current position

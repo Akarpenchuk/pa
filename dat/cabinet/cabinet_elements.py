@@ -1,6 +1,13 @@
 # !/usr/bin/env/ python
 # -*- coding: utf-8 -*-
 
+import mail.mail_elements as me
+
+USER_PASS = "qwe123"
+USER_NAME = "mktest1"
+USER_EMAIL = "mktest1@mailinator.com"
+
+
 PROFILE_MENU = "//div[@class='header-top_user header-top_menu-trigger']"
 NAME = "//input[@id='id_first_name']"
 SURNAME = "//input[@id='id_last_name']"
@@ -17,7 +24,7 @@ SAVE = "//input[@type='submit']"
 RECOVERY_AUTH_EMAIL = "//input[@id='login__email']"
 RECOVERY_AUTH_PASS = "//input[@id='login__pass']"
 
-PERSONAL_INFO = "//div[contains(text(),'Персональная информация')]"
+PERSONAL_INFO_BLOCK = "//div[contains(text(),'Персональная информация')]"
 PERSONAL_INFO_NAME = "//input[@id='id_first_name']"
 PERSONAL_INFO_SURNAME = "//input[@id='id_last_name']"
 PERSONAL_INFO_DAY = "//div[@id='id_birthday_day_chzn']/a/span"

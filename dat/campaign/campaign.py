@@ -19,14 +19,6 @@ import campaign_elements as ce
 
 class Campaign():
 
-    # def open_campaign_iter(self):
-    #     campaigns = self.find_elements(mpe.CAMPAIGN)
-    #     for i in xrange(len(campaigns)):
-    #         i += 1
-    #         self.click(mpe.CAMPAIGN_WRAPPER + '[' + str(i) + ']' + mpe.CAMPAIGN)
-    #         self.change_to_catalogue()
-    #     return True    
-
     def open_rand_campaign(self):
         camp_count = self.count_elements(mpe.CAMPAIGN)
         rand_count = random.randint(1, camp_count)
@@ -35,13 +27,13 @@ class Campaign():
         print 'camp_name', camp_name
 
         while 'modnakarta' in self.driver.current_url:
-            rand_count = randint(1, camp_count)
-            self.click('(' + mpe.CAMPAIGN + ')' + '[' + str(rand_count) + ']')
+            self.back()
+            continue
 
         self.click('(' + mpe.CAMPAIGN + ')' + '[' + str(rand_count) + ']')
         self.change_to_catalogue()
         self.wait_element(ce.PRODUCT)
-        return camp_name.encode('utf-8')
+        return camp_name.decode('utf-8')
 
         #check catalogue details
         self.find_text(ce.BREADCRUMBS, camp_name)
@@ -86,6 +78,33 @@ class Campaign():
                 self.driver.back()
                 self.wait_element(ce.PRODUCT)
             continue
+
+    def add_product_OCB(self):
+        self.hide_sold()
+        product_name = self.get_text(ce.PRODUCT_NAME)
+        product_brand = self.get_text(ce.PRODUCT_BRAND)
+        product_price = self.get_text(ce.PRODUCT_PRICE)
+        self.hover(ce.PRODUCT)
+
+        if self.wait_element(ce.OCB_WITHOUT_SIZE):
+            self.click(ce.OCB_WITHOUT_SIZE)
+            self.wait_element(ce.TOOLTIP_PRODUCT_NAME)
+            tooltip_name = self.get_tooltip_product_name()
+            assert product_name in tooltip_product_name
+
+        elif self.wait_element(ce.OCB_SIZE):
+            self.click(ce.OCB_SIZE)
+            self.wait_element(ce.OCB_SIZE_SELECTED)
+
+        else:
+            return False
+
+        self.click(ce.OCB_ADD_PRODUCT)
+        self.wait_element(ce.TOOLTIP_PRODUCT_BRAND)
+        assert product_brand in tooltip_product_brand
+        assert product_price in tooltip_product_price
+        assert product_size in tooltip_product_size
+
 
     def check_product_less_99(self):
         count = 1

@@ -23,6 +23,7 @@ import main_page.main_page_elements as mpe
 import product.product_page_elements as ppe
 import campaign.campaign_elements as ce
 import basket.basket_elements as be
+import cabinet.cabinet_elements as myinfo
 import base_methods.config as conf
 
 
@@ -35,16 +36,17 @@ class Test(unittest.TestCase, BaseClass, Wait, MainPage, Product, Campaign, Bask
         self.wait = WebDriverWait(self.driver, 10)
 
     def testBasketLess99(self):
-        self.open_url(conf.BASE_URL)
-        self.login()
+        self.open_main_page()
+        self.login(myinfo.USER_EMAIL, myinfo.USER_PASS)
 
         # self.open_empty_basket()
         n = 1
-        while self.open_campaign_iter(n):
+        while self.open_rand_campaign():
             print 1
             self.hide_sold()
             print 2
-            self.sort_asc()
+            self.add_product_OCB()
+            # self.sort_asc()
             # print 3
             # self.scroll_bottom_product_list()
             # print 4

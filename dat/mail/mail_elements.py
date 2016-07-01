@@ -1,6 +1,9 @@
 # !/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+EMAIL_ADDRESS = "https://mailinator.com"
+EMAIL_DOMAIN = "@mailinator.com"
+
 EMAIL_INPUT = "//input[@id='inboxfield']"
 
 EMAIL_CHECK_BTN = "//span[@class='input-group-btn']"
