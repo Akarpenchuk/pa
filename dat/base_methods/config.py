@@ -148,6 +148,7 @@ def connect_db(self):
 def query(self, query_sting):
     cursor.execute(query_sting)
     result = cursor.fetchall()
+    print 'result ', result
     return result
 
 # #select all existed bots

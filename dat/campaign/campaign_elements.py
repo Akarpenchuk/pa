@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 #CAMPAIGN ELEMENTS
-CAMPAIGN_NAME = "//div[@class='shop_title']/h1"
+CAMPAIGN_NAME = "//h1[@class='main-content__campaign-name']"
 SPINNER = "//div[@class='spinner']"
 OUTLET_CATEGORY = "//div[@class='column_item column_2 column_outlet'][1]/a"
 BREADCRUMBS = "//div[@class='bread_crumbs']//span"
@@ -72,7 +72,14 @@ PRODUCT_IMG = "//a[@class='shop_item_img ']"
 PRODUCT_RESERVED = "//div[@class='shop_reserved']"
 PRODUCT_SOLD = "//div[@class='shop_sold']"
 PRODUCT_NEW_PRICE = "//span[@class='product_item__new-cost']"
-PRODUCT_NAME = "//span[@class='product_item__category']"
+PRODUCT_NAME = "//div[@class='product-info__bottom']/span[@class='product_item__category']"
+PRODUCT_BRAND = "//div[@class='product-info__top']/span[@class='product_item__brand']"
+# PRODUCT_SIZE = "//div[@class='product_ocb']//div[@class='size_item ']"
+PRODUCT_SIZE = "//div[@class='product_ocb']//div[@class='size_list']/div"
+
+
+PRODUCT_SIZE_SELECTED = "//div[@class='product_ocb']//div[@class='size_item selected']"
+PRODUCT_WITHOUT_SIZE = "//div[@class='size_list']/node()[not(size_item )]|node()[not(size_item selected)]"
 FIRST_PRODUCT_LINK = "//div[@class='product_item product_item_full']/a/@href"
 LAST_PRODUCT_LINK = "(//div[@class='product_item product_item_full']/a/@href)[last()]"
 
@@ -83,8 +90,11 @@ PRODUCT_LIST = "//div[@id='content']"
 PAGE_HEIGHT_ELEMENT = "//div[@class='products']/div"
 
 #OCB
+OCB_ADD_PRODUCT = "//div[@class='product_ocb']//div[@class='btn cta ']"
 
-OCB_WITHOUT_SIZE = "//div[@class='product_ocb']//div[@class='btn cta ']"
-
-
+#TOOLTIP
+TOOLTIP_PRODUCT_NAME = "//div[@class='msg_product-name']"
+TOOLTIP_PRODUCT_SIZE = "//div[@class='msg_product-size']"
+TOOLTIP_PRODUCT_QUA = "//div[@class='msg_product-qua']"
+TOOLTIP_PRODUCT_PRICE = "//div[@class='msg_product-price']"
 

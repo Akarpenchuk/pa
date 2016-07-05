@@ -1,5 +1,8 @@
     # !/usr/bin/env python 
 # -*- coding: utf-8 -*-
+import sys, os
+sys.path.append('/home/ace/Documents/git/autotests/dat')
+
 
 from selenium import webdriver
 from selenium.webdriver.support.wait import WebDriverWait
@@ -26,11 +29,16 @@ class Basket:
         self.find_elements(be.EMPTY_BASKET_MSG)
         return True
 
-    def delete_product(self):
-        self.click(be.DELETE_BTN)
-        self.wait_element(be.EMPTY_BTN)
-        self.click(be.CONTINUE_SHOPING)
-        self.wait_element(mpe.CAMPAIGN)
+    def delete_products(self):
+        delete_btns = self.count_elements(be.DELETE_BTN)
+        for i in xrange(delete_btns):
+            self.click(be.DELETE_BTN)
+            if self.wait_element(be.DELETE_BTN):
+                continue
+            else:
+                self.wait_element(be.EMPTY_BTN)
+                self.click(be.CONTINUE_SHOPING)
+                self.wait_element(mpe.CAMPAIGN)
         return True
 
     def add_sku_count(self):

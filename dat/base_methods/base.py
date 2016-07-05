@@ -32,8 +32,10 @@ class BaseClass():
 
             self.clear(mpe.AUTH_EMAIL_INPUT)
             self.send_keys(mpe.AUTH_EMAIL_INPUT, user_email)
+            sleep(1)
             self.clear(mpe.AUTH_PASS_INPUT)
             self.send_keys(mpe.AUTH_PASS_INPUT, user_pass)
+            sleep(1)
             self.click(mpe.AUTH_BTN)
             self.wait_element(mpe.HEADER_USER_NAME)
         return False
@@ -63,12 +65,12 @@ class BaseClass():
         element_text = self.driver.find_element_by_xpath(item).text
         return element_text.encode('utf-8')
 
-    def get_items_name_list(self, count_item, items_text):
+    def get_items_names_list(self, count_item, items_text):
         lst = []
         items = self.count_elements(count_item)
         for i in xrange(items):
-            name = self.driver.find_element_by_xpath(items_text).text
-            # name = name.decode("utf-8")
+            text = self.driver.find_element_by_xpath(items_text).text
+            name = text.decode('ascii')
             lst.append(name)
         print 'lst ', lst
         return lst
@@ -79,8 +81,9 @@ class BaseClass():
 
     def find_text(self, item, text):
         elem = self.driver.find_element_by_xpath(item).text
-        elem.encode('utf-8')
-        if text in elem:
+        # elem.decode('utf-8')
+        print 'text ', text
+        if u'text' in elem:
             return True
         return False
 
@@ -211,7 +214,7 @@ class BaseClass():
         conn_string = "host='10.38.0.122' dbname='modnakasta' user='modnakastauser' password='fai4Sag/inoo' port='5433'"
         conn = psycopg2.connect(conn_string)
         cursor = conn.cursor()
-        print  'Connnected from config to -> %s' % (conn_string)
+        print  'Connnected to db!'
         cursor.execute(query)
         records = cursor.fetchall()
         return records

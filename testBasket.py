@@ -32,7 +32,8 @@ class Test(unittest.TestCase, BaseClass, Wait, MainPage, Product, Campaign, Bask
     def setUp(self):
         chromeOptions = Options()
         chromeOptions.add_argument("--start-maximized")
-        self.driver = webdriver.Chrome(chrome_options=chromeOptions)
+        self.driver = webdriver.Chrome()
+        # self.driver = webdriver.Chrome(chrome_options=chromeOptions)
         self.wait = WebDriverWait(self.driver, 10)
 
     def testBasketLess99(self):
@@ -42,10 +43,9 @@ class Test(unittest.TestCase, BaseClass, Wait, MainPage, Product, Campaign, Bask
         # self.open_empty_basket()
         n = 1
         while self.open_rand_campaign():
-            print 1
             self.hide_sold()
-            print 2
             self.add_product_OCB()
+            self.delete_products()
             # self.sort_asc()
             # print 3
             # self.scroll_bottom_product_list()

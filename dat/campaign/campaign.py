@@ -21,18 +21,18 @@ class Campaign():
 
     def open_rand_campaign(self):
         camp_count = self.count_elements(mpe.CAMPAIGN)
+        select = "select count(id) from campaign_campaign where starts_at < now() and finishes_at > now();"
+        result = self.db_select(select)
+        re.search(str(camp_count), str(result))
         rand_count = random.randint(1, camp_count)
-        camp_name = self.get_text(mpe.CAMPAIGN_NAME)
-        print 'camp_count', camp_count
-        print 'camp_name', camp_name
-
         while 'modnakarta' in self.driver.current_url:
             self.back()
             continue
-
         self.click('(' + mpe.CAMPAIGN + ')' + '[' + str(rand_count) + ']')
         self.change_to_catalogue()
         self.wait_element(ce.PRODUCT)
+        camp_name = self.get_text(ce.CAMPAIGN_NAME)
+        print 'camp_name', camp_name
         return camp_name.decode('utf-8')
 
         #check catalogue details
@@ -80,31 +80,29 @@ class Campaign():
             continue
 
     def add_product_OCB(self):
-        self.hide_sold()
         product_name = self.get_text(ce.PRODUCT_NAME)
-        product_brand = self.get_text(ce.PRODUCT_BRAND)
-        product_price = self.get_text(ce.PRODUCT_PRICE)
+        product_price = self.get_text(ce.PRODUCT_NEW_PRICE)
+        print 'product_name %s, product_price %s' % (product_name, product_price)
         self.hover(ce.PRODUCT)
+        sleep(1)
 
-        if self.wait_element(ce.OCB_WITHOUT_SIZE):
-            self.click(ce.OCB_WITHOUT_SIZE)
-            self.wait_element(ce.TOOLTIP_PRODUCT_NAME)
-            tooltip_name = self.get_tooltip_product_name()
-            assert product_name in tooltip_product_name
+        try:
+            self.find(ce.PRODUCT_WITHOUT_SIZE)
+            self.click(ce.OCB_ADD_PRODUCT)
+            print 'try'
+        except:
+            print 'except'
+            self.find(ce.PRODUCT_SIZE)
+            product_size = self.get_text(ce.PRODUCT_SIZE)
+            print 'product_size ', product_size
+            self.click(ce.PRODUCT_SIZE)
+            self.wait_element(ce.PRODUCT_SIZE_SELECTED)
+            self.click(ce.OCB_ADD_PRODUCT)
 
-        elif self.wait_element(ce.OCB_SIZE):
-            self.click(ce.OCB_SIZE)
-            self.wait_element(ce.OCB_SIZE_SELECTED)
-
-        else:
-            return False
-
-        self.click(ce.OCB_ADD_PRODUCT)
-        self.wait_element(ce.TOOLTIP_PRODUCT_BRAND)
-        assert product_brand in tooltip_product_brand
-        assert product_price in tooltip_product_price
-        assert product_size in tooltip_product_size
-
+        self.wait_element(ce.TOOLTIP_PRODUCT_NAME)
+        self.find_text(ce.TOOLTIP_PRODUCT_NAME, product_name)
+        self.find_text(ce.TOOLTIP_PRODUCT_NEW_PRICE, product_price)
+        return True
 
     def check_product_less_99(self):
         count = 1
@@ -175,14 +173,14 @@ class Campaign():
     def affiliation_apply(self):
         self.click(ce.FILTER_ITEMS[0])
         self.wait_element(ce.FIRST_AFF_ITEM)
-        aff_list = self.get_items_name_list(ce.AFF_ITEM, ce.AFF_NAME)
+        aff_list = self.get_items_names_list(ce.AFF_ITEM, ce.AFF_NAME)
 
         count = 0
         for i in xrange(len(aff_list)):
 
             count += 1
             print 'i ', i
-            self.click(ce.AFF_ITEM + '/div[text()=' + aff_list[count] + ']')
+            self.click(ce.AFF_ITEM + '/div[text()=' + aff_list[i].encode('utf-8')  + ']')
             self.wait_element(ce.PRODUCT)
             pp_id = self.get_product_pp_id(ce.FIRST_PRODUCT_LINK)
             pp_id = pp_id.get_attribute("href")
