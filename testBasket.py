@@ -9,7 +9,6 @@ import logging
 logging.basicConfig(filename = '/home/ace/log_webdriver', level = logging.DEBUG)
 
 from selenium import webdriver
-from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.support.wait import WebDriverWait
 
 from base_methods.base import BaseClass
@@ -30,22 +29,21 @@ import base_methods.config as conf
 class Test(unittest.TestCase, BaseClass, Wait, MainPage, Product, Campaign, Basket):
 
     def setUp(self):
-        chromeOptions = Options()
-        chromeOptions.add_argument("--start-maximized")
+        # chromeOptions = Options()
+        # chromeOptions.add_argument("--start-maximized")
         self.driver = webdriver.Chrome()
-        # self.driver = webdriver.Chrome(chrome_options=chromeOptions)
         self.wait = WebDriverWait(self.driver, 10)
 
     def testBasketLess99(self):
         self.open_main_page()
         self.login(myinfo.USER_EMAIL, myinfo.USER_PASS)
-
-        # self.open_empty_basket()
+        self.clear_basket()
+        self.open_main_page()
         n = 1
         while self.open_rand_campaign():
             self.hide_sold()
             self.add_product_OCB()
-            self.delete_products()
+
             # self.sort_asc()
             # print 3
             # self.scroll_bottom_product_list()

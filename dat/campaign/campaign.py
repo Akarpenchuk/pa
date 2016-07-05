@@ -96,7 +96,7 @@ class Campaign():
             product_size = self.get_text(ce.PRODUCT_SIZE)
             print 'product_size ', product_size
             self.click(ce.PRODUCT_SIZE)
-            self.wait_element(ce.PRODUCT_SIZE_SELECTED)
+            self.find(ce.PRODUCT_SIZE_SELECTED)
             self.click(ce.OCB_ADD_PRODUCT)
 
         self.wait_element(ce.TOOLTIP_PRODUCT_NAME)

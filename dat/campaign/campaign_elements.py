@@ -96,5 +96,5 @@ OCB_ADD_PRODUCT = "//div[@class='product_ocb']//div[@class='btn cta ']"
 TOOLTIP_PRODUCT_NAME = "//div[@class='msg_product-name']"
 TOOLTIP_PRODUCT_SIZE = "//div[@class='msg_product-size']"
 TOOLTIP_PRODUCT_QUA = "//div[@class='msg_product-qua']"
-TOOLTIP_PRODUCT_PRICE = "//div[@class='msg_product-price']"
+TOOLTIP_PRODUCT_NEW_PRICE = "//div[@class='msg_product-price']"
 

@@ -1,9 +1,9 @@
 # !/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-DELETE_BTN = "//div[@class='cart_product-delete']/img"
+DELETE_BTN = "//div[@class='cart_product-delete']"
 EMPTY_BASKET_ICO = "//div[@class='empty-cart']/img"
-EMPTY_BASKET_MSG = "//p[contains(text(),'Ваша корзина пуста. Нажмите, пожалуйста, на кнопку ниже, чтобы перейти к покупкам.')]"
+EMPTY_BASKET_MSG = "//p[contains(text(),'Ваша корзина пуста.')]"
 BASKET_ICO = "//a[@class='header-top_basket']"
 PRODUCT_NAME = "//a[@class='cart_product-category']"
 PRODUCT_BRAND = "//a[@class='cart_product-name']"
