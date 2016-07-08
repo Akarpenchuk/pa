@@ -9,7 +9,6 @@ import re
 
 from selenium import webdriver
 
-# from base_methods.base import BaseClass
 from base_methods.wait import Wait
 from selenium.webdriver.common.keys import Keys
 import unittest
@@ -80,29 +79,37 @@ class Campaign():
             continue
 
     def add_product_OCB(self):
-        product_name = self.get_text(ce.PRODUCT_NAME)
-        product_price = self.get_text(ce.PRODUCT_NEW_PRICE)
-        print 'product_name %s, product_price %s' % (product_name, product_price)
+        name = self.get_text(ce.PRODUCT_NAME)
+        count = 1
+        price = self.get_text(ce.PRODUCT_NEW_PRICE)
+        products = self.count_elements(ce.PRODUCT)
+        print 'name %s, price %s' % (name, price)
         self.hover(ce.PRODUCT)
         sleep(1)
 
         try:
-            self.find(ce.PRODUCT_WITHOUT_SIZE)
-            self.click(ce.OCB_ADD_PRODUCT)
-            print 'try'
-        except:
-            print 'except'
             self.find(ce.PRODUCT_SIZE)
-            product_size = self.get_text(ce.PRODUCT_SIZE)
-            print 'product_size ', product_size
+            size = self.get_text(ce.PRODUCT_SIZE)
+            # self.product_values = (str(size), ) + (str(name), ) + (str(count), ) + (str(price), )
+            # print 'product_values in loop ', self.product_values
             self.click(ce.PRODUCT_SIZE)
             self.find(ce.PRODUCT_SIZE_SELECTED)
             self.click(ce.OCB_ADD_PRODUCT)
-
-        self.wait_element(ce.TOOLTIP_PRODUCT_NAME)
-        self.find_text(ce.TOOLTIP_PRODUCT_NAME, product_name)
-        self.find_text(ce.TOOLTIP_PRODUCT_NEW_PRICE, product_price)
-        return True
+            self.wait_element(ce.TOOLTIP_PRODUCT_NAME)
+        except:    # try:
+            self.wait_element(ce.PRODUCT_WITHOUT_SIZE)
+            print 'find(ce.PRODUCT_WITHOUT_SIZE)'
+            self.click(ce.OCB_ADD_PRODUCT)
+            print 'click(ce.OCB_ADD_PRODUCT)'
+            self.wait_element(ce.TOOLTIP_PRODUCT_NAME)
+        # except:
+        #     raise Exception('no available products!')
+        # except:
+        #     pass
+        self.find_text(ce.TOOLTIP_PRODUCT_NAME, name)
+        self.find_text(ce.TOOLTIP_PRODUCT_NEW_PRICE, price)
+        # print 'product_values at the end', self.product_values
+        return (str(size), str(name), str(count), str(price))
 
     def check_product_less_99(self):
         count = 1

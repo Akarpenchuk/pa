@@ -77,9 +77,10 @@ PRODUCT_BRAND = "//div[@class='product-info__top']/span[@class='product_item__br
 # PRODUCT_SIZE = "//div[@class='product_ocb']//div[@class='size_item ']"
 PRODUCT_SIZE = "//div[@class='product_ocb']//div[@class='size_list']/div"
 
-
+PRODUCT_SIZE_SOLD = "//div[@class='product_ocb']//div[@class='size_item unavailable']"
 PRODUCT_SIZE_SELECTED = "//div[@class='product_ocb']//div[@class='size_item selected']"
-PRODUCT_WITHOUT_SIZE = "//div[@class='size_list']/node()[not(size_item )]|node()[not(size_item selected)]"
+# PRODUCT_WITHOUT_SIZE = "//div[@class='size_list']/node()[not(size_item )]|node()[not(size_item selected)]"
+PRODUCT_WITHOUT_SIZE = "//div[@class='size_list'][not(descendant::*)]"
 FIRST_PRODUCT_LINK = "//div[@class='product_item product_item_full']/a/@href"
 LAST_PRODUCT_LINK = "(//div[@class='product_item product_item_full']/a/@href)[last()]"
 

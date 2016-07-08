@@ -82,7 +82,6 @@ class BaseClass():
     def find_text(self, item, text):
         elem = self.driver.find_element_by_xpath(item).text
         # elem.decode('utf-8')
-        print 'text ', text
         if u'text' in elem:
             return True
         return False

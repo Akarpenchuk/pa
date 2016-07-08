@@ -34,15 +34,19 @@ class Test(unittest.TestCase, BaseClass, Wait, MainPage, Product, Campaign, Bask
         self.driver = webdriver.Chrome()
         self.wait = WebDriverWait(self.driver, 10)
 
-    def testBasketLess99(self):
+    def testAddProduct(self):
         self.open_main_page()
         self.login(myinfo.USER_EMAIL, myinfo.USER_PASS)
         self.clear_basket()
         self.open_main_page()
-        n = 1
-        while self.open_rand_campaign():
-            self.hide_sold()
-            self.add_product_OCB()
+
+        self.open_rand_campaign()
+        self.hide_sold()
+        product_values = self.add_product_OCB()
+        # print 'product_values test ', product_values
+        self.check_basket_product(*product_values)
+        
+
 
             # self.sort_asc()
             # print 3
@@ -54,7 +58,7 @@ class Test(unittest.TestCase, BaseClass, Wait, MainPage, Product, Campaign, Bask
             # break
             # n += 1
             # self.open_url(conf.BASE_URL)
-            continue
+
 
         # print 'step 2'
         # self.open_basket_with_product()

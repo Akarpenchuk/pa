@@ -15,15 +15,20 @@ import main_page.main_page_elements as mpe
 
 class Basket:
 
-    def open_basket_product(self, name, brand, new_price, count):
+    def check_basket_product(self, *product_values):
         self.click(be.BASKET_ICO)
-        self.wait_element(name)
-        self.find_text(brand)
-        self.find_text(new_price)
-        self.find_text(count)
+        self.wait_element(be.BASKET_CART)
+        print 'product_values basket ', product_values
+        self.find_text(be.FST_CART + be.FST_NAME, product_values[1])
+        self.find_text(be.FST_CART + be.FST_COUNT, product_values[2])
+        self.find_text(be.FST_CART + be.FST_NEW_PRICE, product_values[3])
+        self.find_text(be.FST_CART + be.FST_SIZE, product_values[0])
         return True
 
-    def check_basket_emtpy(self):
+        #TODO: check_basket_products - 
+        # compare dicts
+
+    def check_basket_empty(self):
         self.click(be.BASKET_ICO)
         self.wait_element(be.EMPTY_BASKET_ICO)
         if self.wait_element(be.EMPTY_BASKET_MSG):
@@ -43,11 +48,8 @@ class Basket:
                 self.wait_element(be.DELETE_BTN)
                 continue
         except:
-            self.find(be.EMPTY_BASKET_MSG)
+            self.wait_element(be.EMPTY_BASKET_MSG)
             return True
-
-    def add_sku_count(self):
-        pass
 
     def increase_product_count(self):
         self.current_count = self.find_text(be.PRODUCT_COUNT).text
