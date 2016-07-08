@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 import sys, os
 sys.path.append('/home/ace/Documents/git/autotests/dat')
-
+from time import sleep
 
 from selenium import webdriver
 from selenium.webdriver.support.wait import WebDriverWait
@@ -48,6 +48,7 @@ class Basket:
                 self.wait_element(be.DELETE_BTN)
                 continue
         except:
+            sleep(1)
             self.wait_element(be.EMPTY_BASKET_MSG)
             return True
 

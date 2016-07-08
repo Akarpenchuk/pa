@@ -98,6 +98,7 @@ class Campaign():
             self.wait_element(ce.TOOLTIP_PRODUCT_NAME)
         except:    # try:
             self.wait_element(ce.PRODUCT_WITHOUT_SIZE)
+            size = u"Размер:"
             print 'find(ce.PRODUCT_WITHOUT_SIZE)'
             self.click(ce.OCB_ADD_PRODUCT)
             print 'click(ce.OCB_ADD_PRODUCT)'
