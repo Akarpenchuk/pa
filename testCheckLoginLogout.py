@@ -1,19 +1,22 @@
 # !/usr/bin/env python
 # -*- coding: utf-8 -*-
 
+import sys, os
+sys.path.append('/home/ace/Documents/git/autotests/dat')
+
 import unittest
 from selenium.webdriver.chrome.options import Options
 
 from selenium import webdriver
 from selenium.webdriver.support.ui import WebDriverWait
 
-from dat.base_methods.base import BaseClass
-from dat.main_page.main_page import MainPage
-from dat.base_methods.wait import Wait
+from base_methods.base import BaseClass
+from main_page.main_page import MainPage
+from base_methods.wait import Wait
 
 
-import dat.main_page.main_page_elements as mpe
-import dat.base_methods.config as conf
+import main_page.main_page_elements as mpe
+import cabinet.cabinet_elements as myinfo
 
 
 class TestSuite(unittest.TestCase, BaseClass, Wait, MainPage):
@@ -29,7 +32,7 @@ class TestSuite(unittest.TestCase, BaseClass, Wait, MainPage):
         '''check login and logout'''
 
         self.open_main_page()
-        self.login(conf.USER_EMAIL, conf.USER_PASS)
+        self.login(myinfo.USER_EMAIL, myinfo.USER_PASS)
         self.check_main_page_elements()
         self.logout()
         self.check_main_page_elements()
