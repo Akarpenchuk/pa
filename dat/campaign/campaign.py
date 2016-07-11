@@ -98,7 +98,7 @@ class Campaign():
             self.wait_element(ce.TOOLTIP_PRODUCT_NAME)
         except:    # try:
             self.wait_element(ce.PRODUCT_WITHOUT_SIZE)
-            size = u"Размер:"
+            size = u"Размер: "
             print 'find(ce.PRODUCT_WITHOUT_SIZE)'
             self.click(ce.OCB_ADD_PRODUCT)
             print 'click(ce.OCB_ADD_PRODUCT)'
@@ -188,7 +188,7 @@ class Campaign():
 
             count += 1
             print 'i ', i
-            self.click(ce.AFF_ITEM + '/div[text()=' + aff_list[i].encode('utf-8')  + ']')
+            self.click(ce.AFF_ITEM + '/div[text()=' + "'" + aff_list[i].decode('utf-8')  + "'" + ']')
             self.wait_element(ce.PRODUCT)
             pp_id = self.get_product_pp_id(ce.FIRST_PRODUCT_LINK)
             pp_id = pp_id.get_attribute("href")
@@ -224,6 +224,7 @@ class Campaign():
             
     # 2574307:702
     def get_product_pp_id(self, *item):
+        sleep(1)
         link = self.find(item)
         link = link.get_attribute("href")
         pp_id = str(link)[9:16]

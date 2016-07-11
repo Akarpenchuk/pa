@@ -11,7 +11,7 @@ from selenium import webdriver
 from selenium.webdriver.support.wait import WebDriverWait
 import psycopg2
 
-from campaign.campaign import Campaign
+# from campaign.campaign import Campaign
 
 import cabinet.cabinet_elements as myinfo
 import main_page_elements as mpe
@@ -107,7 +107,7 @@ class MainPage():
     def check_soon_end_campaigns(self):
         current_url = str(self.driver.current_url)
         if self.driver.current_url != conf.BASE_URL:
-            self.open_url(conf.BASE_URL)
+            self.open_main_page()
 
         query = "select count(*) from campaign_campaign where starts_at < now() and finishes_at < now() + interval '1 days';"
         if self.db_select(query):

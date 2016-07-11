@@ -164,7 +164,7 @@ class Anonym(Campaign, Wait, BaseClass):
         self.click(mkpe.MODNAKARTA_BASKET_ADD)
 
         if self.wait_element(mpe.AUTH_FORM):
-            self.open_url(conf.BASE_URL)
+            self.open_main_page()
         else:
             raise NoSuchElementException
 
@@ -174,7 +174,7 @@ class Anonym(Campaign, Wait, BaseClass):
         self.find(mkpe.MODNAKARTA_BASKET_ADD).click()
 
         if self.wait_element(mpe.AUTH_FORM):
-            self.open_url(conf.BASE_URL)
+            self.open_main_page()
         else:
             raise NoSuchElementException
 
@@ -184,7 +184,7 @@ class Anonym(Campaign, Wait, BaseClass):
         self.click(mpe.MODNAKARTA_MENU_HELP)
 
         if self.wait_element(mkpe.ABOUT_MODNAKARTA):
-            self.open_url(conf.BASE_URL)
+            self.open_main_page()
             return True
         else:
             raise NoSuchElementException
@@ -227,8 +227,7 @@ class Anonym(Campaign, Wait, BaseClass):
             while is_auth_form != True:
                 count_product += 1
                 self.wait_element(ce.PRODUCT)
-                self.click(ce.PRODUCT + '[' + str(count_product) + ']' + '/a')
-                # sleep(1)
+                self.click(ce.PRODUCT)
                 self.wait_element(ppe.BASKET_ADD_ENABLED)
                 self.click(ppe.BASKET_ADD_ENABLED)
                 self.wait_element(mpe.AUTH_FORM)

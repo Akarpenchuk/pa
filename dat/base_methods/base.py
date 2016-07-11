@@ -70,7 +70,7 @@ class BaseClass():
         items = self.count_elements(count_item)
         for i in xrange(items):
             text = self.driver.find_element_by_xpath(items_text).text
-            name = text.decode('ascii')
+            name = text.encode('utf-8')
             lst.append(name)
         print 'lst ', lst
         return lst

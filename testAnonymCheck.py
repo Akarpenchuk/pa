@@ -33,7 +33,7 @@ class TestSuite(unittest.TestCase, BaseClass, MainPage, Anonym, Wait):
 
 
     def testAnonymChecking(self):
-        self.open_url(conf.BASE_URL)
+        self.open_main_page()
         self.check_main_page_elements()
         self.check_validation_reg()
         self.check_validation_auth()
