@@ -19,12 +19,12 @@ import base_methods.config as conf
 class Product():
 
     def select_size(self):
-        if self.driver.find_element_by_xpath(PRODUCT_SIZE_AVAILABLE):
-            self.driver.find_element_by_xpath(PRODUCT_SIZE_AVAILABLE).click()
-            self.driver.find_element_by_xpath(PRODUCT_SIZE_SELECTED).is_displayed()
+        if self.find(PRODUCT_SIZE_AVAILABLE):
+            self.click(PRODUCT_SIZE_AVAILABLE)
+            self.wailt_element(PRODUCT_SIZE_SELECTED)
 
-        self.driver.find_element_by_xpath(PRODUCT_ADD_ENABLED).click()
-        self.wait.until(lambda self: self.find_element_by_xpath(POP_SKU_ADDED).is_displayed())
+        self.click(PRODUCT_ADD_ENABLED)
+        self.wait_element(ppe.POP_SKU_ADDED)
         print 'product added'
 
 
@@ -38,60 +38,59 @@ class Product():
         elif not self.add_product_without_size():
             print 'serching another product'
             self.driver.back()
-            self.wait_element_displayed_by_xpath(ce.PRODUCT)
+            self.wait_element(ce.PRODUCT)
             return False
-        
         return True
 
 
     def add_product_available_size(self):
-        self.wait_element_displayed_by_xpath(pe.PRODUCT_SIZE_AVAILABLE)
-        self.driver.find_element_by_xpath(pe.PRODUCT_SIZE_AVAILABLE).click()
+        self.wait_element(pe.PRODUCT_SIZE_AVAILABLE)
+        self.click(pe.PRODUCT_SIZE_AVAILABLE)
 
-        self.wait_element_displayed_by_xpath(pe.PRODUCT_SIZE_SELECTED)
+        self.wait_element(pe.PRODUCT_SIZE_SELECTED)
 
-        self.driver.find_element_by_xpath(pe.ADD_PRODUCT_BTN).click()
-        self.wait_element_displayed_by_xpath(pe.PRODUCT_ADDED_MSG)
-        self.wait_element_displayed_by_xpath(be.BASKET_ICO)
+        self.click(pe.ADD_PRODUCT_BTN)
+        self.wait_element(pe.PRODUCT_ADDED_MSG)
+        self.wait_element(be.BASKET_ICO)
         return True
 
 
     def add_product_selected_size(self):
-        self.driver.find_element_by_xpath(pe.PRODUCT_SIZE_SELECTED)
+        self.find(pe.PRODUCT_SIZE_SELECTED)
 
-        self.driver.find_element_by_xpath(pe.ADD_PRODUCT_BTN).click()
-        self.wait_element_displayed_by_xpath(pe.PRODUCT_ADDED_MSG)
-        self.wait_element_displayed_by_xpath(be.BASKET_ICO)
+        self.click(pe.ADD_PRODUCT_BTN)
+        self.wait_element(pe.PRODUCT_ADDED_MSG)
+        self.wait_element(be.BASKET_ICO)
         return True
 
 
     def add_product_size_one(self):
-        self.driver.find_element_by_xpath(pe.PRODUCT_SIZE_ONE)
+        self.find(pe.PRODUCT_SIZE_ONE)
 
-        self.driver.find_element_by_xpath(pe.ADD_PRODUCT_BTN).click()
-        self.wait_element_displayed_by_xpath(pe.PRODUCT_ADDED_MSG)
-        self.wait_element_displayed_by_xpath(be.BASKET_ICO)
+        self.click(pe.ADD_PRODUCT_BTN)
+        self.wait_element(pe.PRODUCT_ADDED_MSG)
+        self.wait_element(be.BASKET_ICO)
         return True
 
 
     def add_product_without_size(self):
-        self.driver.find_element_by_xpath(pe.PRODUCT_NO_SIZE)
+        self.find(pe.PRODUCT_NO_SIZE)
 
-        self.driver.find_element_by_xpath(pe.ADD_PRODUCT_BTN).click()
-        self.wait_element_displayed_by_xpath(pe.PRODUCT_ADDED_MSG)
-        self.wait_element_displayed_by_xpath(be.BASKET_ICO)
+        self.click(pe.ADD_PRODUCT_BTN)
+        self.wait_element(pe.PRODUCT_ADDED_MSG)
+        self.wait_element(be.BASKET_ICO)
         return True
 
 
     def product_count_more_than_1(self):
-        product_count = self.driver.find_elements_by_xpath(pe.PRODUCT_COUNT)
-        if len(product_count) > 1:
+        product_count = self.count_elements(pe.PRODUCT_COUNT)
+        if product_count > 1:
             return False
         return True
 
 
     def product_count_less_than_1(self):
-        product_count = self.driver.find_elements_by_xpath(pe.PRODUCT_COUNT)
-        if len(product_count) < 1:
+        product_count = self.count_elements(pe.PRODUCT_COUNT)
+        if product_count < 1:
             return False    
         return True
