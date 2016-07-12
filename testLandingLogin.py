@@ -10,14 +10,15 @@ from selenium import webdriver
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.chrome.options import Options
 
+from base_methods.wait import Wait
 from base_methods.base import BaseClass
-from dat.landing_page.landing import Landing
+from landing_page.landing import Landing
 
-import dat.base_methods.config as conf
-import dat.landing_page.landing_elements as le
+import base_methods.config as conf
+import landing_page.landing_elements as le
 
 
-class Test(unittest.TestCase, BaseClass, Landing):
+class Test(unittest.TestCase, Wait, BaseClass, Landing):
 
     def setUp(self):
         chromeOptions = Options()
@@ -26,9 +27,9 @@ class Test(unittest.TestCase, BaseClass, Landing):
         self.wait = WebDriverWait(self.driver, 10)
 
     def testLandingLogin(self):
-        self.assertTrue(self.open_url(conf.LANDING_URL, le.AUTH_FORM))
-        self.assertTrue(self.landing_login())
-        self.assertTrue(self.logout())
+        self.open_url(conf.LANDING_URL, le.AUTH_FORM)
+        self.landing_login()
+        self.logout()
 
     def tearDown(self):
         self.driver.quit()

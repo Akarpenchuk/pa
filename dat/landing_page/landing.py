@@ -12,6 +12,7 @@ import main_page.main_page_elements as mpe
 import landing_page.landing_elements as le
 import mail.mail_elements as me
 import base_methods.config as conf
+import cabinet.cabinet_elements as ce
 
 class Landing:
 
@@ -19,23 +20,28 @@ class Landing:
         self.click(le.AUTH_LINK)
         sleep(1)
         self.clear(le.AUTH_EMAIL_INPUT)
-        self.send_keys(le.AUTH_EMAIL_INPUT, conf.USER_EMAIL)
+        self.send_keys(le.AUTH_EMAIL_INPUT, ce.USER_EMAIL)
         self.clear(le.AUTH_PASS_INPUT)
-        self.send_keys(le.AUTH_PASS_INPUT, conf.USER_PASS)
+        self.send_keys(le.AUTH_PASS_INPUT, ce.USER_PASS)
         self.click(le.AUTH_BTN)
-        if self.wait_element(mpe.LIST_CAMPAIGN):
+        if self.wait_element(mpe.CAMPAIGN):
             return True
         return False
 
     def landing_registration(self):
-        self.send_keys(le.REG_EMAIL_INPUT, conf.RAND_EMAIL)
+        rand_email = self.get_rand_email()
+        print 'get_rand_email ', rand_email
+        self.send_keys(le.REG_EMAIL_INPUT, rand_email)
         self.click(le.REG_BTN)
-        self.wait_element(le.REG_SENT)
-        email = self.find_text(le.REG_SENT)
-        assert email in conf.RAND_EMAIL
         sleep(1)
+        self.wait_element(le.REG_SENT)
+        email = self.get_text(le.REG_SENT)
+        print 'get_text email ', email
+        if email is rand_email:
+            self.wait_element(le.CHECK_EMAIL_BTN)
         self.click(le.CHECK_EMAIL_BTN)
         sleep(1)
         self.switch_to_new_window()
         self.find(me.EMAIL_INPUT)
-        return True
+        return rand_email
+
