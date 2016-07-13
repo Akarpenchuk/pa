@@ -10,37 +10,36 @@ from selenium import webdriver
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.chrome.options import Options
 
+from base_methods.wait import Wait
 from base_methods.base import BaseClass
-from dat.landing_page.landing import Landing
-from dat.mail.mail import Mail
-from dat.cabinet.cabinet import Cabinet
+from landing_page.landing import Landing
+from mail.mail import Mail
+from cabinet.cabinet import Cabinet
 
-import dat.base_methods.config as conf
-import dat.landing_page.landing_elements as le
-import dat.mail.mail_elements as me
+import base_methods.config as conf
+import landing_page.landing_elements as le
+import mail.mail_elements as me
+import cabinet.cabinet_elements as myinfo
 
 
-class Test(unittest.TestCase, BaseClass, Landing, Mail, Cabinet):
+class Test(unittest.TestCase, Wait, BaseClass, Landing, Mail, Cabinet):
 
     def setUp(self):
-
         chromeOptions = Options()
         chromeOptions.add_argument("--start-maximized")
         self.driver = webdriver.Chrome(chrome_options=chromeOptions)
         self.wait = WebDriverWait(self.driver, 10)
 
-
     def testLandingRegistration(self):
-
-        self.assertTrue(self.open_url("https://modnakasta.ua/landing/nike", le.AUTH_FORM))
-        self.landing_registration()
-        self.assertTrue(self.check_registration_email())
-        self.assertTrue(self.registration_set_pass_and_login())
-        self.assertTrue(self.logout())
-
+        self.open_url(conf.LANDING_URL, le.AUTH_FORM)
+        rand_email = self.landing_registration()
+        self.check_registration_email(rand_email)
+        self.fill_password_reset_popup()
+        self.login(myinfo.USER_EMAIL, myinfo.USER_PASS)
+        self.check_personal_data(myinfo.USER_EMAIL)
+        self.logout()
 
     def tearDown(self):
-
         self.driver.quit()
 
 if __name__ == "__main__":

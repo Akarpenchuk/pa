@@ -23,22 +23,22 @@ import base_methods.config as conf
 
 class MainPage():
 
-    def login(self):
-        self.find(mpe.AUTH_LINK)
-        self.click(mpe.AUTH_LINK)
-        self.wait_element(mpe.AUTH_FORM)
+    # def login(self):
+    #     self.find(mpe.AUTH_LINK)
+    #     self.click(mpe.AUTH_LINK)
+    #     self.wait_element(mpe.AUTH_FORM)
 
-        email_field = self.find(mpe.AUTH_EMAIL_INPUT)
-        pass_field = self.find(mpe.AUTH_PASS_INPUT)
-        auth_btn = self.find(mpe.AUTH_BTN)
+    #     email_field = self.find(mpe.AUTH_EMAIL_INPUT)
+    #     pass_field = self.find(mpe.AUTH_PASS_INPUT)
+    #     auth_btn = self.find(mpe.AUTH_BTN)
 
-        email_field.clear()
-        email_field.send_keys(conf.USER_EMAIL)
-        pass_field.clear()
-        pass_field.send_keys(conf.USER_PASS)
-        auth_btn.click()
-        self.wait_element(mpe.LOGGED_IN)
-        return True
+    #     email_field.clear()
+    #     email_field.send_keys(conf.USER_EMAIL)
+    #     pass_field.clear()
+    #     pass_field.send_keys(conf.USER_PASS)
+    #     auth_btn.click()
+    #     self.wait_element(mpe.LOGGED_IN)
+    #     return True
 
 
     def close_app_banner(self):
@@ -193,7 +193,7 @@ class MainPage():
 
         if self.wait_element(mpe.RECOVERY_EMAIL_FORM):
             sleep(1)
-            self.find(mpe.RECOVERY_EMAIL_INPUT).send_keys(conf.USER_EMAIL)
+            self.find(mpe.RECOVERY_EMAIL_INPUT).send_keys(myinfo.USER_EMAIL)
             self.find(mpe.RECOVERY_EMAIL_BTN).click()
             self.wait
             if self.wait_element(mpe.REG_FORM_SEND_LOGO):
@@ -219,7 +219,7 @@ class MainPage():
         return True
 
 
-    def verify_affiliation_filter(self):
+    def check_affiliation_filter(self):
         #verify button is displayed
         affiliation_list = [AFF_WOMAN, AFF_MAN, AFF_CHILD, AFF_BOYS, AFF_GIRLS, AFF_HOME, AFF_UNI, AFF_ZOO]
         product_count = len(self.driver.find_elements_by_xpath(LIST_PRODUCT))

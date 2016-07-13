@@ -32,19 +32,20 @@ class Wait:
             return True
         return False, TimeoutException
 
-    def wait_with_check(self, element):
+    def wait_and_check(self, element):
         count = 0
         sleep(2)
         while count < 20:
-            print 'check for email ', count
+            print 'wait_and_check: wait email ', count
             try:
                 self.wait_element(element)
                 break
+                print 'wait_and_check: email %s found' % element
             except:
                 count += 1
                 self.driver.refresh()
                 continue
 
-    def switch_to_new_window(self):
-        self.wait.until(lambda self: len(self.window_handles) == 2)
-        self.driver.switch_to.window(1)
+    # def switch_to_new_window(self):
+    #     self.wait.until(lambda self: len(self.window_handles) == 2)
+    #     self.driver.switch_to.window(1)

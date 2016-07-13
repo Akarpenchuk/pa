@@ -27,9 +27,9 @@ import base_methods.config as conf
 class BaseClass():
 
     def login(self, user_email, user_pass):
-        self.click(mpe.AUTH_LINK)
-        if self.wait_element(mpe.AUTH_FORM):
-
+        if not self.wait_element(mpe.AUTH_FORM):
+            self.click(mpe.AUTH_LINK)
+        else:
             self.clear(mpe.AUTH_EMAIL_INPUT)
             self.send_keys(mpe.AUTH_EMAIL_INPUT, user_email)
             sleep(1)
@@ -37,17 +37,44 @@ class BaseClass():
             self.send_keys(mpe.AUTH_PASS_INPUT, user_pass)
             sleep(1)
             self.click(mpe.AUTH_BTN)
-            self.wait_element(mpe.HEADER_USER_NAME)
-        return False
-        print 'auth from is not display'
+            self.wait_element(mpe.CAMPAIGN)
+            count = 0
+            while False:
+                print 'while false'
+                if not self.wait_element(mpe.HEADER_USER_NAME):
+                    continue
+                    print 'continue while false'
+                return True
+                print 'return true from while false'
+                break
+            # while not self.wait_element(mpe.HEADER_USER_NAME) or not count==20:
+            #     self.wait
+            #     count += 1
+            #     continue
 
     def logout(self):
-        if self.wait_element(mpe.PROFILE_LINK):
-            self.click(mpe.HEADER_USER_NAME)
-            self.wait_element(mpe.LOGOUT_MENU_LINK)
-            self.click(mpe.LOGOUT_MENU_LINK)
-        return False
-        print 'user is anonym'
+        while False:
+            print 'while false'
+            if not self.wait_element(mpe.HEADER_USER_NAME):
+                continue
+                print 'continue while false'
+            else:
+                self.click(mpe.HEADER_USER_NAME)
+                self.wait_element(mpe.LOGOUT_MENU_LINK)
+                self.click(mpe.LOGOUT_MENU_LINK)
+                self.wait_element(mpe.AUTH_LINK)
+            print 'return true from while false'
+            break
+
+
+
+
+        # if self.wait_element(mpe.PROFILE_LINK):
+        #     self.click(mpe.HEADER_USER_NAME)
+        #     self.wait_element(mpe.LOGOUT_MENU_LINK)
+        #     self.click(mpe.LOGOUT_MENU_LINK)
+        # return False
+        # print 'user is anonym'
 
     def open_url(self, url, element):
         self.driver.get(url)
@@ -63,13 +90,14 @@ class BaseClass():
 
     def get_text(self, item):
         element_text = self.driver.find_element_by_xpath(item).text
-        return element_text.encode('utf-8')
+        # return element_text.encode('utf-8')
+        return str(element_text)
 
-    def get_items_names_list(self, count_item, items_text):
+    def get_items_names(self, count_items, item):
         lst = []
         items = self.count_elements(count_item)
         for i in xrange(items):
-            text = self.driver.find_element_by_xpath(items_text).text
+            text = self.driver.find_element_by_xpath(item).text
             name = text.encode('utf-8')
             lst.append(name)
         print 'lst ', lst
@@ -137,6 +165,10 @@ class BaseClass():
         RAND_EMAIL_NAME = ''.join(random.choice(string.ascii_lowercase + string.digits) for _ in range(8))
         RAND_EMAIL = RAND_EMAIL_NAME + me.EMAIL_DOMAIN
         return RAND_EMAIL
+
+    def get_rand_item_text(self, items_text):
+        rand_text = random.choice(items_text)
+        return rand_text
 
     def scroll_down(self, element):
         # self.driver.find_element_by_xpath(element).send_keys(Keys.END)

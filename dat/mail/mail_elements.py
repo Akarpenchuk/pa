@@ -8,7 +8,7 @@ EMAIL_INPUT = "//input[@id='inboxfield']"
 
 EMAIL_CHECK_BTN = "//span[@class='input-group-btn']"
 EMAIL_INBOX = "//ul[@id='mailcontainer']/li/a/div[2]"
-REGISTRATION_EMAIL = "//div[contains(text(),'Подтвердите регистрацию на modnaKasta.')]"
+REGISTRATION_EMAIL = "//div[contains(text(),'Подтвердите регистрацию')]"
 RECOVERY_EMAIL = "//div[contains(text(),'Восстановление вашего пароля на modnaKasta')][last()]"
 
 SELECT_FRAME = "//iframe[@id='publicshowmaildivcontent']"

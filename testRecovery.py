@@ -29,12 +29,12 @@ class TestSuite(unittest.TestCase, BaseClass, MainPage, Wait, Mail, Cabinet):
 
     def testRecovery(self):
 
-        self.assertTrue(self.open_base_url())
-        self.assertTrue(self.send_recovery_email())
-        self.assertTrue(self.check_recovery_email())
+        self.open_main_page()
+        self.send_recovery_email()
+        self.check_recovery_email()
         
         self.recovery_set_pass_and_login()
-        self.assertTrue(self.logout())
+        self.logout()
 
     def tearDown(self):
 

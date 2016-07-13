@@ -27,37 +27,89 @@ class Cabinet():
         self.wait_element(myinfo.PERSONAL_INFO_BLOCK)
         return True
 
-    def check_personal_data(self):
-        name = self.find(myinfo.NAME).text
-        name.encode("utf-8")
-        assert name in u'тест'
+    def fill_personal_popup(self):
+        name = self.get_rand_name()
+        surname = self.get_rand_name()
 
-        surname = self.find(myinfo.SURNAME).text
-        surname.encode("utf-8")
-        assert surname in u'тест'
+        if self.wait_element(myinfo.PROFILE_POPUP):
+            self.send_keys(myinfo.PROFILE_POPUP_NAME, name)
+            self.send_keys(myinfo.PROFILE_POPUP_SURNAME, surname)
+            
+            #set random date
+            dates = self.get_items_names(myinfo.PROFILE_POPUP_DATES)
+            date = self.get_rand_item_text(dates)
+            lst_item = myinfo.PROFILE_POPUP_DATE_BLOCK + myinfo.LST_ITEM + '[@text()=' + "'" + date + "']"
+            print 'lst_item ', lst_item
 
-        email = self.find(myinfo.EMAIL).text
-        assert email in conf.RAND_EMAIL
+            self.click(myinfo.PROFILE_POPUP_DATE_BLOCK)
+            self.wait_element(lst_item)
+            self.click(lst_item)
+            selected_date = self.get_text(myinfo.PROFILE_POPUP_DATE_SELECTED)
+            if selected_date in lst_item:
+                return True
+            return False
 
-        gender = self.find(myinfo.GENDER).text
-        gender.encode('utf-8')
-        assert gender in u'Женский'
+            #set random month
+            dates = self.get_items_names(myinfo.PROFILE_POPUP_DATES)
+            date = self.get_rand_item_text(dates)
+            lst_item = myinfo.PROFILE_POPUP_DATE_BLOCK + myinfo.LST_ITEM + '[@text()=' + "'" + date + "']"
+            print 'lst_item ', lst_item
 
-        day = self.find(myinfo.PERSONAL_INFO_DAY).text
-        assert day in "2"
+            self.click(myinfo.PROFILE_POPUP_DATE_BLOCK)
+            self.wait_element(lst_item)
+            self.click(lst_item)
+            selected_date = self.get_text(myinfo.PROFILE_POPUP_DATE_SELECTED)
+            if selected_date in lst_item:
+                return True
+            return False
 
-        month = self.find(myinfo.PERSONAL_INFO_MONTH).text
-        month.encode('utf-8')
-        assert month in u"Февраль"
+            #set random year
+            dates = self.get_items_names(myinfo.PROFILE_POPUP_DATES)
+            date = self.get_rand_item_text(dates)
+            lst_item = myinfo.PROFILE_POPUP_DATE_BLOCK + myinfo.LST_ITEM + '[@text()=' + "'" + date + "']"
+            print 'lst_item ', lst_item
 
-        year = self.find(myinfo.PERSONAL_INFO_YEAR).text
-        assert year in u"1916"
+            self.click(myinfo.PROFILE_POPUP_DATE_BLOCK)
+            self.wait_element(lst_item)
+            self.click(lst_item)
+            selected_date = self.get_text(myinfo.PROFILE_POPUP_DATE_SELECTED)
+            if selected_date in lst_item:
+                return True
+            return False
 
-        phone = self.find(myinfo.PERSONAL_INFO_PHONE).text
-        assert phone == ""
+            #set random gender
+            dates = self.get_items_names(myinfo.PROFILE_POPUP_DATES)
+            date = self.get_rand_item_text(dates)
+            lst_item = myinfo.PROFILE_POPUP_DATE_BLOCK + myinfo.LST_ITEM + '[@text()=' + "'" + date + "']"
+            print 'lst_item ', lst_item
+
+            self.click(myinfo.PROFILE_POPUP_DATE_BLOCK)
+            self.wait_element(lst_item)
+            self.click(lst_item)
+            selected_date = self.get_text(myinfo.PROFILE_POPUP_DATE_SELECTED)
+            if selected_date in lst_item:
+                return True
+            return False
+
+    def fill_password_reset_popup(self):
+        self.send_keys(myinfo.PWD_RESET_FST_INPUT, myinfo.USER_PASS)
+        self.send_keys(myinfo.PWD_RESET_SND_INPUT, myinfo.USER_PASS)
+        self.wait_element(myinfo.PWD_RESET_SAVE_BTN)
+        self.click(myinfo.PWD_RESET_SAVE_BTN)
         sleep(2)
-        return True
+        self.wait_element(mpe.AUTH_FORM)      
 
+    def check_personal_data(self, name='', surname='', email='', date='', month='', year='', gender='', phone=''):
+        self.wait_element(myinfo.NAME)
+        
+        self.find_text(myinfo.NAME, name)
+        self.find_text(myinfo.SURNAME, surname)
+        self.find_text(myinfo.EMAIL, email)
+        self.find_text(myinfo.DATE, date)
+        self.find_text(myinfo.MONTH, month)
+        self.find_text(myinfo.YEAR, year)
+        self.find_text(myinfo.GENDER, gender)
+        self.find_text(myinfo.PHONE, phone)
 
     def logout_cabinet(self):
         self.wait_element(mpe.CABINET_HEADER_USER_NAME)
@@ -70,27 +122,27 @@ class Cabinet():
         return False
 
 
-    def verify_user_email(self):
+    def check_user_email(self):
         open_cabinet = self.find("//a[@href='/me/']").click()
         self.wait
         print RAND_EMAIL
-        verify_email = self.find("//div[@class='personal_info_left']/div[2]/input[@value='%s']" % RAND_EMAIL)
+        check_email = self.find("//div[@class='personal_info_left']/div[2]/input[@value='%s']" % RAND_EMAIL)
         click_logout_link = self.find("//a[@href='/user/registration/logout/']").click()
-        self.wait.until(lambda self: self.find_elementfind(u"//span[contains(text(),'Регистрация')]").is_displayed())
+        self.wait.until(lambda self: self.find_element(u"//span[contains(text(),'Регистрация')]").is_displayed())
 
 
-    def verify_bot_email(self, BOT_NAME):
+    def check_bot_email(self, BOT_NAME):
         open_cabinet = self.find("//a[@href='/me/']").click()
         self.wait._timeout = 60
-        self.wait.until(lambda self: self.find_elementfind("//div[@class='personal_info_left']/div[2]/input[@value='%s']" % (BOT_NAME + EMAIL_ADDRESS)).is_displayed())
-        # verify_email = self.find("//div[@class='personal_info_left']/div[2]/input[@value='%s']" % (BOT_NAME + EMAIL_ADDRESS))
-        self.wait.until(lambda self: self.find_elementfind("//a[@href='/user/registration/logout/']").is_displayed())
+        self.wait.until(lambda self: self.find_element("//div[@class='personal_info_left']/div[2]/input[@value='%s']" % (BOT_NAME + EMAIL_ADDRESS)).is_displayed())
+        # check_email = self.find("//div[@class='personal_info_left']/div[2]/input[@value='%s']" % (BOT_NAME + EMAIL_ADDRESS))
+        self.wait.until(lambda self: self.find_element("//a[@href='/user/registration/logout/']").is_displayed())
         click_logout_link = self.find("//a[@href='/user/registration/logout/']").click()
         self.wait
-        self.wait.until(lambda self: self.find_elementfind(u"//span[contains(text(),'Регистрация')]").is_displayed())
+        self.wait.until(lambda self: self.find_element(u"//span[contains(text(),'Регистрация')]").is_displayed())
 
 
-    def verify_order_details(self):
+    def check_order_details(self):
         profile = self.find("//a[@href='/me/']")
         orders = self.find("//div[@class='user_menu profile_menu']/div/ul/li[1]/a")
         self.action.move_to_element(profile)
@@ -100,7 +152,7 @@ class Cabinet():
         self.action.perform()
         self.wait
 
-        #verify order
+        #check order
         print 'self.campaign', self.campaign.encode('utf-8')
         self.find(u"//div[@class='cabinet_cells cabinet_orders_cells']/div/a[contains(text(),'%s')]" % self.campaign)
         self.find("//div[@class='cabinet_cells cabinet_orders_cells']/div[@class='table_cell order_number']/a[contains(text(),'%s')]" % order).is_displayed()

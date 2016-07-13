@@ -12,20 +12,22 @@ from selenium.webdriver.common.keys import Keys
 # from base_methods.base import BaseClass
 
 import mail_elements as me
-import main_page.main_page_elements as mpe
 import base_methods.config as conf
+import cabinet.cabinet_elements as myinfo
 
 
 class Mail():
-    """check emails"""
-    
-    def check_registration_email(self):
-        rand_email = self.get_rand_email()
 
-        self.open_url(me.EMAIL_ADDRESS, me.EMAIL_INPUT)
+    def check_registration_email(self, rand_email):
+        url = self.driver.current_url
+        if me.EMAIL_ADDRESS not in url:
+            self.open_url(me.EMAIL_ADDRESS, me.EMAIL_INPUT)
+        print 1
         self.send_keys(me.EMAIL_INPUT, rand_email)
-        self.find(me.EMAIL_CHECK_BTN).click()
-        self.wait_with_check(me.REGISTRATION_EMAIL)
+        print 2
+        self.wait_element(me.EMAIL_CHECK_BTN)
+        self.click(me.EMAIL_CHECK_BTN)
+        self.wait_and_check(me.REGISTRATION_EMAIL)
 
         self.click(me.REGISTRATION_EMAIL)
         self.wait_element(me.SELECT_FRAME)
@@ -36,7 +38,6 @@ class Mail():
         sleep(2)
         windows = self.driver.window_handles
         self.driver.switch_to.window(windows[-1])
-        self.wait_element(mpe.PERSONAL_INFO_POPUP)
         return True
 
 
@@ -47,7 +48,7 @@ class Mail():
         print conf.USER_EMAIL
         self.find(me.EMAIL_INPUT).send_keys(Keys.ENTER)
 
-        self.wait_with_check(me.RECOVERY_EMAIL)
+        self.wait_and_check(me.RECOVERY_EMAIL)
         self.find(me.RECOVERY_EMAIL).click()
         self.wait_element(me.SELECT_FRAME)
         self.switch_to_frame(me.SELECT_FRAME)
@@ -57,5 +58,5 @@ class Mail():
         sleep(2)
         windows = self.driver.window_handles
         self.driver.switch_to.window(windows[-1])
-        self.wait_element(mpe.PERSONAL_INFO_POPUP)
+        self.wait_element(myinfo.PWD_RESET_POPUP)
         return True
