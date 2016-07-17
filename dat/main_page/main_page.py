@@ -182,23 +182,21 @@ class MainPage():
         profile_name = profile_name.encode('utf-8')
 
         assert profile_name in 'тест'
-
         return True
 
 
-    def send_recovery_email(self):
-        self.find(mpe.REG_LINK).click()
+    def send_recovery_email(self, email):
+        self.click(mpe.REG_LINK)
         self.wait_element(mpe.REG_FORM)
-        self.find(mpe.RECOVERY_EMAIL_LINK).click()
-
-        if self.wait_element(mpe.RECOVERY_EMAIL_FORM):
-            sleep(1)
-            self.find(mpe.RECOVERY_EMAIL_INPUT).send_keys(myinfo.USER_EMAIL)
-            self.find(mpe.RECOVERY_EMAIL_BTN).click()
-            self.wait
-            if self.wait_element(mpe.REG_FORM_SEND_LOGO):
-                return True
-            return False
+        self.click(mpe.RECOVERY_EMAIL_LINK)
+        self.wait_element(mpe.RECOVERY_EMAIL_FORM)
+        sleep(1)
+        self.send_keys(mpe.RECOVERY_EMAIL_INPUT, email)
+        self.click(mpe.RECOVERY_EMAIL_BTN)
+        self.wait
+        if self.wait_element(mpe.REG_FORM_SEND_LOGO):
+            return True
+        return False
 
 
     # def open_campaign(self):

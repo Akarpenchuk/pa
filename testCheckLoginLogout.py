@@ -22,15 +22,12 @@ import cabinet.cabinet_elements as myinfo
 class TestSuite(unittest.TestCase, BaseClass, Wait, MainPage):
 
     def setUp(self):
-
         chromeOptions = Options()
         chromeOptions.add_argument("--start-maximized")
         self.driver = webdriver.Chrome(chrome_options=chromeOptions)
         self.wait = WebDriverWait(self.driver, 10)
         
     def testLoginLogout(self):
-        '''check login and logout'''
-
         self.open_main_page()
         self.login(myinfo.USER_EMAIL, myinfo.USER_PASS)
         self.check_main_page_elements()

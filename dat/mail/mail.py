@@ -36,27 +36,43 @@ class Mail():
         self.click(me.EMAIL_REG_BTN)
 
         sleep(2)
-        windows = self.driver.window_handles
-        self.driver.switch_to.window(windows[-1])
+        self.switch_to_new_window()
         return True
 
+    def clear_mailbox(self, test_email):
+        self.open_url(me.EMAIL_ADDRESS, me.EMAIL_INPUT)
+        self.send_keys(me.EMAIL_INPUT, test_email)
+        print 'check recovery test_email ', test_email
+        self.send_keys(me.EMAIL_INPUT, Keys.ENTER)
+        try:
+            self.wait_element(me.EMAIL_CHECKBOX)
+            email_count = self.count_elements(me.EMAIL_CHECKBOX)
+            print 'email_count ', email_count
+            for i in xrange(email_count):
+                i += 1
+                self.click(me.EMAIL + '[' + str(i) + ']' + me.EMAIL_CHECKBOX)
+                continue
+            self.click(me.DELETE_ALL_EMAILS)
+            self.wait_element(me.EMPTY_EMAIL_BOX_MSG)
+        except:
+            self.wait_element(me.EMPTY_EMAIL_BOX_MSG)
+            return True
 
-    def check_recovery_email(self):
-        self.open_url("http://mailinator.com", me.EMAIL_INPUT)
+    def check_recovery_email(self, test_email):
+        self.open_url(me.EMAIL_ADDRESS, me.EMAIL_INPUT)
+        self.send_keys(me.EMAIL_INPUT, test_email)
+        self.send_keys(me.EMAIL_INPUT, Keys.ENTER)
 
-        self.find(me.EMAIL_INPUT).send_keys(conf.USER_EMAIL)
-        print conf.USER_EMAIL
-        self.find(me.EMAIL_INPUT).send_keys(Keys.ENTER)
-
+        # while not self.wait_element(me.RECOVERY_EMAIL):
         self.wait_and_check(me.RECOVERY_EMAIL)
-        self.find(me.RECOVERY_EMAIL).click()
+
+        self.click(me.RECOVERY_EMAIL)
         self.wait_element(me.SELECT_FRAME)
         self.switch_to_frame(me.SELECT_FRAME)
         self.wait_element(me.SELECT_RECOVERY_LINK)
-        self.find(me.SELECT_RECOVERY_LINK).click()
+        self.click(me.SELECT_RECOVERY_LINK)
 
         sleep(2)
-        windows = self.driver.window_handles
-        self.driver.switch_to.window(windows[-1])
-        self.wait_element(myinfo.PWD_RESET_POPUP)
+        self.switch_to_new_window()
+        self.wait_element(myinfo.PWD_RESET_FST_INPUT)
         return True

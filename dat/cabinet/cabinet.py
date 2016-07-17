@@ -91,13 +91,19 @@ class Cabinet():
                 return True
             return False
 
-    def fill_password_reset_popup(self):
-        self.send_keys(myinfo.PWD_RESET_FST_INPUT, myinfo.USER_PASS)
-        self.send_keys(myinfo.PWD_RESET_SND_INPUT, myinfo.USER_PASS)
+    def fill_password_reset_popup(self, user_pass):
+        self.send_keys(myinfo.PWD_RESET_FST_INPUT, user_pass)
+        self.send_keys(myinfo.PWD_RESET_SND_INPUT, user_pass)
         self.wait_element(myinfo.PWD_RESET_SAVE_BTN)
         self.click(myinfo.PWD_RESET_SAVE_BTN)
-        sleep(2)
-        self.wait_element(mpe.AUTH_FORM)      
+        self.wait_element(myinfo.PWD_RESET_LOGIN_INPUT)
+
+    def fill_password_reset_login_popup(self, test_email, user_pass):
+        self.send_keys(myinfo.PWD_RESET_LOGIN_INPUT, test_email)
+        self.send_keys(myinfo.PWD_RESET_PASS_INPUT, user_pass)
+        self.wait_element(myinfo.PWD_RESET_SUBMIT)
+        self.click(myinfo.PWD_RESET_SUBMIT)
+        self.wait_element(mpe.HEADER_USER_NAME)
 
     def check_personal_data(self, name='', surname='', email='', date='', month='', year='', gender='', phone=''):
         self.wait_element(myinfo.NAME)

@@ -181,22 +181,30 @@ class Campaign():
     def affiliation_apply(self):
         self.click(ce.FILTER_ITEMS[0])
         self.wait_element(ce.FIRST_AFF_ITEM)
-        aff_list = self.get_items_names_list(ce.AFF_ITEM, ce.AFF_NAME)
-
-        count = 0
+        aff_list = self.get_items_names(ce.AFF_ITEM, ce.AFF_NAME)
         for i in xrange(len(aff_list)):
-
-            count += 1
+            i += 1
             print 'i ', i
-            self.click(ce.AFF_ITEM + '/div[text()=' + "'" + aff_list[i].decode('utf-8')  + "'" + ']')
+            # self.click(ce.AFF_ITEM + '/div[text()=' + "'" + aff_list[i].decode('utf-8')  + "'" + ']')
+            self.click(ce.AFF_ITEM + '/div[contains(text(),' + "'" + str(aff_list[i])  + "'" + ')]')
             self.wait_element(ce.PRODUCT)
+            applyed_aff = self.get_text(ce.FIRST_AFF_ITEM)
+
             pp_id = self.get_product_pp_id(ce.FIRST_PRODUCT_LINK)
             pp_id = pp_id.get_attribute("href")
             print 'pp_id ', pp_id
             color_id = self.get_color_id(ce.FIRST_PRODUCT_LINK)
+            color_id = color_id.get_attribute("href")
             print 'color_id ', color_id
-
             code_name = self.get_campaign_code_name(ce.FIRST_PRODUCT_LINK)
+
+            query = """select count(id), pp.affiliation from product_product pp
+                        join product_sku ps on ps.product_id=pp.id
+                        join campaign_campaign cc on ps.campaign_id=cc.id
+                        where pp.pp_id=%d and pp.color_id=%d and cc.id=%s;""" % (pp_id, color_id, code_name)
+            result = self.db_select(query)
+            self.assertTrue(applyed_aff in result)
+
 
             # link = self.find(item)
             # code_name = link.search(r'\w-.*')
@@ -212,15 +220,7 @@ class Campaign():
             #check css
 
             #check product aff in db
-            self.connect_db()
-            select = """select pp.affiliation from product_product pp
-                            join product_sku ps on ps.product_id=pp.id
-                            join campaign_campaign cc on ps.campaign_id=cc.id
-                            where pp.pp_id=%d and pp.color_id=%d and cc.id=%s;""" % (pp_id, color_id, code_name)
-            self.query()
-
             #check aff_list is hidden
-            self.find
             
     # 2574307:702
     def get_product_pp_id(self, *item):

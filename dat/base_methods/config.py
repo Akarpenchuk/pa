@@ -7,9 +7,9 @@ import psycopg2
 
 # BASE_URL = "file:///home/ace/Downloads/site%20pages/%D0%94%D0%B5%D1%88%D0%B5%D0%B2%D0%BB%D0%B5!%20%D0%98%D0%BD%D1%82%D0%B5%D1%80%D0%BD%D0%B5%D1%82%20%D0%BC%D0%B0%D0%B3%D0%B0%D0%B7%D0%B8%D0%BD%20%D0%BE%D0%B4%D0%B5%D0%B6%D0%B4%D1%8B%20%D0%B8%20%D0%BE%D0%B1%D1%83%D0%B2%D0%B8%20-%20%D0%A0%D0%B0%D1%81%D0%BF%D1%80%D0%BE%D0%B4%D0%B0%D0%B6%D0%B0,%20%D0%B0%D0%BA%D1%86%D0%B8%D0%B8%20%D0%B8%20%D1%81%D0%BA%D0%B8%D0%B4%D0%BA%D0%B8%20%D0%BD%D0%B0%20%D1%82%D0%BE%D0%B2%D0%B0%D1%80%D1%8B%20%D0%B2%20ModnaKasta.html" # TODO: make a dict 'user_data'
 # BASE_URL = "https://modnakasta.ua/catalogue/s-19381-night-mix" # TODO: make a dict 'user_data'
-BASE_URL = "https://modnakasta.ua" # TODO: make a dict 'user_data'
+# BASE_URL = "https://modnakasta.ua" # TODO: make a dict 'user_data'
 # BASE_URL = "http://mk:mkstaging@catalogue.modnakasta.ua"
-# BASE_URL = "http://mk:mkstaging@staging.modnakasta.ua"
+BASE_URL = "http://mk:mkstaging@staging.modnakasta.ua"
 # EMAIL_DOMAIN = "@mailinator.com"
 # RAND_NAME = ''.join(random.choice(string.ascii_lowercase + string.digits) for _ in range(8))
 # RAND_EMAIL = RAND_NAME + EMAIL_DOMAIN
@@ -26,6 +26,7 @@ CARD_CVV2 = "010"
 
 
 LANDING_URL = "https://modnakasta.ua/landing/nike"
+
 
 #BASKET
 

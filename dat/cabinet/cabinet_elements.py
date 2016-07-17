@@ -4,6 +4,7 @@
 USER_PASS = "qwe123"
 USER_NAME = "mktest1"
 USER_EMAIL = "mktest1@mailinator.com"
+TEST_EMAIL = "testemail@mailinator.com"
 
 #PROFILE_POPUP
 PROFILE_POPUP = "//div[@id='personal_info_popup']"
@@ -17,7 +18,7 @@ PWD_RESET_SND_INPUT = "//input[@name='new_password2']"
 PWD_RESET_SAVE_BTN = "//input[@id='submit_password']"
 PWD_RESET_LOGIN_INPUT = "//input[@id='login__email']"
 PWD_RESET_PASS_INPUT = "//input[@id='login__pass']"
-PWD_RESET_SUBMIT = "//form[@id='login_form_validate_rp']/input[@type='submit']"
+PWD_RESET_SUBMIT = "//input[@type='submit']"
 
 PROFILE_MENU = "//div[@class='header-top_user header-top_menu-trigger']"
 NAME = "//input[@id='id_first_name']"

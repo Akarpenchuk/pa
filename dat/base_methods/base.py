@@ -27,44 +27,36 @@ import base_methods.config as conf
 class BaseClass():
 
     def login(self, user_email, user_pass):
-        if not self.wait_element(mpe.AUTH_FORM):
-            self.click(mpe.AUTH_LINK)
-        else:
-            self.clear(mpe.AUTH_EMAIL_INPUT)
-            self.send_keys(mpe.AUTH_EMAIL_INPUT, user_email)
-            sleep(1)
-            self.clear(mpe.AUTH_PASS_INPUT)
-            self.send_keys(mpe.AUTH_PASS_INPUT, user_pass)
-            sleep(1)
-            self.click(mpe.AUTH_BTN)
-            self.wait_element(mpe.CAMPAIGN)
-            count = 0
-            while False:
-                print 'while false'
-                if not self.wait_element(mpe.HEADER_USER_NAME):
-                    continue
-                    print 'continue while false'
-                return True
-                print 'return true from while false'
-                break
-            # while not self.wait_element(mpe.HEADER_USER_NAME) or not count==20:
-            #     self.wait
-            #     count += 1
-            #     continue
+        self.wait_element(mpe.AUTH_LINK)
+        self.click(mpe.AUTH_LINK)
+        self.clear(mpe.AUTH_EMAIL_INPUT)
+        self.send_keys(mpe.AUTH_EMAIL_INPUT, user_email)
+        sleep(1)
+        self.clear(mpe.AUTH_PASS_INPUT)
+        self.send_keys(mpe.AUTH_PASS_INPUT, user_pass)
+        sleep(1)
+        self.click(mpe.AUTH_BTN)
+        self.wait_element(mpe.CAMPAIGN)
+        count = 0
+        while not count == 20:
+            print 'while not login'
+            self.wait_element(mpe.HEADER_USER_NAME)
+            count += 1
+            continue
+        print 'login true'
+        return True
 
     def logout(self):
-        while False:
-            print 'while false'
-            if not self.wait_element(mpe.HEADER_USER_NAME):
-                continue
-                print 'continue while false'
-            else:
-                self.click(mpe.HEADER_USER_NAME)
-                self.wait_element(mpe.LOGOUT_MENU_LINK)
-                self.click(mpe.LOGOUT_MENU_LINK)
-                self.wait_element(mpe.AUTH_LINK)
-            print 'return true from while false'
-            break
+        while not self.wait_element(mpe.HEADER_USER_NAME):
+            print 'logout while'
+            continue
+        self.click(mpe.HEADER_USER_NAME)
+        self.wait_element(mpe.LOGOUT_MENU_LINK)
+        self.click(mpe.LOGOUT_MENU_LINK)
+        self.wait_element(mpe.AUTH_LINK)
+        print 'logout AUTH_LINK true'
+        return True
+
 
 
 
@@ -93,9 +85,18 @@ class BaseClass():
         # return element_text.encode('utf-8')
         return str(element_text)
 
+    def get_items_attributes(self, attr):
+        lst = []
+        items = self.count_elements(attr)
+        for i in xrange(items):
+            attribute = self.driver.find_element_by_xpath(item).get_attribute
+            lst.append(attribute)
+        print 'lst ', lst
+        return lst
+
     def get_items_names(self, count_items, item):
         lst = []
-        items = self.count_elements(count_item)
+        items = self.count_elements(count_items)
         for i in xrange(items):
             text = self.driver.find_element_by_xpath(item).text
             name = text.encode('utf-8')
@@ -159,7 +160,7 @@ class BaseClass():
 
     def switch_to_new_window(self):
         windows = self.driver.window_handles
-        self.driver.switch_to.window(windows[1])
+        self.driver.switch_to.window(windows[-1])
 
     def get_rand_email(self):
         RAND_EMAIL_NAME = ''.join(random.choice(string.ascii_lowercase + string.digits) for _ in range(8))

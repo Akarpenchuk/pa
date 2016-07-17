@@ -90,6 +90,7 @@ REG_BTN = "//form[@class='popup__right-form']//input[@value='Зарегистр�
 REG_FORM_SEND_LOGO = "//div[@class='popup__recovery-email-img']"
 
 # recovery
+RECOVERY_EMAIL = "//div[contains(text(),'Восстановление пароля на modnaKasta')]"
 RECOVERY_EMAIL_LINK = "//a[@class='popup__forgot-pass-text']"
 RECOVERY_EMAIL_FORM = "//form[@class='popup__left-form']/h2[text()='Восстановление пароля']"
 RECOVERY_EMAIL_INPUT = "//form[@class='popup__left-form']//input[@id='email']"

@@ -34,16 +34,16 @@ class Wait:
 
     def wait_and_check(self, element):
         count = 0
-        sleep(2)
-        while count < 20:
-            print 'wait_and_check: wait email ', count
+        for i in xrange(count):
+            i += 1
+            print 'wait_and_check: wait ', i
             try:
                 self.wait_element(element)
-                break
-                print 'wait_and_check: email %s found' % element
+                print 'wait_and_check: found ', element
+                return True
             except:
-                count += 1
                 self.driver.refresh()
+                return False
                 continue
 
     # def switch_to_new_window(self):
