@@ -76,6 +76,9 @@ class BaseClass():
         self.driver.get(conf.BASE_URL)
         self.check_main_page_elements()
 
+    def close(self):
+        self.driver.close()
+
     def find(self, item):
         element = self.driver.find_element_by_xpath(item)
         return element
@@ -158,9 +161,9 @@ class BaseClass():
         inbox = self.find(frame)
         self.driver.switch_to.frame(inbox)
 
-    def switch_to_new_window(self):
+    def switch_to_window(self, window):
         windows = self.driver.window_handles
-        self.driver.switch_to.window(windows[-1])
+        self.driver.switch_to.window(windows[window])
 
     def get_rand_email(self):
         RAND_EMAIL_NAME = ''.join(random.choice(string.ascii_lowercase + string.digits) for _ in range(8))

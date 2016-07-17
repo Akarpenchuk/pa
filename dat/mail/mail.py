@@ -36,13 +36,13 @@ class Mail():
         self.click(me.EMAIL_REG_BTN)
 
         sleep(2)
-        self.switch_to_new_window()
+        self.switch_to_window(-1)
         return True
 
     def clear_mailbox(self, test_email):
         self.open_url(me.EMAIL_ADDRESS, me.EMAIL_INPUT)
         self.send_keys(me.EMAIL_INPUT, test_email)
-        print 'check recovery test_email ', test_email
+        print 'clear recovery ', test_email
         self.send_keys(me.EMAIL_INPUT, Keys.ENTER)
         try:
             self.wait_element(me.EMAIL_CHECKBOX)
@@ -62,17 +62,28 @@ class Mail():
         self.open_url(me.EMAIL_ADDRESS, me.EMAIL_INPUT)
         self.send_keys(me.EMAIL_INPUT, test_email)
         self.send_keys(me.EMAIL_INPUT, Keys.ENTER)
+        count = 20
+        for i in xrange(count):
+            print 'wait %s email' % i
+            try:
+                print 'check_recovery_email try'
+                sleep(5)
+                print 'found me.RECOVERY_EMAIL'
+                self.click(me.RECOVERY_EMAIL)
 
-        # while not self.wait_element(me.RECOVERY_EMAIL):
-        self.wait_and_check(me.RECOVERY_EMAIL)
+                self.wait_element(me.SELECT_FRAME)
+                self.switch_to_frame(me.SELECT_FRAME)
+                self.wait_element(me.SELECT_RECOVERY_LINK)
 
-        self.click(me.RECOVERY_EMAIL)
-        self.wait_element(me.SELECT_FRAME)
-        self.switch_to_frame(me.SELECT_FRAME)
-        self.wait_element(me.SELECT_RECOVERY_LINK)
-        self.click(me.SELECT_RECOVERY_LINK)
-
-        sleep(2)
-        self.switch_to_new_window()
-        self.wait_element(myinfo.PWD_RESET_FST_INPUT)
-        return True
+                self.click(me.SELECT_RECOVERY_LINK)
+                sleep(2)
+                self.switch_to_window(-1)
+                self.find(myinfo.PWD_RESET_FST_INPUT)
+                break
+            except:
+                print 'check_recovery_email except'
+                self.find(me.OLD_EMAIL)
+                self.close()
+                self.switch_to_window(1)
+                self.refresh()
+            continue
