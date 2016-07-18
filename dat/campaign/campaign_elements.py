@@ -81,7 +81,8 @@ PRODUCT_SIZE_SOLD = "//div[@class='product_ocb']//div[@class='size_item unavaila
 PRODUCT_SIZE_SELECTED = "//div[@class='product_ocb']//div[@class='size_item selected']"
 # PRODUCT_WITHOUT_SIZE = "//div[@class='size_list']/node()[not(size_item )]|node()[not(size_item selected)]"
 PRODUCT_WITHOUT_SIZE = "//div[@class='size_list'][not(descendant::*)]"
-FIRST_PRODUCT_LINK = "//div[@class='product_item product_item_full']/a/@href"
+FIRST_PRODUCT = "//div[@class='product_item product_item_full']/a"
+# FIRST_PRODUCT_LINK = "//div[@class='product_item product_item_full']/a/@href"
 LAST_PRODUCT_LINK = "(//div[@class='product_item product_item_full']/a/@href)[last()]"
 
 

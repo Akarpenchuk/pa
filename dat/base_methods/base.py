@@ -85,8 +85,10 @@ class BaseClass():
 
     def get_text(self, item):
         element_text = self.driver.find_element_by_xpath(item).text
-        # return element_text.encode('utf-8')
-        return str(element_text)
+        text = element_text.encode('utf-8')
+        # text = str(element_text)
+        print 'get text ', text
+        return text
 
     def get_items_attributes(self, attr):
         lst = []

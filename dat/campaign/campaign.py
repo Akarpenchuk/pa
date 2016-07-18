@@ -188,15 +188,14 @@ class Campaign():
             # self.click(ce.AFF_ITEM + '/div[text()=' + "'" + aff_list[i].decode('utf-8')  + "'" + ']')
             self.click(ce.AFF_ITEM + '/div[contains(text(),' + "'" + str(aff_list[i])  + "'" + ')]')
             self.wait_element(ce.PRODUCT)
+            print 'product found'
             applyed_aff = self.get_text(ce.FIRST_AFF_ITEM)
+            print 'applyed_aff ', applyed_aff
 
-            pp_id = self.get_product_pp_id(ce.FIRST_PRODUCT_LINK)
-            pp_id = pp_id.get_attribute("href")
-            print 'pp_id ', pp_id
-            color_id = self.get_color_id(ce.FIRST_PRODUCT_LINK)
-            color_id = color_id.get_attribute("href")
-            print 'color_id ', color_id
+            pp_id = self.get_product_pp_id(ce.FIRST_PRODUCT)
+            color_id = self.get_color_id(ce.FIRST_PRODUCT)
             code_name = self.get_campaign_code_name(ce.FIRST_PRODUCT_LINK)
+            print 'code_name ', code_name
 
             query = """select count(id), pp.affiliation from product_product pp
                         join product_sku ps on ps.product_id=pp.id
@@ -223,12 +222,12 @@ class Campaign():
             #check aff_list is hidden
             
     # 2574307:702
-    def get_product_pp_id(self, *item):
-        sleep(1)
-        link = self.find(item)
-        link = link.get_attribute("href")
-        pp_id = str(link)[9:16]
-        print 'pp_id', pp_id
+    def get_product_pp_id(self, item):
+        print 'item ', item
+        attr = self.driver.find_element_by_xpath(item).get_attribute('href')
+        print 'attr ', attr
+        pp_id = str(attr)[9:16]
+        print 'pp_id ', pp_id
         return pp_id
 
     def get_color_id(self, item):
