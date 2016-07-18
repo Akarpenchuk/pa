@@ -64,11 +64,11 @@ class Mail():
         self.send_keys(me.EMAIL_INPUT, Keys.ENTER)
         count = 20
         for i in xrange(count):
-            print 'wait %s email' % i
+            print 'attempt %s ' % i
             try:
-                print 'check_recovery_email try'
+                print 'check try'
                 sleep(5)
-                print 'found me.RECOVERY_EMAIL'
+                print 'found email'
                 self.click(me.RECOVERY_EMAIL)
 
                 self.wait_element(me.SELECT_FRAME)
@@ -81,9 +81,9 @@ class Mail():
                 self.find(myinfo.PWD_RESET_FST_INPUT)
                 break
             except:
-                print 'check_recovery_email except'
+                print 'check except'
                 self.find(me.OLD_EMAIL)
                 self.close()
                 self.switch_to_window(1)
                 self.refresh()
-            continue
+                continue
