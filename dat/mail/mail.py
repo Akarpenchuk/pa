@@ -22,9 +22,7 @@ class Mail():
         url = self.driver.current_url
         if me.EMAIL_ADDRESS not in url:
             self.open_url(me.EMAIL_ADDRESS, me.EMAIL_INPUT)
-        print 1
         self.send_keys(me.EMAIL_INPUT, rand_email)
-        print 2
         self.wait_element(me.EMAIL_CHECK_BTN)
         self.click(me.EMAIL_CHECK_BTN)
         self.wait_and_check(me.REGISTRATION_EMAIL)

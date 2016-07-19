@@ -41,7 +41,7 @@ class Landing:
             self.wait_element(le.CHECK_EMAIL_BTN)
         self.click(le.CHECK_EMAIL_BTN)
         sleep(1)
-        self.switch_to_new_window()
+        self.switch_to_window(-1)
         self.find(me.EMAIL_INPUT)
         return rand_email
 

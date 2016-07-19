@@ -34,7 +34,7 @@ class Test(unittest.TestCase, Wait, BaseClass, Landing, Mail, Cabinet):
         self.open_url(conf.LANDING_URL, le.AUTH_FORM)
         rand_email = self.landing_registration()
         self.check_registration_email(rand_email)
-        self.fill_password_reset_popup()
+        self.fill_password_reset_popup(myinfo.USER_PASS)
         self.login(myinfo.USER_EMAIL, myinfo.USER_PASS)
         self.check_personal_data(myinfo.USER_EMAIL)
         self.logout()
