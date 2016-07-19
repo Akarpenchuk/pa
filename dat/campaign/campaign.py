@@ -24,9 +24,8 @@ class Campaign():
         result = self.db_select(select)
         re.search(str(camp_count), str(result))
         rand_count = random.randint(1, camp_count)
-        while 'modnakarta' in self.driver.current_url:
+        if 'modnakarta' in self.driver.current_url:
             self.back()
-            continue
         self.click('(' + mpe.CAMPAIGN + ')' + '[' + str(rand_count) + ']')
         self.change_to_catalogue()
         self.wait_element(ce.PRODUCT)
@@ -180,6 +179,7 @@ class Campaign():
 
     def affiliation_apply(self):
         self.click(ce.FILTER_ITEMS[0])
+        sleep(2)
         self.wait_element(ce.FIRST_AFF_ITEM)
         aff_list = self.get_items_names(ce.AFF_ITEM, ce.AFF_NAME)
         for i in xrange(len(aff_list)):
@@ -194,14 +194,14 @@ class Campaign():
 
             pp_id = self.get_product_pp_id(ce.FIRST_PRODUCT)
             color_id = self.get_color_id(ce.FIRST_PRODUCT)
-            code_name = self.get_campaign_code_name(ce.FIRST_PRODUCT_LINK)
-            print 'code_name ', code_name
+            code_name = self.get_campaign_code_name(ce.FIRST_PRODUCT)
 
-            query = """select count(id), pp.affiliation from product_product pp
+            query = """select pp.affiliation from product_product pp
                         join product_sku ps on ps.product_id=pp.id
                         join campaign_campaign cc on ps.campaign_id=cc.id
-                        where pp.pp_id=%d and pp.color_id=%d and cc.id=%s;""" % (pp_id, color_id, code_name)
+                        where pp.pp_id=%s and pp.color_id=%s and cc.id=%s;""" % (pp_id, color_id, code_name)
             result = self.db_select(query)
+            print 'result ', result
             self.assertTrue(applyed_aff in result)
 
 
@@ -223,25 +223,22 @@ class Campaign():
             
     # 2574307:702
     def get_product_pp_id(self, item):
-        print 'item ', item
-        attr = self.driver.find_element_by_xpath(item).get_attribute('href')
+        attr = self.get_attribute(item, 'href')
         print 'attr ', attr
-        pp_id = str(attr)[9:16]
-        print 'pp_id ', pp_id
-        return pp_id
+        pp_id = re.search(r'(\d+)', str(attr))
+        print 'pp_id ', pp_id.group(0)
+        return pp_id.group(0)
 
     def get_color_id(self, item):
-        link = self.find(item)
-        color_id = str(link)[17:20]
-        print 'color_id', color_id
-        return color_id
+        attr = self.get_attribute(item, 'href')
+        color_id = re.search(r'(\:)(\d+)', attr)
+        print 'color_id', color_id.group(2)
+        return color_id.group(2)
 
     def get_campaign_code_name(self, item):
-        link = self.find(item)
-        code_name = link.search(r'\w-.*')
-        print 'code_name', code_name
-        code_name = _.group(0)
-        print 'code_name _.group(0)', code_name
+        attr = self.get_attribute(item, 'href')
+        code_name = re.search(r'(\w-.*)', attr)
+        print 'code_name', code_name.group(1)
         return 'code_name', code_name
 
     def check_categories(self):

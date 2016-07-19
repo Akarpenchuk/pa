@@ -31,8 +31,6 @@ class Test(unittest.TestCase, BaseClass, MainPage, Campaign, Wait):
 
     def tearDown(self):
         self.driver.quit()
-     
-
 
 if __name__ == "__main__":
     print 'running'
