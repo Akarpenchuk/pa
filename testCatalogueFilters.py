@@ -10,6 +10,7 @@ logging.basicConfig(filename = '/home/ace/log_webdriver', level = logging.DEBUG)
 from selenium.webdriver.chrome.options import Options
 from selenium import webdriver
 from selenium.webdriver.support.ui import WebDriverWait
+import contextlib
 
 from base_methods.wait import Wait
 from base_methods.base import BaseClass

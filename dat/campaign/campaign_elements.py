@@ -13,19 +13,31 @@ FILTER_ITEMS = ["//div[text()='Принадлежность']", "//div[text()='�
 
 #affiliation
 AFF_ITEM = "//div[@class='filters_list affiliation']/label"
-FIRST_AFF_ITEM = "//label[@class='filters__item']/input"
+FIRST_AFF_ITEM = "//label[@class='filters__item']/div"
+SELECTED_AFF = "//"
 AFF_NAME = "//div[@class='filters_list affiliation']/label/div"
+AFFILIATIONS = {
+	u"Женщинам": "F",
+	u"Мужчинам": "M",
+	u"Унисекс": "FM",
+	u"Детям": "C",
+	u"Мальчикам": "C",
+	u"Девочкам": "C",
+	u"Дом": "H",
+	u"Продукты и напитки": "A, P",
+	u"Зоотовары": "H"
+}
+
+
 AFF_LIST = {
-
-"AFF_WOMAN": u"//div[contains(text(),'Женщинам')]",
-"AFF_MAN": u"//div[contains(text(),'Мужчинам')]",
-"AFF_CHILD": u"//div[contains(text(),'Детям')]",
-"AFF_BOYS": u"//div[contains(text(),'Мальчикам')]",
-"AFF_GIRLS": u"//div[contains(text(),'Девочкам')]",
-"AFF_HOME": u"//div[contains(text(),'Дом')]",
-"AFF_UNI": u"//div[contains(text(),'Унисекс')]",
-"AFF_ZOO": u"//div[contains(text(),'Животным')]"
-
+	"AFF_WOMAN": u"//div[contains(text(),'Женщинам')]",
+	"AFF_MAN": u"//div[contains(text(),'Мужчинам')]",
+	"AFF_CHILD": u"//div[contains(text(),'Детям')]",
+	"AFF_BOYS": u"//div[contains(text(),'Мальчикам')]",
+	"AFF_GIRLS": u"//div[contains(text(),'Девочкам')]",
+	"AFF_HOME": u"//div[contains(text(),'Дом')]",
+	"AFF_UNI": u"//div[contains(text(),'Унисекс')]",
+	"AFF_ZOO": u"//div[contains(text(),'Животным')]"
 }
 
 #category

@@ -75,6 +75,7 @@ class BaseClass():
     def open_main_page(self):
         self.driver.get(conf.BASE_URL)
         self.check_main_page_elements()
+        # self.save_screenshot('/home/ace/screenshots/exception.png')
 
     def close(self):
         self.driver.close()
@@ -85,21 +86,23 @@ class BaseClass():
 
     def get_text(self, item):
         element_text = self.driver.find_element_by_xpath(item).text
-        text = element_text.encode('utf-8')
-        return text
+        # text = element_text.encode('utf-8')
+        return element_text
 
-    def get_attribute(self, item, attribute):
+    def get_item_attribute(self, item, attribute):
         attr = self.driver.find_element_by_xpath(item).get_attribute(attribute)
         return str(attr)
 
-    def get_items_attributes(self, attr):
-        lst = []
-        items = self.count_elements(attr)
-        for i in xrange(items):
-            attribute = self.driver.find_element_by_xpath(item).get_attribute
-            lst.append(attribute)
-        print 'lst ', lst
-        return lst
+    def get_items_attributes(self, item, attribute):
+        # lst = []
+        # items = self.count_elements(items)
+        # for i in xrange(items):
+        attributes = self.driver.find_elements_by_xpath(item).get_attribute(attribute)
+        print 'attributes ', attributes
+        return attributes
+            # lst.append(attribute)
+        # print 'lst ', lst
+        # return lst
 
     def get_items_names(self, count_items, item):
         lst = []
@@ -254,7 +257,7 @@ class BaseClass():
         conn = psycopg2.connect(conn_string)
         cursor = conn.cursor()
         print  'Connnected to db!'
-        cursor.execute(query)
+        records = cursor.execute(query)
         records = cursor.fetchall()
         return records
 
