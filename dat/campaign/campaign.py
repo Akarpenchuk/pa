@@ -190,33 +190,37 @@ class Campaign():
             print 'i ', i
             self.click(ce.AFF_ITEM + '/div[contains(text(),' + "'" + str(aff_list[i])  + "'" + ')]')
             self.wait_element(ce.PRODUCT)
-            applyed_aff = self.get_text(ce.FIRST_AFF_ITEM)
-            print 'applyed_aff ', applyed_aff
+            applied_aff = self.get_text(ce.FIRST_AFF_ITEM)
+            print 'applied_aff ', applied_aff
 
-            pp_id = self.get_product_pp_id(ce.FIRST_PRODUCT)
-            color_id = self.get_color_id(ce.FIRST_PRODUCT)
-            code_name = self.get_campaign_code_name(ce.FIRST_PRODUCT)
+            # check product affiliation
 
-            query = """select pp.tags from product_product pp
-                        join product_sku ps on ps.product_id=pp.id
-                        join campaign_campaign cc on ps.campaign_id=cc.id
-                        where pp.pp_id=%s and pp.color_id=%s and cc.code_name='%s';""" % (pp_id, color_id, code_name)
+            attrs = self.get_items_attributes(ce.PRODUCT, 'href')
+            for i in attrs:
+                pp_id = self.get_product_pp_id(i)
+                color_id = self.get_color_id(i)
+                code_name = self.get_campaign_code_name(i)
 
-            result = self.db_select(query)
-            result = re.search(r'(\w+)', str(result)).group(1)
-            print 'result ', result
-            for value in ce.AFFILIATIONS.values():
-                print 'try to match ', value
-                if str(result) == value:
-                    print 'found ', value
-                    break
-                else:
-                    print 'continue'
-                    continue
+                query = """select pp.tags from product_product pp
+                            join product_sku ps on ps.product_id=pp.id
+                            join campaign_campaign cc on ps.campaign_id=cc.id
+                            where pp.pp_id=%s and pp.color_id=%s and cc.code_name='%s';""" % (pp_id, color_id, code_name)
+
+                result = self.db_select(query)
+                result = re.search(r'(\w+)', str(result)).group(1)
+                print 'result ', result
+                for value in ce.AFFILIATIONS.values():
+                    print 'try to match ', value
+                    if str(result) == value:
+                        print 'found ', value
+                        break
+                    else:
+                        print 'continue'
+                        continue
+                continue
             break
 
     # compare aff
-        self.get_items_attributes(ce.PRODUCT)
     # compare urls
     # compare count
 
@@ -226,36 +230,27 @@ class Campaign():
         self.click(ce.SELECTED_AFF)
         self.wait_element(ce.FIRST_AFF_ITEM)
 
+        #check url is changed
 
-
-
-
-
-
-            #check url is changed
-
-            #check css
-
-            #check product aff in db
-            #check aff_list is hidden
+        #check aff_list is hidden
             
-    # 2574307:702
     def get_product_pp_id(self, item):
-        attr = self.get_item_attribute(item, 'href')
-        print 'attr ', attr
-        pp_id = re.search(r'(\d+)', str(attr))
+        # example 2574307:702
+        # attr = self.get_item_attribute(item, 'href')
+        # print 'attr ', attr
+        pp_id = re.search(r'(\d+)', item)
         print 'pp_id ', pp_id.group(1)
         return pp_id.group(0)
 
     def get_color_id(self, item):
-        attr = self.get_item_attribute(item, 'href')
-        color_id = re.search(r'(\:)(\d+)', attr)
+        # attr = self.get_item_attribute(item, 'href')
+        color_id = re.search(r'(\:)(\d+)', item)
         print 'color_id', color_id.group(2)
         return color_id.group(2)
 
     def get_campaign_code_name(self, item):
-        attr = self.get_item_attribute(item, 'href')
-        code_name = re.search(r'(\w-.*)', attr)
+        # attr = self.get_item_attribute(item, 'href')
+        code_name = re.search(r'(\w-.*)', item)
         print 'code_name', code_name.group(1)
         return code_name.group(1)
 

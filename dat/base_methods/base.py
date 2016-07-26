@@ -94,12 +94,19 @@ class BaseClass():
         return str(attr)
 
     def get_items_attributes(self, item, attribute):
-        # lst = []
-        # items = self.count_elements(items)
-        # for i in xrange(items):
-        attributes = self.driver.find_elements_by_xpath(item).get_attribute(attribute)
-        print 'attributes ', attributes
-        return attributes
+        lst = []
+        items = self.count_elements(item)
+        for i in xrange(items):
+            print 'get_items_attr i ', i
+            attr = self.driver.find_element_by_xpath(item).get_attribute(attribute)
+            lst.append(attr)
+            continue
+        print 'lst ', lst
+        return lst
+
+            # attr = self.driver.find_elements_by_xpath(item).get_attribute(attribute)
+            # print 'attributes ', attributes
+            # return attributes
             # lst.append(attribute)
         # print 'lst ', lst
         # return lst
@@ -256,7 +263,6 @@ class BaseClass():
         conn_string = "host='10.38.0.122' dbname='modnakasta' user='modnakastauser' password='fai4Sag/inoo' port='5433'"
         conn = psycopg2.connect(conn_string)
         cursor = conn.cursor()
-        print  'Connnected to db!'
         records = cursor.execute(query)
         records = cursor.fetchall()
         return records

@@ -56,9 +56,7 @@ class MainPage():
             mpe.COMING_SOON_ITEMS[0],
             mpe.COMING_SOON_ITEMS[1],
             mpe.COMING_SOON_ITEMS[2]]
-
             #FOOTER ITEMS
-
         for i in lst:
             if self.find(i):
                 return True

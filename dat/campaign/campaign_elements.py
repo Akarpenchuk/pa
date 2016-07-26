@@ -78,7 +78,7 @@ HIDE_SOLD = "//div[text()='Скрыть проданные']"
 PRODUCT_COUNTER = u"//div[@class='filters-selection__results-right']/span[2]"
 
 #products
-PRODUCT = "//div[@class='product_item_wrap']"
+PRODUCT = "//div[@class='product_item_wrap']//a"
 PRODUCT_DESCRIPTION_BLOCK = "//div[@class='product_item product_item_full']"
 PRODUCT_IMG = "//a[@class='shop_item_img ']"
 PRODUCT_RESERVED = "//div[@class='shop_reserved']"
