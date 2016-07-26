@@ -18,7 +18,7 @@ from main_page.main_page import MainPage
 from campaign.campaign import Campaign
 
 class Test(unittest.TestCase, BaseClass, MainPage, Campaign, Wait):
-
+ 
     def setUp(self):
         chromeOptions = Options()
         chromeOptions.add_argument("--start-maximized")
