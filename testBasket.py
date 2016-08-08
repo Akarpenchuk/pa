@@ -43,7 +43,6 @@ class Test(unittest.TestCase, BaseClass, Wait, MainPage, Product, Campaign, Bask
         self.open_rand_campaign()
         self.hide_sold()
         product_values = self.add_product_OCB()
-        # print 'product_values test ', product_values
         self.check_basket_product(*product_values)
         
 
