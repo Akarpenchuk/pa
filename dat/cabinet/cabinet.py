@@ -21,11 +21,13 @@ import base_methods.config as conf
 class Cabinet():
 
     def open_cabinet(self):
-        self.click(mpe.HEADER_USER_NAME)
-        self.wait_element(mpe.PROFILE_LINK)
-        self.click(mpe.PROFILE_LINK)
-        self.wait_element(myinfo.PERSONAL_INFO_BLOCK)
-        return True
+        if self.wait_element(mpe.HEADER_USER_NAME):
+            self.click(mpe.HEADER_USER_NAME)
+            self.wait_element(mpe.PROFILE_LINK)
+            self.click(mpe.PROFILE_LINK)
+            self.wait_element(myinfo.PERSONAL_INFO_BLOCK)
+            return True
+        return Exception('Element not found')
 
     def fill_personal_popup(self):
         name = self.get_rand_name()

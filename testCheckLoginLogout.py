@@ -35,7 +35,6 @@ class TestSuite(unittest.TestCase, BaseClass, Wait, MainPage):
         self.check_main_page_elements()
 
     def tearDown(self):
-
         self.driver.quit()
 
 

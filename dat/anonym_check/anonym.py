@@ -219,9 +219,6 @@ class Anonym(Campaign, Wait, BaseClass):
             self.wait_element(ce.PRODUCT)
             self.click(ce.HIDE_SOLD)
             self.wait_element(ce.PRODUCT)
-
-
-
             count_product = 0
             is_auth_form = False
             while is_auth_form != True:

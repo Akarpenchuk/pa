@@ -20,9 +20,7 @@ from campaign.campaign import Campaign
 class Test(unittest.TestCase, BaseClass, MainPage, Campaign, Wait):
  
     def setUp(self):
-        chromeOptions = Options()
-        chromeOptions.add_argument("--start-maximized")
-        self.driver = webdriver.Chrome(chrome_options=chromeOptions)
+        self.driver = webdriver.Chrome()
         self.wait = WebDriverWait(self.driver, 10)
 
     def testCatalogueDetails(self):

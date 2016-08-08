@@ -33,19 +33,16 @@ class Wait:
         return False, TimeoutException
 
     def wait_and_check(self, element):
-        count = 0
+        count = 60
         for i in xrange(count):
+            print 'while ', i
             i += 1
-            print 'wait_and_check: wait ', i
+            print 'wait and check ', i
             try:
                 self.wait_element(element)
-                print 'wait_and_check: found ', element
+                print 'wait_and_check: found'
                 return True
+                break
             except:
                 self.driver.refresh()
                 return False
-                continue
-
-    # def switch_to_new_window(self):
-    #     self.wait.until(lambda self: len(self.window_handles) == 2)
-    #     self.driver.switch_to.window(1)

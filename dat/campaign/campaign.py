@@ -20,10 +20,10 @@ class Campaign():
 
     def open_rand_campaign(self):
         camp_count = self.count_elements(mpe.CAMPAIGN)
+
         #check campaigns count
-        select = "select count(id) from campaign_campaign where starts_at < now() and finishes_at > now();"
-        result = self.db_select(select)
-        re.search(str(camp_count), str(result))
+        query = "select count(id) from campaign_campaign where starts_at < now() and finishes_at > now();"
+        result = self.db_select(query)
 
         rand_count = random.randint(1, camp_count)
         if 'modnakarta' in self.driver.current_url:
@@ -33,7 +33,6 @@ class Campaign():
         self.wait_element(ce.PRODUCT)
         camp_name = self.get_text(ce.CAMPAIGN_NAME)
         print 'camp_name', camp_name
-        # return camp_name.decode('utf-8')
         return camp_name
 
         #check catalogue details
@@ -47,25 +46,8 @@ class Campaign():
         if 'campaign' in self.driver.current_url:
             catalogue = self.driver.current_url.replace('campaign', 'catalogue')
             self.driver.get(catalogue)
-            # sleep(2)
             self.wait_element(ce.PRODUCT)
             return True
-
-    def open_campaign_iter_with_affiliations (self):
-        campaigns = self.find(mpe.CAMPAIGN)
-        for i in xrange(len(campaigns)):
-            i += n
-
-            if self.find(mpe.CAMPAIGN_WRAPPER + '[' + str(i) + ']' + mpe.CAMPAIGN): #!hover
-                
-                self.find(mpe.CAMPAIGN_WRAPPER + '[' + str(i) + ']' + mpe.CAMPAIGN).click()
-                if self.check_if_outlet():
-                    self.find(ce.OUTLET_CATEGORY).click()
-                    break
-                product_count = self.wait_element(ce.PRODUCT)
-                assert product_count >= 1
-            return True
-        return False
 
     def open_product_iter(self):
         products = self.driver.find_elements_by_xpath(ce.PRODUCT)
@@ -182,11 +164,11 @@ class Campaign():
 
     def affiliation_apply(self):
         self.click(ce.FILTER_ITEMS[0])
-        # sleep(3)
         self.wait_element(ce.FIRST_AFF_ITEM)
         aff_list = self.get_items_names(ce.AFF_ITEM, ce.AFF_NAME)
+
+        #select affiliation
         for i in xrange(len(aff_list)):
-            # i += 1
             print 'i ', i
             self.click(ce.AFF_ITEM + '/div[contains(text(),' + "'" + str(aff_list[i])  + "'" + ')]')
             self.wait_element(ce.PRODUCT)
@@ -194,7 +176,6 @@ class Campaign():
             print 'applied_aff ', applied_aff
 
             # check product affiliation
-
             attrs = self.get_items_attributes(ce.PRODUCT, 'href')
             for i in attrs:
                 pp_id = self.get_product_pp_id(i)
@@ -208,20 +189,26 @@ class Campaign():
 
                 result = self.db_select(query)
                 result = re.search(r'(\w+)', str(result)).group(1)
-                print 'result ', result
+                # print 'result ', result
                 for value in ce.AFFILIATIONS.values():
-                    print 'try to match ', value
+                    # print 'try to match ', value
                     if str(result) == value:
-                        print 'found ', value
+                        # print 'found ', value
                         break
                     else:
-                        print 'continue'
+                        # print 'continue'
                         continue
                 continue
+            # check url
+            url = self.driver.current_url
+            print 'url ', unicode(url)
+            if applied_aff in unicode(url):
+                print 'applied_aff in url'
+            else:
+                raise Exception('applied_aff does not match')
             break
 
-    # compare aff
-    # compare urls
+    # change aff and check changes
     # compare count
 
     def cancel_applied_affiliation(self):
@@ -235,23 +222,15 @@ class Campaign():
         #check aff_list is hidden
             
     def get_product_pp_id(self, item):
-        # example 2574307:702
-        # attr = self.get_item_attribute(item, 'href')
-        # print 'attr ', attr
         pp_id = re.search(r'(\d+)', item)
-        print 'pp_id ', pp_id.group(1)
-        return pp_id.group(0)
+        return pp_id.group(1)
 
     def get_color_id(self, item):
-        # attr = self.get_item_attribute(item, 'href')
         color_id = re.search(r'(\:)(\d+)', item)
-        print 'color_id', color_id.group(2)
         return color_id.group(2)
 
     def get_campaign_code_name(self, item):
-        # attr = self.get_item_attribute(item, 'href')
         code_name = re.search(r'(\w-.*)', item)
-        print 'code_name', code_name.group(1)
         return code_name.group(1)
 
     def check_categories(self):

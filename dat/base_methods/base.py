@@ -29,6 +29,7 @@ class BaseClass():
     def login(self, user_email, user_pass):
         self.wait_element(mpe.AUTH_LINK)
         self.click(mpe.AUTH_LINK)
+        self.wait_element(mpe.AUTH_EMAIL_INPUT)
         self.clear(mpe.AUTH_EMAIL_INPUT)
         self.send_keys(mpe.AUTH_EMAIL_INPUT, user_email)
         sleep(1)
@@ -39,7 +40,6 @@ class BaseClass():
         self.wait_element(mpe.CAMPAIGN)
         count = 0
         while not count == 20:
-            print 'while not login'
             self.wait_element(mpe.HEADER_USER_NAME)
             count += 1
             continue
@@ -97,11 +97,9 @@ class BaseClass():
         lst = []
         items = self.count_elements(item)
         for i in xrange(items):
-            print 'get_items_attr i ', i
             attr = self.driver.find_element_by_xpath(item).get_attribute(attribute)
             lst.append(attr)
             continue
-        print 'lst ', lst
         return lst
 
             # attr = self.driver.find_elements_by_xpath(item).get_attribute(attribute)
@@ -118,7 +116,6 @@ class BaseClass():
             text = self.driver.find_element_by_xpath(item).text
             name = text.encode('utf-8')
             lst.append(name)
-        print 'lst ', lst
         return lst
         # .encode("utf-8")
 

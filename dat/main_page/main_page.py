@@ -138,20 +138,18 @@ class MainPage():
 
     def send_registration_email(self):
         rand_email = self.get_rand_email()
-        print 'rand_email ', rand_email
-
         self.click(mpe.REG_LINK)
         self.wait_element(mpe.REG_FORM)
         self.send_keys(mpe.REG_EMAIL_INPUT, rand_email)
         self.send_keys(mpe.REG_PASS_INPUT, myinfo.USER_PASS)
         self.click(mpe.REG_BTN)
         if self.wait_element(mpe.REG_FORM_SEND_LOGO):
-            return True
+            return rand_email
         return False
 
 
     def fill_personal_data_popup(self):
-        self.find(mpe.PERSONAL_INFO_POPUP)
+        self.wait_element(mpe.PERSONAL_INFO_POPUP)
 
         name = self.find(mpe.PERSONAL_INFO_POPUP_NAME).send_keys(u"тест")
         self.find(mpe.PERSONAL_INFO_POPUP_SURNAME).send_keys(u"тест")

@@ -74,7 +74,7 @@ SORT_ASC = "//label[@class='filters__item'][1]/div"
 SORT_DESC = "//label[@class='filters__item'][2]/div"
 SORT_UP_BTN = "//span[@class='accordion__icon-up']"
 SORT_DOWN_BTN = "//span[@class='accordion__icon-down']"
-HIDE_SOLD = "//div[text()='Скрыть проданные']"
+HIDE_SOLD = "//div[text()='Скрыть проданное']"
 PRODUCT_COUNTER = u"//div[@class='filters-selection__results-right']/span[2]"
 
 #products

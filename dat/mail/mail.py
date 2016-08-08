@@ -23,9 +23,13 @@ class Mail():
         if me.EMAIL_ADDRESS not in url:
             self.open_url(me.EMAIL_ADDRESS, me.EMAIL_INPUT)
         self.send_keys(me.EMAIL_INPUT, rand_email)
+        print 'check_registration_email 1'
         self.wait_element(me.EMAIL_CHECK_BTN)
+        print 'check_registration_email 2'
         self.click(me.EMAIL_CHECK_BTN)
+        print 'check_registration_email 3'
         self.wait_and_check(me.REGISTRATION_EMAIL)
+        print 'check_registration_email 4'
 
         self.click(me.REGISTRATION_EMAIL)
         self.wait_element(me.SELECT_FRAME)
@@ -65,9 +69,10 @@ class Mail():
             print 'attempt %s ' % i
             try:
                 print 'check try'
-                sleep(5)
-                print 'found email'
+                wait_and_check(me.RECOVERY_EMAIL)
+                # sleep(5)
                 self.click(me.RECOVERY_EMAIL)
+                print 'open email'
 
                 self.wait_element(me.SELECT_FRAME)
                 self.switch_to_frame(me.SELECT_FRAME)
@@ -79,9 +84,5 @@ class Mail():
                 self.find(myinfo.PWD_RESET_FST_INPUT)
                 break
             except:
-                print 'check except'
-                self.find(me.OLD_EMAIL)
-                self.close()
-                self.switch_to_window(1)
                 self.refresh()
                 continue

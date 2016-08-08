@@ -16,6 +16,7 @@ from main_page.main_page import MainPage
 from mail.mail import Mail
 from base_methods.wait import Wait
 from cabinet.cabinet import Cabinet
+import cabinet.cabinet_elements as myinfo
 import base_methods.config as conf
 
 class TestSuite(unittest.TestCase, BaseClass, MainPage, Wait, Mail, Cabinet):
@@ -28,13 +29,13 @@ class TestSuite(unittest.TestCase, BaseClass, MainPage, Wait, Mail, Cabinet):
 
     def testRegistration(self):
         self.open_main_page()
-        self.send_registration_email()
-        self.check_registration_email()
+        rand_email = self.send_registration_email()
+        self.check_registration_email(rand_email)
         self.fill_personal_data_popup()
         self.open_cabinet()
         self.check_personal_data()
         self.logout_cabinet()
-        self.login()
+        self.login(rand_email, myinfo.USER_PASS)
 
     def tearDown(self):
         self.driver.quit()
